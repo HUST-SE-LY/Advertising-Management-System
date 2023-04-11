@@ -37,7 +37,8 @@
 ## 项目组成员
 
 - 刘源	[HUST-SE-LY](https://github.com/HUST-SE-LY)
-
+- 吴博超 [fnfunfunc](https://github.com/fnfunfunc)
+- 吴锦叶 [Sober Wu](https://github.com/Sober7135)
 
 
 ## 项目特性
