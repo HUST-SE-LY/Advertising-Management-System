@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../components/input";
 import LongButton from "../components/longButton";
 function CompanyLogin() {
@@ -29,7 +30,7 @@ function CompanyLogin() {
           <Input title="账号" setInfo={setCompanyId}></Input>
           <Input title="密码" setInfo={setPassword}></Input>
           <LongButton content="登录"></LongButton>
-          <p className="text-sm text-blue-400 underline cursor-pointer text-right">没有账号？注册</p>
+          <p className="text-sm text-blue-400 underline cursor-pointer text-right transition-all hover:text-blue-600"><Link to="/company-signup">没有账号？注册</Link></p>
         </div>
       </div>
     </div>

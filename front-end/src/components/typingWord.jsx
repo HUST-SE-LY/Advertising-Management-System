@@ -12,7 +12,7 @@ function TypingWord(props) {
     },300)
     return () => clearTimeout(timeout)
   }, [showList])
-  return <div className="p-0 h-[200px] text-[5rem] leading-[200px] text-center font-sans font-bold text-blue-600/80">{showList}<span className="w-px h-[5rem] bg-black inline-block animate-shine"></span></div>;
+  return <div className="p-0 h-[200px] text-[5rem] leading-[200px] text-center font-sans font-bold text-blue-600/80">{showList}<span className="w-px h-[5rem] bg-blue-700 inline-block animate-shine"></span></div>;
 }
 
 export default TypingWord;
