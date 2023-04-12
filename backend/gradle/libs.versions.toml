@@ -1,0 +1,37 @@
+[versions]
+jasync-r2dbc-mysql = "2.1.16"
+jjwt = "0.11.5"
+kotlinx-coroutines = "1.7.0-Beta"
+kotlinx-serialization-json = "1.5.0"
+mysql-connector-java = "8.0.32"
+
+# kotlin versions
+kotlin = "1.8.20"
+
+# spring boot version
+spring-boot = "3.0.5"
+spring-dependencies-manager = "1.1.0"
+
+[libraries]
+jasync-r2dbc-mysql = { group = "com.github.jasync-sql", name = "jasync-r2dbc-mysql", version.ref = "jasync-r2dbc-mysql" }
+jjwt-api = { group = "io.jsonwebtoken", name = "jjwt-api", version.ref = "jjwt" }
+jjwt-impl = { group = "io.jsonwebtoken", name = "jjwt-impl", version.ref = "jjwt" }
+jjwt-gson = { group = "io.jsonwebtoken", name = "jjwt-gson", version.ref = "jjwt" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+mysql-connector-java = { group = "mysql", name = "mysql-connector-java", version.ref = "mysql-connector-java" }
+spring-boot-configuration-processor = { group = "org.springframework.boot", name = "spring-boot-configuration-processor" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-starter-data-r2dbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-r2dbc"}
+spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security"}
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test"}
+spring-data-relational = { group = "org.springframework.data", name = "spring-data-relational" }
+spring-security-core = { group = "org.springframework.security", name = "spring-security-core" }
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+springframework-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependencies-manager = { id = "io.spring.dependency-management", version.ref = "spring-dependencies-manager" }

@@ -1,0 +1,20 @@
+### Post "Hello!"
+POST http://localhost:8080/admin/register
+Content-Type: application/json
+
+{
+  "name": "fnfunfunc",
+  "password": "1234"
+}
+
+### Login
+POST http://localhost:8080/admin/login
+Content-Type: application/json
+
+{
+  "name": "fnfunfunc",
+  "password": "1234"
+}
+
+### Get all the messages
+GET http://localhost:8080/admin/list
