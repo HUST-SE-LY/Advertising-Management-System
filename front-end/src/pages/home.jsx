@@ -3,7 +3,9 @@ import TypingWord from "../components/typingWord";
 function Home() {
   return (
     <div className="w-screen h-screen grid grid-cols-[3fr_2fr] justify-center items-center bg-slate-50">
-      <div className="left flex flex-col gap-[3rem]">
+      <div className="w-[400px] h-[400px] rounded-full bg-blue-200/50 fixed top-[50px] left-[50px] animate-float"></div>
+      <div className="left flex flex-col gap-[3rem] relative">
+        <div className="w-[200px] h-[200px] rounded-full bg-blue-300/50 right-[45%] bottom-[50px] fixed animate-[float_8s_infinite]"></div>
         <TypingWord word={"Welcome"}></TypingWord>
         <NavigateButton
           content={"管理员登录"}
