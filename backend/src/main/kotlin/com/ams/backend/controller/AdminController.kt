@@ -1,7 +1,8 @@
 package com.ams.backend.controller
 
 import com.ams.backend.dto.UserLoginDTO
-import com.ams.backend.model.AdminRegisterResponseBody
+import com.ams.backend.dto.UserRegisterDTO
+import com.ams.backend.dto.AdminDTO
 import com.ams.backend.security.SecurityConstants
 import com.ams.backend.service.AdminService
 import com.ams.backend.service.AuthService
@@ -18,10 +19,9 @@ import org.springframework.web.bind.annotation.*
 class AdminController(private val adminService: AdminService, private val authService: AuthService) {
 
     @PostMapping("/register")
-    suspend fun register(@RequestBody userLoginDTO: UserLoginDTO): ResponseEntity<String> {
-        println(userLoginDTO)
-        val registeredAdmin = adminService.registerAdmin(userLoginDTO.name, userLoginDTO.password)
-        val responseBody = AdminRegisterResponseBody(admin = listOf(registeredAdmin))
+    suspend fun register(@RequestBody userRegisterDTO: UserRegisterDTO): ResponseEntity<String> {
+        val registeredAdmin = adminService.registerAdmin(userRegisterDTO.name, userRegisterDTO.password)
+        val responseBody = AdminDTO(admin = registeredAdmin.name)
         return ResponseEntity<String>(
             Json.encodeToString(responseBody),
             HttpStatus.OK
@@ -41,10 +41,11 @@ class AdminController(private val adminService: AdminService, private val authSe
         )
     }
 
+    // Only for debugging
     @GetMapping("/list")
     suspend fun listAllAdmins(): ResponseEntity<String> {
         val admins = adminService.listAllAdmins()
-        val response = AdminRegisterResponseBody(admins)
+        val response = admins.map { AdminDTO(it.name) }
         return ResponseEntity<String>(
             Json.encodeToString(response),
             HttpStatus.OK
@@ -53,13 +54,13 @@ class AdminController(private val adminService: AdminService, private val authSe
 
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleIllegalArgumentException(exception: IllegalArgumentException): ResponseEntity<String> {
-        val responseBody = AdminRegisterResponseBody(errorMessage = exception.message)
+        val responseBody = AdminDTO(errorMessage = exception.message)
         return ResponseEntity<String>(Json.encodeToString(responseBody), HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(EmptyResultDataAccessException::class)
     fun handleEmptyResultDataAccessException(exception: EmptyResultDataAccessException): ResponseEntity<String> {
-        val responseBody = AdminRegisterResponseBody(errorMessage = exception.message)
+        val responseBody = AdminDTO(errorMessage = exception.message)
         return ResponseEntity<String>(Json.encodeToString(responseBody), HttpStatus.NOT_FOUND)
     }
 }

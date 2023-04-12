@@ -5,12 +5,15 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
+import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +42,7 @@ class SecurityConfiguration(val authenticationConfiguration: AuthenticationConfi
 
             exceptionHandling {
                 // Send 401 response when the user does not have access to the resource
-//                authenticationEntryPoint = HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
+                authenticationEntryPoint = HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
             }
             apply(securityConfigurationAdapter())
         }
@@ -50,4 +53,11 @@ class SecurityConfiguration(val authenticationConfiguration: AuthenticationConfi
     private fun securityConfigurationAdapter() =
         JwtConfigurer(JwtAuthorizationFilter(authenticationManager()))
 
+    class JwtConfigurer(private val jwtAuthorizationFilter: JwtAuthorizationFilter):
+        SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
+
+        override fun configure(http: HttpSecurity) {
+            http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
+        }
+    }
 }
