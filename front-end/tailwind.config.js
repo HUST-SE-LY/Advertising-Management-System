@@ -17,7 +17,7 @@ export default {
         },
         floatin: {
           '0%': {
-            transform: 'translateY(20px)',
+            transform: 'translateY(50px)',
             opacity: 0.5,
           },
           '100%': {
