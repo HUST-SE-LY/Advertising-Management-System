@@ -18,7 +18,7 @@ function CompanyLogin() {
           <p className="font-sans text-[1.2rem] leading-[2rem]">
             and choose an Ad to put
           </p>
-          <div className="w-full h-fit flex-1 mt-[4rem] bg-blue-300 rounded-lg shadow-lg shadow-blue-300/50 p-[1rem] flex flex-col justify-center">
+          <div className="w-full h-fit max-h-[10rem] flex-1 mt-[4rem] bg-blue-300 rounded-lg shadow-lg shadow-blue-300/50 p-[1rem] flex flex-col justify-center">
             <p className="leading-[2rem]">
               成为我们的客户之后，你可以在我们的应用上购买广告位，展示您想展示的内容
             </p>

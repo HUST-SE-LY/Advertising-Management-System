@@ -17,7 +17,7 @@ function ManagerLogin() {
           <p className="font-sans text-[1.2rem] leading-[2rem]">
             and be the manager
           </p>
-          <div className="w-full h-fit flex-1 mt-[4rem] bg-blue-300 rounded-lg shadow-lg shadow-blue-300/50 p-[1rem] flex flex-col justify-center">
+          <div className="w-full h-fit max-h-[10rem] flex-1 mt-[4rem] bg-blue-300 rounded-lg shadow-lg shadow-blue-300/50 p-[1rem] flex flex-col justify-center">
             <p className="leading-[2rem]">
               成为管理员后，你可以管理客户，管理广告投放，以及其他有意思的事
             </p>
