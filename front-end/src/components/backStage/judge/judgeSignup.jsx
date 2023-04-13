@@ -47,10 +47,10 @@ function JudgeSignup() {
     setCompany(null)
   }
 
-  return <div className="rounded-3xl bg-gray-100 p-[2rem]">
+  return <div className="rounded-3xl bg-gray-100 p-[2rem] h-[calc(100vh_-_4rem)]">
     <Title title="审批注册">
     </Title>
-    <div className="flex flex-col gap-[1rem] mt-[2rem]">
+    <div className="flex flex-col gap-[1rem] mt-[2rem] h-[calc(100%_-_4rem)] overflow-y-auto pr-3">
       {list.map((info) => <SingleInfo key={info.account} info={info} handle={() => setCompany(info)}></SingleInfo>)}
     </div>
     {company?<SignupInfo info={company} close={() => setCompany(null)} pass={() => passCompany(company)} reject={() => rejectCompany(company)}></SignupInfo>:null}
