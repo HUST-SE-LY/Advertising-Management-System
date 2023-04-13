@@ -9,7 +9,7 @@ function Input(props) {
   }
   return (<div>
     <p className="text-sm mb-1">{props.title}</p>
-    <input type={props.type?props.type:'text'} className="border border-gray-400 outline-none p-1 rounded-lg w-full focus:border-blue-600 transition-all"/>
+    <input type={props.type?props.type:'text'} onChange={changeInfo} value={info} className="border border-gray-400 outline-none p-1 rounded-lg w-full focus:border-blue-600 transition-all"/>
   </div>)
 
 }

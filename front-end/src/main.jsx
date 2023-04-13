@@ -4,6 +4,11 @@ import Home from './pages/home';
 import ManagerLogin from './pages/managerLogin';
 import CompanyLogin from './pages/companyLogin';
 import CompanySignup from './pages/companySignup';
+import BackStage from './pages/backStage';
+import BackStageHome from './pages/backStage/home';
+import BackStageJudge from './pages/backStage/judge';
+import BackStageAd from './pages/backStage/ad';
+import BackStageCompany from './pages/backStage/company';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -24,6 +29,25 @@ const router = createBrowserRouter([
   },{
     path: '/company-signup',
     element: <CompanySignup></CompanySignup>,
+  },{
+    path: '/back-stage',
+    element: <BackStage></BackStage>,
+    children: [
+      {
+        path: '/back-stage/home',
+        element: <BackStageHome></BackStageHome>
+      },
+      {
+        path: '/back-stage/judge',
+        element: <BackStageJudge></BackStageJudge>
+      },{
+        path: '/back-stage/Ads',
+        element: <BackStageAd></BackStageAd>
+      },{
+        path: '/back-stage/companies',
+        element: <BackStageCompany></BackStageCompany>
+      }
+    ]
   }
 ]);
 

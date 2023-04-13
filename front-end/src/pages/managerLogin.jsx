@@ -1,10 +1,19 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../components/input";
 import LongButton from "../components/longButton";
 function ManagerLogin() {
   const [managerId, setManagerId] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+  
+
+  async function login() {
+    console.log(managerId);
+    console.log(password);
+    navigate("/back-stage")
+  }
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[url('src/assets/managerLoginBack.jpg')] bg-cover bg-center">
@@ -27,8 +36,8 @@ function ManagerLogin() {
         <div className="flex flex-col justify-center gap-[1rem] pr-[2rem]">
           <p className="text-[1.5rem] font-bold">管理员登录</p>
           <Input title="账号" setInfo={setManagerId}></Input>
-          <Input title="密码" setInfo={setPassword}></Input>
-          <LongButton content="登录"></LongButton>
+          <Input type={"password"} title="密码" setInfo={setPassword}></Input>
+          <LongButton content="登录" handle={login}></LongButton>
         </div>
       </div>
     </div>

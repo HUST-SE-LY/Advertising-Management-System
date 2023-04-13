@@ -7,7 +7,7 @@ function Home() {
       <div className="left flex flex-col gap-[3rem] relative">
         <div className="w-[200px] h-[200px] rounded-full bg-blue-300/50 right-[45%] bottom-[50px] fixed animate-[float_8s_infinite]"></div>
         <TypingWord word={"Welcome"}></TypingWord>
-        <div className="flex px-[2rem]">
+        <div className="flex px-[5rem]">
           <NavigateButton
             content={"管理员登录"}
             url={"/manager-login"}
