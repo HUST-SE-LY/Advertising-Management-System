@@ -20,9 +20,7 @@ repositories {
 
 dependencies {
     // jjwt
-    implementation(libs.jjwt.api)
-    implementation(libs.jjwt.gson)
-    implementation(libs.jjwt.impl)
+    implementation(libs.java.jwt)
 
     // Kotlinx coroutine
     implementation(libs.kotlinx.coroutines.core)
@@ -35,18 +33,18 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     // Spring
-    implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.data.r2dbc)
     implementation(libs.spring.boot.starter.security)
+    implementation(libs.spring.boot.starter.validation)
+    implementation(libs.spring.boot.starter.webflux)
     implementation(libs.spring.data.relational)
 
     // Spring security
     implementation(libs.spring.security.core)
 
-
     // R2dbc mysql driver
     runtimeOnly(libs.jasync.r2dbc.mysql)
-//    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor(libs.spring.boot.configuration.processor)
 //    implementation("org.springframework.boot:spring-boot-starter")
     testImplementation(libs.spring.boot.starter.test)

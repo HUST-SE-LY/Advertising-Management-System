@@ -9,4 +9,6 @@ class GlobalConfiguration {
 
     @Bean
     fun bcryptPasswordEncoder() = BCryptPasswordEncoder()
+
+
 }

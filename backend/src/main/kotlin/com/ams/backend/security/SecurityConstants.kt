@@ -2,9 +2,8 @@ package com.ams.backend.security
 
 object SecurityConstants {
 
-    // from https://www.allkeysgenerator.com/
-    // TODO(Write the key into the .property configuration file)
-    const val JWT_SECRET_KEY = "5ee13f86d7b149f386ef49fbb37fb62b"
+    const val ROLE_ADMIN = "role_admin"
+    const val ROLE_CUSTOMER = "role_customer"
 
     const val TOKEN_TYPE = "JWT"
     const val TOKEN_HEADER = "Authorization"
