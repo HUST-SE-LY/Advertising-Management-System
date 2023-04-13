@@ -1,16 +1,13 @@
 import LongButton from "../../../longButton";
 
 function SignupInfo(props) {
-
-
-
   return (
     <div
       className="fixed top-0 left-0 w-screen h-screen bg-gray-300/40 z-30 cursor-pointer flex justify-center items-center"
       onClick={props.close}
     >
       <div
-        className="w-1/2 h-1/2 bg-white cursor-default rounded-xl shadow-xl shadow-gray-200 py-[2rem] px-[5rem] "
+        className="w-1/2 bg-white cursor-default rounded-xl shadow-xl shadow-gray-200 py-[2rem] px-[5rem] "
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -49,9 +46,12 @@ function SignupInfo(props) {
           <span>{props.info.businessLicenseNumber}</span>
         </div>
         <LongButton content="通过" handle={props.pass}></LongButton>
-        <LongButton content="拒绝" color="red" handle={props.reject}></LongButton>
+        <LongButton
+          content="拒绝"
+          color="red"
+          handle={props.reject}
+        ></LongButton>
       </div>
-
     </div>
   );
 }

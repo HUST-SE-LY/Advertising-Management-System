@@ -1,5 +1,5 @@
 
-function SingleSignup(props) {
+function SingleInfo(props) {
   const name = props.info.name;
   return <div className="bg-white rounded-lg shadow-lg shadow-gray-300/20 h-fit p-[1rem] flex gap-[1rem] items-center animate-listItemIn">
     <p>{name}</p>
@@ -9,4 +9,4 @@ function SingleSignup(props) {
   </div>
 }
 
-export default SingleSignup
+export default SingleInfo
