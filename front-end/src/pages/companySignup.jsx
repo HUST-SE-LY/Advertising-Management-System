@@ -20,7 +20,7 @@ function CompanySignup(props) {
     navigate("/")
   }
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[url('src/assets/companyLoginBack.jpg')] bg-cover bg-center">
+    <div className="w-screen h-screen flex justify-center items-center bg-[url('/src/assets/companyLoginBack.jpg')] bg-cover bg-center">
       <div className="grid grid-cols-[1fr_2fr] w-1/2 h-1/2 bg-white rounded-lg p-[1rem] gap-[2rem] animate-floatin">
         <div className="bg-blue-200 w-full h-full rounded-lg p-[1rem] flex flex-col justify-center">
           <p className="text-center text-[1.5rem] font-bold mb-[1rem]">注册流程</p>

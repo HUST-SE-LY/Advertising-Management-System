@@ -12,11 +12,11 @@ function ManagerLogin() {
   async function login() {
     console.log(managerId);
     console.log(password);
-    navigate("/back-stage")
+    navigate("/back-stage/home")
   }
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[url('src/assets/managerLoginBack.jpg')] bg-cover bg-center">
+    <div className="w-screen h-screen flex justify-center items-center bg-[url('/src/assets/managerLoginBack.jpg')] bg-cover bg-center">
       <div className="grid grid-cols-2 w-1/2 h-1/2 bg-white rounded-lg p-[1rem] gap-[2rem] animate-floatin">
         <div className=" bg-slate-200 p-5 flex flex-col box-border rounded">
           <p className="font-sans font-bold text-[2rem] leading-[3rem]">

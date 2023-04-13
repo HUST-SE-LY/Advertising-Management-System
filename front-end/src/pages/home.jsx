@@ -19,7 +19,7 @@ function Home() {
           <NavigateButton content={"进入应用"} url={"/app"}></NavigateButton>
         </div>
       </div>
-      <div className="right bg-[url('src/assets/homeBack.jpg')] w-full h-full bg-center bg-cover shadow-blue-300 shadow-home"></div>
+      <div className="right bg-[url('/src/assets/homeBack.jpg')] w-full h-full bg-center bg-cover shadow-blue-300 shadow-home"></div>
     </div>
   );
 }

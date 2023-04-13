@@ -46,6 +46,7 @@ const router = createBrowserRouter([
       },{
         path: '/back-stage/companies',
         element: <BackStageCompany></BackStageCompany>
+        
       }
     ]
   }
