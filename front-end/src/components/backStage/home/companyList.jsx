@@ -79,7 +79,7 @@ function CompanyList() {
           <p>负责人电话</p>
         </div>
       </div>
-      <div className="flex flex-col gap-[1rem] h-[calc(100%_-_5rem)] overflow-y-auto pr-3 scrollbar-blue">
+      <div className="flex flex-col gap-[1rem] h-[calc(100%_-_5rem)] overflow-y-auto pl-3 pr-3 scrollbar-blue">
         {list.map((info) => (
           <SingleCompany key={info.account} info={info}></SingleCompany>
         ))}
