@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .scrollbar-blue {
+
+  }
+
+  .scrollbar-blue::webkit-scrollbar {
+    display:none;
+  }
+}
+
+.scrollbar-blue {
+  
+}
+
+.scrollbar-blue::-webkit-scrollbar {
+  width: 5px;
+  background: rgba(147, 197, 253,0);
+}
+
+.scrollbar-blue::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background: rgba(147, 197, 253);
+}

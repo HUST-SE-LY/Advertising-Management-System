@@ -99,7 +99,7 @@ function JudgeAd() {
 
   return <div className="relative rounded-3xl bg-gray-100 p-[2rem] h-[calc(100vh_-_4rem)]">
     <Title title="审批广告申请"></Title>
-    <div className="flex flex-col gap-[1rem] mt-[2rem] h-[calc(100%_-_4rem)] overflow-y-auto pr-3">
+    <div className="scrollbar-blue flex flex-col gap-[1rem] mt-[2rem] h-[calc(100%_-_4rem)] scrollbar-blue overflow-y-auto pr-3">
       {list.map((info) => <SingleInfo key={info.AdId} info={info} handle={() => setAd(info)}></SingleInfo>)}
     </div>
     {Ad?<AdInfo info={Ad} close={() => setAd(null)} pass={passAd} reject={rejectAd} ></AdInfo>:null}
