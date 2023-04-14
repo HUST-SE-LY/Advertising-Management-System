@@ -17,6 +17,7 @@ function AdInfo(props) {
         <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 mt-[1rem]">广告图片：</p>
         <img className="rounded-lg mt-[1rem] mb-[1rem] max-w-full max-h-[20rem] shadow-lg" src={props.info.image} alt="" />
         <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 text-lg">广告url:<a className="underline text-blue-600" target="_blank" href={props.info.url}>{props.info.url}</a></p>
+        <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 mt-[1rem] text-lg">{props.info.position}号广告位</p>
         <LongButton content="通过" handle={props.pass}></LongButton>
         <LongButton content="拒绝" color="red" handle={props.reject}></LongButton>
       </div>
