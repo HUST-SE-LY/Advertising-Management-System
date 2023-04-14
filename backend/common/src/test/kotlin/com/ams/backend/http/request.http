@@ -1,0 +1,47 @@
+### Register "fnfunfunc"
+POST http://localhost:8080/admin/register
+Content-Type: application/json
+
+{
+  "name": "fnfunfunc",
+  "password": "1234"
+}
+
+### Register "香蕉皮"
+POST http://localhost:8080/admin/register
+Content-Type: application/json
+
+{
+  "name": "香蕉皮",
+  "password": "ok,fine"
+}
+
+### Login "fnfunfunc"
+POST http://localhost:8080/admin/login
+Content-Type: application/json
+
+{
+  "name": "fnfunfunc",
+  "password": "1234"
+}
+
+### Login "crazyyyyyy"
+POST http://localhost:8080/admin/login
+Content-Type: application/json
+
+{
+  "name": "crazyyyyyy",
+  "password": "ok,fine"
+}
+
+### Token test
+GET http://localhost:8080/admin/token
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmbmZ1bmZ1bmMiLCJleHAiOjE2ODE0MDIzNzcsInJvbGUiOlsicm9sZV9hZG1pbiJdfQ.YuNybefZcGpWpcCuDlrSoozzE5ZutVRXFPusDFlqMtqScT9F_SJhXdAHGGGg3QzVvJqI8FvPZ7O3htvd9G-a0A
+
+
+
+### Get all the messages
+GET http://localhost:8080/admin/list
+
+###
+GET http://localhost:8080/admin/test
