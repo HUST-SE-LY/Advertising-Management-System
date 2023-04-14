@@ -3,7 +3,7 @@ import LongButton from "../../../longButton";
 function AdInfo(props) {
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-screen bg-gray-300/40 z-30 cursor-pointer flex justify-center items-center"
+      className=" animate-fadein fixed top-0 left-0 w-screen h-screen bg-gray-300/40 z-30 cursor-pointer flex justify-center items-center"
       onClick={props.close}
     >
       <div

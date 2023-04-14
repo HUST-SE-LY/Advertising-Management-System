@@ -36,14 +36,14 @@ function BackStageCompany() {
       businessLicenseNumber: "1111111111",
     },{
       account: "5",
-      name: "D",
+      name: "E",
       address: "china",
       managerName: "me",
       managerTel: "123456",
       businessLicenseNumber: "1111111111",
     },{
       account: "6",
-      name: "D",
+      name: "E",
       address: "china",
       managerName: "me",
       managerTel: "123456",

@@ -47,13 +47,22 @@ export default {
             opacity: 1,
             scale: '1',
           }
+        },
+        fadein: {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 1,
+          }
         }
       },
       animation: {
         shine: 'shine 2s infinite linear',
         floatin: 'floatin 0.5s forwards',
         float: 'float 10s infinite',
-        listItemIn: 'listItemIn 0.5s ease-out forwards'
+        listItemIn: 'listItemIn 0.3s ease-out forwards',
+        fadein: 'fadein 0.3s ease-out forwards'
       },
       boxShadow: {
         'home': '0px 0 500px rgba(0,0,0,0.1)'
