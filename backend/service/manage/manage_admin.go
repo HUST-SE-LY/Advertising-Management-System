@@ -1,4 +1,4 @@
-package admin_service
+package manage
 
 import (
 	"backend/global"
@@ -15,7 +15,7 @@ type ManageAdminService struct {
 }
 
 func (m *ManageAdminService) CreateAdmin(admin *adminModel.Admin) error {
-	if !errors.Is(global.GVA_DB.Where("account = ?", admin.Account).First(adminModel.Admin{}).Error, gorm.ErrRecordNotFound) {
+	if !errors.Is(global.GVA_DB.Where("account = ?", admin.Account).First(&adminModel.Admin{}).Error, gorm.ErrRecordNotFound) {
 		return status.SameAccountExists
 	}
 	password, err := bcrypt.GenerateFromPassword([]byte(admin.Password), bcrypt.DefaultCost)

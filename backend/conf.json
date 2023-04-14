@@ -1,5 +1,6 @@
 {
   "app": {
+    "address": "127.0.0.1:8080",
     "jwt_secret": "df061465abb24798b823a1413e82b1fb\nace98230b2514639bef61864aae9a645\n3d6972255cce4c74b1978804ec998438\n7984e8410bbe4ff4ba35ae5aa6547ee6\n2b22a4a3b3ef40acbb48f885c3dbe784"
   },
   "database": {

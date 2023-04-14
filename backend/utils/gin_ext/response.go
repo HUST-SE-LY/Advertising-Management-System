@@ -1,4 +1,4 @@
-package response
+package gin_ext
 
 import (
 	"backend/utils/status"
@@ -8,7 +8,7 @@ import (
 func Response(err error, data interface{}) gin.H {
 	var st status.Status
 	var ok bool
-	if st, ok = err.(status.Status); !ok {
+	if st, ok = err.(status.Status); ok {
 		st = status.ErrorToStatus(err)
 	}
 	return gin.H{

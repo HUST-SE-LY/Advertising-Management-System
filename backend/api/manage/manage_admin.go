@@ -4,20 +4,16 @@ import (
 	"backend/models/admin_model"
 	"backend/models/admin_model/request"
 	"backend/models/admin_model/response"
-	"backend/service"
 	"backend/utils/gin_ext"
 	"backend/utils/jwt"
 	"backend/utils/status"
-	jsoniter "github.com/json-iterator/go"
-
 	"github.com/gin-gonic/gin"
+	jsoniter "github.com/json-iterator/go"
 	"net/http"
 )
 
 type ManageAdminApi struct {
 }
-
-var adminService = service.ServiceGroupApp.ManageServiceGroup
 
 func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 	var adminLoginReq request.AdminLoginReq

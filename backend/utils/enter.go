@@ -1,10 +1,10 @@
 package utils
 
 import (
-	"backend/global/settings"
+	"backend/global"
 	"backend/utils/jwt"
 )
 
 func Setup() {
-	jwt.jwtSecret = []byte(settings.GetAppSetting().JwtSecret)
+	jwt.JwtSecret = []byte(global.GVA_APP_SETTING.JwtSecret)
 }

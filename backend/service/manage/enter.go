@@ -1,4 +1,4 @@
-package admin_service
+package manage
 
 // Service for administrators
 

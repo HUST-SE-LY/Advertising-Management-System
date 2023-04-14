@@ -1,9 +1,9 @@
-package jwt
+package middleware
 
 import (
-	"backend/pkg/constants/status"
-	"backend/pkg/response"
-	"backend/pkg/util"
+	"backend/utils/gin_ext"
+	jwt2 "backend/utils/jwt"
+	"backend/utils/status"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"io"
@@ -11,32 +11,32 @@ import (
 )
 
 func JWT() gin.HandlerFunc {
-	return func(context *gin.Context) {
-		code := status.SUCCESS
-		body, err := io.ReadAll(context.Request.Body)
+	return func(c *gin.Context) {
+		st := status.Success
+		body, err := io.ReadAll(c.Request.Body)
 		token := string(body)
 		if err != nil {
-			code = status.ERROR
+			st = status.Error
 		} else if len(token) == 0 {
-			code = status.INVALID_PARAMS
+			st = status.InvalidParams
 		} else {
-			_, err := util.ParseToken(token)
+			_, err := jwt2.ParseToken(token)
 			if err != nil {
 				switch err {
 				case jwt.ErrTokenExpired:
-					code = status.ERROR_AUTH_CHECK_TOKEN_TIMEOUT
+					st = status.ErrorAuthCheckTokenTimeout
 				default:
-					code = status.ERROR_AUTH_CHECK_TOKEN_FAIL
+					st = status.ErrorAuthCheckTokenFail
 				}
 			}
 		}
 
-		if code != status.SUCCESS {
-			context.JSON(http.StatusUnauthorized, response.Response(code, "", nil))
-			context.Abort()
+		if st != status.Success {
+			c.JSON(http.StatusUnauthorized, gin_ext.Response(st, nil))
+			c.Abort()
 			return
 		}
 
-		context.Next()
+		c.Next()
 	}
 }

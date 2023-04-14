@@ -1,0 +1,8 @@
+### POST "fnfunfunc"
+POST http://localhost:8080/admin/register
+Content-Type: application/json
+
+{
+  "account": "fnfunfunc",
+  "password": "1234"
+}
