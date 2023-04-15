@@ -43,16 +43,18 @@ func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq)
 	return err
 }
 
-func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (company *company_model.Company, companyToken *company_model.CompanyToken, err error) {
-	err = global.GVA_DB.Where("account = ?", req.Account).Take(company).Error
-	if company == nil {
+func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (company company_model.Company, companyToken company_model.CompanyToken, err error) {
+	err = global.GVA_DB.Where("account = ?", req.Account).Take(&company).Error
+	if company == (company_model.Company{}) {
 		// Then search in CompanyToBeReviewed
 		var companyToBeReviewed *company_model.CompanyToBeReviewed
-		err = global.GVA_DB.Where("account = ?", req.Account).Take(companyToBeReviewed).Error
+		err = global.GVA_DB.Where("account = ?", req.Account).Take(&companyToBeReviewed).Error
 		if companyToBeReviewed != nil {
-			return nil, nil, status.UserIsPendingReview
+			err = status.UserIsPendingReview
+			return
 		} else {
-			return nil, nil, status.AccountNotFound
+			err = status.AccountNotFound
+			return
 		}
 	} else {
 		// Check password
@@ -64,8 +66,8 @@ func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (compa
 		token := getNewToken(company.Account, company.Password)
 		global.GVA_DB.Take(companyToken, company.Id)
 
-		if companyToken == nil {
-			companyToken = &company_model.CompanyToken{
+		if companyToken == (company_model.CompanyToken{}) {
+			companyToken = company_model.CompanyToken{
 				CompanyId: company.Id,
 				Token:     token,
 			}

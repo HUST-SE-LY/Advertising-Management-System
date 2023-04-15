@@ -16,8 +16,8 @@ import (
 type ManageAdminService struct {
 }
 
-func (m *ManageAdminService) CreateAdmin(req request.AdminRegisterReq) (admin *admin_model.Admin, err error) {
-	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&admin_model.Admin{}).Error, gorm.ErrRecordNotFound) {
+func (m *ManageAdminService) CreateAdmin(req *request.AdminRegisterReq) (admin *admin_model.Admin, err error) {
+	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).Take(&admin_model.Admin{}).Error, gorm.ErrRecordNotFound) {
 		return nil, status.SameAccountExists
 	}
 	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
@@ -33,7 +33,7 @@ func (m *ManageAdminService) CreateAdmin(req request.AdminRegisterReq) (admin *a
 }
 
 func (m *ManageAdminService) AdminLogin(req *request.AdminLoginReq) (err error, admin *admin_model.Admin, adminToken *admin_model.AdminToken) {
-	err = global.GVA_DB.Where("account = ?", req.Account).Take(admin).Error
+	err = global.GVA_DB.Where("account = ?", req.Account).Take(&admin).Error
 	if admin == nil {
 		err = status.AccountNotFound
 		return
@@ -45,7 +45,7 @@ func (m *ManageAdminService) AdminLogin(req *request.AdminLoginReq) (err error, 
 		}
 
 		token := getNewToken(admin.Account, admin.Password)
-		global.GVA_DB.Take(adminToken, admin.Id)
+		global.GVA_DB.Take(&adminToken, admin.Id)
 		//global.GVA_DB.Where("admin_id = ?", admin.Id).Take(&adminToken)
 
 		// There was no token stored in the database before.

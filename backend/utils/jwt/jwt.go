@@ -15,7 +15,7 @@ type Claims struct {
 	jwt.MapClaims
 }
 
-const accessTokenExpiration = 3 * time.Hour
+const accessTokenExpiration = 7 * 24 * time.Hour
 
 func GenerateToken(username, password, role string) (string, error) {
 	currentTime := time.Now()

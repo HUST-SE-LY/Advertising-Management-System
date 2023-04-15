@@ -41,7 +41,7 @@ func (com *CompanyAccountApi) CompanyLogin(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
 	} else {
 		jsonResp, _ := jsoniter.Marshal(company)
-		c.Header("Authentication", companyToken.Token)
+		c.Header("Authorization", companyToken.Token)
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 	}
 }

@@ -22,7 +22,7 @@ func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 		return
 	}
 	var admin *admin_model.Admin
-	if admin, err = adminService.CreateAdmin(adminRegisterReq); err != nil {
+	if admin, err = adminService.CreateAdmin(&adminRegisterReq); err != nil {
 		if st, ok := err.(status.Status); ok {
 			if st.Code == status.SAME_ACCOUNT_EXISTS {
 				c.JSON(http.StatusBadRequest, gin_ext.Response(st, nil))
@@ -60,7 +60,7 @@ func (m *ManageAdminApi) AdminLogin(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
 	} else {
 		jsonResp, _ := jsoniter.Marshal(admin)
-		c.Header("Authentication", adminToken.Token)
+		c.Header("Authorization", adminToken.Token)
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 	}
 }

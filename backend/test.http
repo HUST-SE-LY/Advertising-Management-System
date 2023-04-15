@@ -38,3 +38,7 @@ Content-Type: application/json
   "account": "联创",
   "password": "uniquestudio"
 }
+
+### List pending review companies
+GET http://localhost:8080/admin/company_review
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGZ3UVBVbDRGZkZRVDBIUXE5QzNremVVNTc1OGdNMW5VdTguZTRCcXphTnprOG9Hb3VwOUptIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjE4NDM5MTg2Mywicm9sZSI6InJvbGVfYWRtaW4ifX0.neOuS8_lISRz8p1_9tpVH16pjLzwZd8U7iq5_BjllDM
