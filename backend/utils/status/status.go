@@ -24,7 +24,9 @@ const (
 
 	PARSE_JSON_ERROR StatusCode = 600
 
-	SAME_ACCOUNT_EXISTS StatusCode = 700
+	SAME_ACCOUNT_EXISTS StatusCode = 701
+	ACCOUNT_NOT_FOUND   StatusCode = 702
+	WRONG_PASSWORD      StatusCode = 703
 
 	ERROR_AUTH_CHECK_TOKEN_FAIL    StatusCode = 800
 	ERROR_AUTH_CHECK_TOKEN_TIMEOUT StatusCode = 801
@@ -39,6 +41,8 @@ var (
 	ParseJsonError = Status{Code: PARSE_JSON_ERROR, Msg: "Error while parsing json"}
 
 	SameAccountExists = Status{Code: SAME_ACCOUNT_EXISTS, Msg: "Same account exists"}
+	AccountNotFound   = Status{Code: ACCOUNT_NOT_FOUND, Msg: "Account not found"}
+	WrongPassword     = Status{Code: WRONG_PASSWORD, Msg: "Wrong password"}
 
 	ErrorAuthCheckTokenFail    = Status{Code: ERROR_AUTH_CHECK_TOKEN_FAIL, Msg: "Token authentication failed"}
 	ErrorAuthCheckTokenTimeout = Status{Code: ERROR_AUTH_CHECK_TOKEN_TIMEOUT, Msg: "Token has expired"}

@@ -1,5 +1,5 @@
 package response
 
 type AdminLoginResp struct {
-	Account string
+	Account string `json:"account"`
 }

@@ -5,7 +5,6 @@ import (
 	"backend/models/admin_model/request"
 	"backend/models/admin_model/response"
 	"backend/utils/gin_ext"
-	"backend/utils/jwt"
 	"backend/utils/status"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
@@ -16,15 +15,15 @@ type ManageAdminApi struct {
 }
 
 func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
-	var adminLoginReq request.AdminLoginReq
-	err := c.ShouldBindJSON(&adminLoginReq)
+	var adminRegisterReq request.AdminRegisterReq
+	err := c.ShouldBindJSON(&adminRegisterReq)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
 	}
 	admin := admin_model.Admin{
-		Account:  adminLoginReq.Account,
-		Password: adminLoginReq.Password,
+		Account:  adminRegisterReq.Account,
+		Password: adminRegisterReq.Password,
 	}
 
 	if err = adminService.CreateAdmin(&admin); err != nil {
@@ -38,18 +37,34 @@ func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 		return
 	}
 
-	jwtToken, err := jwt.GenerateToken(admin.Account, admin.Password)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
-		return
-	}
+	//jwtToken, err := jwt.GenerateToken(admin.Account, admin.Password, admin_model.ADMIN_ROLE)
+	//if err != nil {
+	//	c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+	//	return
+	//}
 
-	adminLoginResp := response.AdminLoginResp{
+	adminLoginResp := response.AdminRegisterResp{
 		Account: admin.Account,
 	}
 
 	jsonResp, _ := jsoniter.Marshal(adminLoginResp)
 
-	c.Header("Authentication", jwtToken)
+	//c.Header("Authentication", jwtToken)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+func (m *ManageAdminApi) AdminLogin(c *gin.Context) {
+	var adminLoginReq request.AdminLoginReq
+	err := c.ShouldBindJSON(&adminLoginReq)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	if err, admin, adminToken := adminService.AdminLogin(&adminLoginReq); err != nil {
+		c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
+	} else {
+		jsonResp, _ := jsoniter.Marshal(admin)
+		c.Header("Authentication", adminToken.Token)
+		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+	}
 }

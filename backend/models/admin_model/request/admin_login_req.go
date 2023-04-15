@@ -1,6 +1,6 @@
 package request
 
 type AdminLoginReq struct {
-	Account  string
-	Password string
+	Account  string `json:"account"`
+	Password string `json:"password"`
 }

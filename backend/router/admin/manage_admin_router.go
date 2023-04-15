@@ -10,13 +10,13 @@ type ManageAdminRouter struct {
 }
 
 func (r *ManageAdminRouter) InitManageAdminUserRouter(Router *gin.RouterGroup) {
-	adminRouter := Router.Group("admin").Use(middleware.JWT())
-	//adminLoginRouter := Router.Group("admin") // Without jwt check
+	adminRouter := Router.Group("admin").Use(middleware.AdminJWTAuth())
+	adminLoginRouter := Router.Group("admin") // Without jwt check
 	var manageAdminApi = api.ApiGroupApp.ManageApiGroup.ManageAdminApi
 	{
 		adminRouter.POST("register", manageAdminApi.CreateAdmin)
 	}
 	{
-		// TODO: adminLoginRouter.POST()
+		adminLoginRouter.POST("login", manageAdminApi.AdminLogin)
 	}
 }

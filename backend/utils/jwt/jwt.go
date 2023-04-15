@@ -15,7 +15,7 @@ type Claims struct {
 
 const accessTokenExpiration = 3 * time.Hour
 
-func GenerateToken(username, password string) (string, error) {
+func GenerateToken(username, password, role string) (string, error) {
 	currentTime := time.Now()
 	expiredTime := currentTime.Add(accessTokenExpiration)
 
@@ -23,7 +23,8 @@ func GenerateToken(username, password string) (string, error) {
 		EncodedMD5(username),
 		EncodedMD5(password),
 		jwt.MapClaims{
-			"exp": expiredTime.Unix(),
+			"exp":  expiredTime.Unix(),
+			"role": role,
 		},
 	}
 

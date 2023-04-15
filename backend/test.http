@@ -6,3 +6,12 @@ Content-Type: application/json
   "account": "fnfunfunc",
   "password": "1234"
 }
+
+### Login "fnfunfunc"
+POST http://localhost:8080/admin/login
+Content-Type: application/json
+
+{
+  "account": "fnfunfunc",
+  "password": "1234"
+}

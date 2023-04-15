@@ -8,7 +8,9 @@ import (
 func Response(err error, data interface{}) gin.H {
 	var st status.Status
 	var ok bool
-	if st, ok = err.(status.Status); ok {
+	if err == nil {
+		st = status.Success
+	} else if st, ok = err.(status.Status); !ok {
 		st = status.ErrorToStatus(err)
 	}
 	return gin.H{

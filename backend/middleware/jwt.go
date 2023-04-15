@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-func JWT() gin.HandlerFunc {
+func AdminJWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		st := status.Success
 		body, err := io.ReadAll(c.Request.Body)
@@ -29,6 +29,7 @@ func JWT() gin.HandlerFunc {
 					st = status.ErrorAuthCheckTokenFail
 				}
 			}
+
 		}
 
 		if st != status.Success {

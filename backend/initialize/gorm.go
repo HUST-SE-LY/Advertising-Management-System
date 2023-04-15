@@ -26,6 +26,8 @@ func Gorm() *gorm.DB {
 		log.Fatalf("models.Settings error: %v\n", err)
 	}
 
-	db.AutoMigrate(&admin_model.Admin{})
+	_ = db.AutoMigrate(&admin_model.Admin{})
+	_ = db.AutoMigrate(&admin_model.AdminToken{})
+
 	return db
 }
