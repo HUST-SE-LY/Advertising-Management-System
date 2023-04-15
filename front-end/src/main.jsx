@@ -10,6 +10,7 @@ import BackStageJudge from './pages/backStage/judge';
 import BackStageAd from './pages/backStage/ad';
 import BackStageCompany from './pages/backStage/company';
 import CompanyDetail from './components/backStage/company/companyDetail';
+import AdDetail from './components/backStage/ad/AdDetail';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -43,7 +44,13 @@ const router = createBrowserRouter([
         element: <BackStageJudge></BackStageJudge>
       },{
         path: '/back-stage/Ads',
-        element: <BackStageAd></BackStageAd>
+        element: <BackStageAd></BackStageAd>,
+        children: [
+          {
+            path: '/back-stage/Ads/:id',
+            element: <AdDetail></AdDetail>
+          }
+        ]
       },{
         path: '/back-stage/companies',
         element: <BackStageCompany></BackStageCompany>,
