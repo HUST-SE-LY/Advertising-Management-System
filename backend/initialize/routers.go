@@ -13,11 +13,6 @@ func Routers(r *gin.Engine) {
 
 	rootRouterGroup := r.Group("")
 
-	adminRouterGroup := router.RouterGroupApp.Admin
-	companyRouterGroup := router.RouterGroupApp.Company
-	{
-		adminRouterGroup.Init(rootRouterGroup)
-		companyRouterGroup.InitCompanyAccountRouter(rootRouterGroup)
-	}
+	router.RouterGroupApp.Init(rootRouterGroup)
 
 }

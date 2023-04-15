@@ -48,19 +48,3 @@ func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 	//c.Header("Authentication", jwtToken)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
-
-func (m *ManageAdminApi) AdminLogin(c *gin.Context) {
-	var adminLoginReq request.AdminLoginReq
-	err := c.ShouldBindJSON(&adminLoginReq)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
-		return
-	}
-	if err, admin, adminToken := adminService.AdminLogin(&adminLoginReq); err != nil {
-		c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
-	} else {
-		jsonResp, _ := jsoniter.Marshal(admin)
-		c.Header("Authorization", adminToken.Token)
-		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
-	}
-}

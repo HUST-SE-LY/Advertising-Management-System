@@ -1,10 +1,9 @@
-package manage
+package admin
 
 import "backend/service"
 
-type ManageApiGroup struct {
-	ManageAdminApi
-	ManageCompanyApi
+type AdminApiGroup struct {
+	AdminAccountApi
 }
 
 var adminService = service.ServiceGroupApp.ManageServiceGroup
