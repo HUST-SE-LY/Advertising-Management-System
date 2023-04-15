@@ -14,7 +14,7 @@ import (
 
 const bearLength = len(global.JWT_TOKEN_PREFIX)
 
-var manageAdminService = service.ServiceGroupApp.ManageServiceGroup.ManageAdminService
+var adminAccountService = service.ServiceGroupApp.AdminServiceGroup.AdminAccountService
 var companyAccountService = service.ServiceGroupApp.CompanyServiceGroup.CompanyAccountService
 
 func extractAndCheckToken(c *gin.Context) (token string, claims *jwt2.Claims, err error) {
@@ -40,7 +40,7 @@ func AdminJWTAuth() gin.HandlerFunc {
 		token, _, err := extractAndCheckToken(c)
 		if err != nil {
 			if errors.Is(err, status.ErrorAuthCheckTokenExpired) {
-				err := manageAdminService.DeleteAdminToken(token)
+				err := adminAccountService.DeleteAdminToken(token)
 				if err != nil {
 					return
 				}
@@ -50,7 +50,7 @@ func AdminJWTAuth() gin.HandlerFunc {
 			return
 		}
 
-		if _, err := manageAdminService.FindAdminToken(token); err != nil {
+		if _, err := adminAccountService.FindAdminToken(token); err != nil {
 			err = status.ErrorAuthCheckTokenNotFound
 			c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
 			c.Abort()

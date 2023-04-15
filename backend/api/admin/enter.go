@@ -6,4 +6,4 @@ type AdminApiGroup struct {
 	AdminAccountApi
 }
 
-var adminService = service.ServiceGroupApp.ManageServiceGroup
+var adminService = service.ServiceGroupApp.AdminServiceGroup
