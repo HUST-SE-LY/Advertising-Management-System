@@ -15,3 +15,26 @@ Content-Type: application/json
   "account": "fnfunfunc",
   "password": "1234"
 }
+
+### Register Company "联小创在线科技有限公司"
+POST http://localhost:8080/company/register
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "password": "uniquestudio",
+  "name": "联小创在线科技有限公司",
+  "address": "启明学院亮胜楼八楼",
+  "manager_name": "汉堡",
+  "manager_tel": "1919810",
+  "business_license_number": "114514"
+}
+
+### Login Company "联小创在线科技有限公司"
+POST http://localhost:8080/company/login
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "password": "uniquestudio"
+}

@@ -25,7 +25,7 @@ func GenerateToken(username, password, role string) (string, error) {
 		username,
 		password,
 		jwt.MapClaims{
-			"exp":  expiredTime.Unix(),
+			"exp":  expiredTime.UnixMilli(),
 			"role": role,
 		},
 	}

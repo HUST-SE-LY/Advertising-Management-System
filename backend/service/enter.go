@@ -1,9 +1,13 @@
 package service
 
-import "backend/service/manage"
+import (
+	"backend/service/company"
+	"backend/service/manage"
+)
 
 type ServiceGroup struct {
-	ManageServiceGroup manage.ManageServiceGroup
+	ManageServiceGroup  manage.ManageServiceGroup
+	CompanyServiceGroup company.CompanyServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)

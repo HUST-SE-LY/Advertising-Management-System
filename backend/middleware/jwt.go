@@ -2,9 +2,11 @@ package middleware
 
 import (
 	"backend/global"
+	"backend/service"
 	"backend/utils/gin_ext"
 	jwt2 "backend/utils/jwt"
 	"backend/utils/status"
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"net/http"
@@ -12,27 +14,71 @@ import (
 
 const bearLength = len(global.JWT_TOKEN_PREFIX)
 
+var manageAdminService = service.ServiceGroupApp.ManageServiceGroup.ManageAdminService
+var companyAccountService = service.ServiceGroupApp.CompanyServiceGroup.CompanyAccountService
+
+func extractAndCheckToken(c *gin.Context) (token string, claims *jwt2.Claims, err error) {
+	token = c.Request.Header.Get("Authorization")
+	if len(token) < bearLength {
+		err = &status.ErrorAuthCheckTokenInvalid
+	} else {
+		claims, err = jwt2.ParseToken(token)
+		if err != nil {
+			switch err {
+			case jwt.ErrTokenExpired:
+				err = &status.ErrorAuthCheckTokenExpired
+			default:
+				err = &status.ErrorAuthCheckTokenFail
+			}
+		}
+	}
+	return
+}
+
 func AdminJWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		st := status.Success
-		token := c.Request.Header.Get("Authorization")
-		if len(token) < bearLength {
-			st = status.ErrorAuthCheckTokenInvalid
-		} else {
-			_, err := jwt2.ParseToken(token)
-			if err != nil {
-				switch err {
-				case jwt.ErrTokenExpired:
-					st = status.ErrorAuthCheckTokenTimeout
-				default:
-					st = status.ErrorAuthCheckTokenFail
+		token, _, err := extractAndCheckToken(c)
+		if err != nil {
+			if errors.Is(err, status.ErrorAuthCheckTokenExpired) {
+				err := manageAdminService.DeleteAdminToken(token)
+				if err != nil {
+					return
 				}
 			}
-
+			c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
+			c.Abort()
+			return
 		}
 
-		if st != status.Success {
-			c.JSON(http.StatusUnauthorized, gin_ext.Response(st, nil))
+		if _, err := manageAdminService.FindAdminToken(token); err != nil {
+			err = status.ErrorAuthCheckTokenNotFound
+			c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
+			c.Abort()
+			return
+		}
+
+		c.Next()
+	}
+}
+
+func CompanyJwtAuth() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token, _, err := extractAndCheckToken(c)
+		if err != nil {
+			if errors.Is(err, status.ErrorAuthCheckTokenExpired) {
+				err := companyAccountService.DeleteCompanyToken(token)
+				if err != nil {
+					return
+				}
+			}
+			c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
+			c.Abort()
+			return
+		}
+
+		if _, err := companyAccountService.FindCompanyToken(token); err != nil {
+			err = status.ErrorAuthCheckTokenNotFound
+			c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
 			c.Abort()
 			return
 		}

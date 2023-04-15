@@ -21,12 +21,8 @@ func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
 	}
-	admin := admin_model.Admin{
-		Account:  adminRegisterReq.Account,
-		Password: adminRegisterReq.Password,
-	}
-
-	if err = adminService.CreateAdmin(&admin); err != nil {
+	var admin *admin_model.Admin
+	if admin, err = adminService.CreateAdmin(adminRegisterReq); err != nil {
 		if st, ok := err.(status.Status); ok {
 			if st.Code == status.SAME_ACCOUNT_EXISTS {
 				c.JSON(http.StatusBadRequest, gin_ext.Response(st, nil))

@@ -3,6 +3,7 @@ package initialize
 import (
 	"backend/global"
 	"backend/models/admin_model"
+	"backend/models/company_model"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -28,6 +29,8 @@ func Gorm() *gorm.DB {
 
 	_ = db.AutoMigrate(&admin_model.Admin{})
 	_ = db.AutoMigrate(&admin_model.AdminToken{})
+	_ = db.AutoMigrate(&company_model.Company{})
+	_ = db.AutoMigrate(&company_model.CompanyToBeReviewed{})
 
 	return db
 }
