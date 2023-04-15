@@ -1,7 +1,9 @@
 package jwt
 
 import (
+	"backend/global"
 	"github.com/golang-jwt/jwt/v5"
+	"strings"
 	"time"
 )
 
@@ -20,8 +22,8 @@ func GenerateToken(username, password, role string) (string, error) {
 	expiredTime := currentTime.Add(accessTokenExpiration)
 
 	claims := Claims{
-		EncodedMD5(username),
-		EncodedMD5(password),
+		username,
+		password,
 		jwt.MapClaims{
 			"exp":  expiredTime.Unix(),
 			"role": role,
@@ -30,11 +32,12 @@ func GenerateToken(username, password, role string) (string, error) {
 
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	token, err := tokenClaims.SignedString(JwtSecret)
-
-	return token, err
+	jwtToken := "Bearer " + token
+	return jwtToken, err
 }
 
 func ParseToken(token string) (*Claims, error) {
+	token = strings.Replace(token, global.JWT_TOKEN_PREFIX, "", -1)
 	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return JwtSecret, nil
 	})

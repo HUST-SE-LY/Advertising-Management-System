@@ -29,7 +29,8 @@ const (
 	WRONG_PASSWORD      StatusCode = 703
 
 	ERROR_AUTH_CHECK_TOKEN_FAIL    StatusCode = 800
-	ERROR_AUTH_CHECK_TOKEN_TIMEOUT StatusCode = 801
+	ERROR_AUTH_CHECK_TOKEN_INVALID StatusCode = 801
+	ERROR_AUTH_CHECK_TOKEN_TIMEOUT StatusCode = 802
 )
 
 // Default Status
@@ -45,6 +46,7 @@ var (
 	WrongPassword     = Status{Code: WRONG_PASSWORD, Msg: "Wrong password"}
 
 	ErrorAuthCheckTokenFail    = Status{Code: ERROR_AUTH_CHECK_TOKEN_FAIL, Msg: "Token authentication failed"}
+	ErrorAuthCheckTokenInvalid = Status{Code: ERROR_AUTH_CHECK_TOKEN_INVALID, Msg: "Token is invalid"}
 	ErrorAuthCheckTokenTimeout = Status{Code: ERROR_AUTH_CHECK_TOKEN_TIMEOUT, Msg: "Token has expired"}
 )
 

@@ -9,7 +9,6 @@ import (
 	"errors"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-	"log"
 )
 
 // CRUD for admin_model
@@ -60,13 +59,22 @@ func (m *ManageAdminService) AdminLogin(req *request.AdminLoginReq) (err error, 
 			}
 		} else {
 			adminToken.Token = token
-			log.Println(adminToken.AdminId)
 			if err = global.GVA_DB.Save(&adminToken).Error; err != nil {
 				return
 			}
 		}
 	}
 	return err, admin, adminToken
+}
+
+func (m *ManageAdminService) FindAdminToken(token string) (err error, adminToken *adminModel.AdminToken) {
+	err = global.GVA_DB.First(&adminToken, "token = ?", token).Error
+	return
+}
+
+func DeleteAdminToken(token string) error {
+	err := global.GVA_DB.Delete(&[]adminModel.AdminToken{}, "token = ?", token).Error
+	return err
 }
 
 func getNewToken(account string, password string) (token string) {

@@ -1,24 +1,23 @@
 package middleware
 
 import (
+	"backend/global"
 	"backend/utils/gin_ext"
 	jwt2 "backend/utils/jwt"
 	"backend/utils/status"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"io"
 	"net/http"
 )
+
+const bearLength = len(global.JWT_TOKEN_PREFIX)
 
 func AdminJWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		st := status.Success
-		body, err := io.ReadAll(c.Request.Body)
-		token := string(body)
-		if err != nil {
-			st = status.Error
-		} else if len(token) == 0 {
-			st = status.InvalidParams
+		token := c.Request.Header.Get("Authorization")
+		if len(token) < bearLength {
+			st = status.ErrorAuthCheckTokenInvalid
 		} else {
 			_, err := jwt2.ParseToken(token)
 			if err != nil {

@@ -9,3 +9,7 @@ var (
 	GVA_APP_SETTING *AppSetting
 	GVA_DB_SETTING  *DatabaseSetting
 )
+
+const (
+	JWT_TOKEN_PREFIX = "Bearer "
+)
