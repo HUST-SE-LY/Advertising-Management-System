@@ -1,4 +1,4 @@
-package admin_model
+package entity
 
 const ADMIN_ROLE = "role_admin"
 

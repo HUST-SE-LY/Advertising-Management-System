@@ -2,7 +2,7 @@ package initialize
 
 import (
 	"backend/global"
-	"backend/models/admin_model"
+	entity2 "backend/models/admin_model/entity"
 	"backend/models/company_model/entity"
 	"fmt"
 	"gorm.io/driver/mysql"
@@ -27,8 +27,8 @@ func Gorm() *gorm.DB {
 		log.Fatalf("models.Settings error: %v\n", err)
 	}
 
-	_ = db.AutoMigrate(&admin_model.Admin{})
-	_ = db.AutoMigrate(&admin_model.AdminToken{})
+	_ = db.AutoMigrate(&entity2.Admin{})
+	_ = db.AutoMigrate(&entity2.AdminToken{})
 	_ = db.AutoMigrate(&entity.Company{})
 	_ = db.AutoMigrate(&entity.CompanyToBeReviewed{})
 

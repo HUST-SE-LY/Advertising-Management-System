@@ -15,10 +15,11 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 	var manageCompanyApi = api.ApiGroupApp.ManageApiGroup.ManageCompanyApi
 	{
 		manageRouter.POST("create-admin", manageAdminApi.CreateAdmin)
-		manageRouter.GET("company", manageCompanyApi.GetAllCompanies)
+		manageRouter.GET("company/list", manageCompanyApi.GetAllCompanies)
+		manageRouter.GET("company/search", manageCompanyApi.GetCompaniesByTerm)
 		// TODO(Determine the name of the route)
-		manageRouter.GET("company-review", manageCompanyApi.GetAllCompaniesToBeReviewed)
-		manageRouter.POST("allow-company-register", manageCompanyApi.AllowRegistrationForCompanies)
+		manageRouter.GET("company/review", manageCompanyApi.GetAllCompaniesToBeReviewed)
+		manageRouter.POST("company/register", manageCompanyApi.AllowRegistrationForCompanies)
 	}
 
 }

@@ -1,7 +1,7 @@
 package manage
 
 import (
-	"backend/models/admin_model"
+	"backend/models/admin_model/entity"
 	"backend/models/manage_model/request"
 	"backend/models/manage_model/response"
 	"backend/utils/gin_ext"
@@ -15,14 +15,14 @@ type ManageAdminApi struct {
 }
 
 func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
-	var adminRegisterReq request.AdminCreateReq
-	err := c.ShouldBindJSON(&adminRegisterReq)
+	var adminCreateReq request.AdminCreateReq
+	err := c.ShouldBindJSON(&adminCreateReq)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
 	}
-	var admin *admin_model.Admin
-	if admin, err = adminService.CreateAdmin(&adminRegisterReq); err != nil {
+	var admin *entity.Admin
+	if admin, err = adminService.CreateAdmin(&adminCreateReq); err != nil {
 		if st, ok := err.(status.Status); ok {
 			if st.Code == status.SAME_ACCOUNT_EXISTS {
 				c.JSON(http.StatusBadRequest, gin_ext.Response(st, nil))

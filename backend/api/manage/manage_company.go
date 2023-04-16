@@ -2,6 +2,8 @@ package manage
 
 import (
 	"backend/models/company_model/entity"
+	"backend/models/manage_model/enum"
+	"backend/models/manage_model/request"
 	"backend/models/manage_model/response"
 	"backend/utils/functional"
 	"backend/utils/gin_ext"
@@ -9,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 	"net/http"
+	"strconv"
 )
 
 type ManageCompanyApi struct {
@@ -38,14 +41,33 @@ func (m *ManageCompanyApi) GetAllCompaniesToBeReviewed(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+func (m *ManageCompanyApi) GetCompaniesByTerm(c *gin.Context) {
+	term := c.Query("term")
+	_type, err := strconv.Atoi(c.Query("type"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.InvalidParams, nil))
+		return
+	}
+	termType := enum.CompanySearchType(_type)
+	if companies, err := adminService.GetCompaniesByTerm(term, termType); err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	} else {
+		companiesInfo := functional.Map(companies, entity.Company.GetInfo)
+		resp := response.GetCompaniesResp{CompanyInfos: companiesInfo}
+		jsonResp, _ := jsoniter.Marshal(resp)
+		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+	}
+}
+
 func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
-	var companyAccounts []string
-	err := c.ShouldBindJSON(&companyAccounts)
+	var allowCompaniesRegisterReq request.AllowCompaniesRegisterReq
+	err := c.ShouldBindJSON(&allowCompaniesRegisterReq)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
 	}
-	allowCompanies, err := adminService.ManageCompanyService.AllowRegistrationForCompanies(&companyAccounts)
+	allowCompanies, err := adminService.ManageCompanyService.AllowRegistrationForCompanies(allowCompaniesRegisterReq.CompanyAccounts)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return

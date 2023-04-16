@@ -1,4 +1,4 @@
-package admin_model
+package entity
 
 type AdminToken struct {
 	AdminId int64  `gorm:"column:admin_id; primarykey;"`
