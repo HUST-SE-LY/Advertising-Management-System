@@ -11,6 +11,7 @@ import BackStageAd from './pages/backStage/ad';
 import BackStageCompany from './pages/backStage/company';
 import CompanyDetail from './components/backStage/company/companyDetail';
 import AdDetail from './components/backStage/ad/AdDetail';
+import Application from './pages/application';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -60,6 +61,9 @@ const router = createBrowserRouter([
         }]
       }
     ]
+  },{
+    path: '/app',
+    element: <Application></Application>
   }
 ]);
 
