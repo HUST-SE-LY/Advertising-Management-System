@@ -12,3 +12,11 @@ func BindJSON(c *gin.Context, obj any) (err error) {
 	}
 	return
 }
+
+func ShouldBindJSON(c *gin.Context, obj any) (err error) {
+	err = c.ShouldBindJSON(obj)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Response(err, nil))
+	}
+	return
+}

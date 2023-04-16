@@ -39,16 +39,40 @@ func (m *ManageCompanyService) GetCompaniesByTerm(term string, termType enum.Com
 	return companies, nil
 }
 
-func (m *ManageCompanyService) AllowRegistrationForCompanies(companyAccounts []string) (registeredCompanies *[]entity.Company, err error) {
-	var companiesToBeReviewed *[]entity.CompanyPendingReview
+func (m *ManageCompanyService) AllowRegistrationForCompanies(companyAccounts []string) (registeredCompaniesAccount []string, err error) {
+	var companiesToBeReviewed []entity.CompanyPendingReview
 	if err = global.GVA_DB.Where("account IN ?", companyAccounts).Find(&companiesToBeReviewed).Error; err != nil {
 		return nil, err
 	}
-	companies := functional.Map(*companiesToBeReviewed, entity.CompanyPendingReview.ToCompany)
+	companies := functional.Map(companiesToBeReviewed, entity.CompanyPendingReview.ToCompany)
 	companiesNumber := len(companies)
 
 	if err = global.GVA_DB.CreateInBatches(&companies, companiesNumber).Error; err != nil {
 		return nil, err
 	}
-	return &companies, nil
+
+	return functional.Map(companies, func(com entity.Company) string {
+		return com.Account
+	}), nil
+}
+
+func (m *ManageCompanyService) AllowCompaniesInfoUpdate(companyAccounts []string) (allowAccounts []string, err error) {
+	var companiesToBeUpdated []entity.CompanyInfoPendingReview
+	if err = global.GVA_DB.Where("account IN ?", companyAccounts).Find(&companiesToBeUpdated).Error; err != nil {
+		return
+	}
+	companies := functional.Map(companiesToBeUpdated, func(com entity.CompanyInfoPendingReview) entity.Company {
+		return entity.Company{
+			Id:          com.Id,
+			CompanyInfo: com.CompanyInfo,
+		}
+	})
+
+	for _, company := range companies {
+		global.GVA_DB.Model(&company).Updates(company)
+	}
+
+	return functional.Map(companies, func(com entity.Company) string {
+		return com.Account
+	}), nil
 }

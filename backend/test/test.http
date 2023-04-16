@@ -60,3 +60,22 @@ Content-Type: application/json
 ### Search "联小创在线科技有限公司"
 GET http://localhost:8080/manage/company/search?term=联小创在线科技有限公司&type=1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGZ3UVBVbDRGZkZRVDBIUXE5QzNremVVNTc1OGdNMW5VdTguZTRCcXphTnprOG9Hb3VwOUptIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjE4NjY5MDI5Miwicm9sZSI6InJvbGVfYWRtaW4ifX0.g5xSTvmZKN5ViwgmHMAtRoqu57HTHFMBYrFQmggRC4o
+
+### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
+POST http://localhost:8080/company/update-info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJEVndFZLWGtRZElSUkJGRUI1OGJZLmU5N1Z5RW9OVHN0aWplQ0dKL0dZLmM4bFlVaE1FeE1pIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjI1MTY4NDgxMywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.L8vTAiczhIyAzjo2pJ9ZijJohmbr5bDPc1zXnbVAXk8
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "manager_name": "Hamburger"
+}
+
+### Allow "联小创在线科技有限公司" update info
+POST http://localhost:8080/manage/company/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGZ3UVBVbDRGZkZRVDBIUXE5QzNremVVNTc1OGdNMW5VdTguZTRCcXphTnprOG9Hb3VwOUptIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjE4NjY5MDI5Miwicm9sZSI6InJvbGVfYWRtaW4ifX0.g5xSTvmZKN5ViwgmHMAtRoqu57HTHFMBYrFQmggRC4o
+Content-Type: application/json
+
+{
+  "company_accounts": ["联创"]
+}

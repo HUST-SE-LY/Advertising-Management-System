@@ -9,16 +9,7 @@ type CompanyPendingReview struct {
 }
 
 func (com CompanyPendingReview) ToCompany() Company {
-	return Company{
-		Id:                    com.Id,
-		Account:               com.Account,
-		Password:              com.Password,
-		Name:                  com.Name,
-		Address:               com.Address,
-		ManagerName:           com.ManagerName,
-		ManagerTel:            com.ManagerTel,
-		BusinessLicenseNumber: com.BusinessLicenseNumber,
-	}
+	return com.Company
 }
 
 func (com CompanyPendingReview) GetInfo() company_model.CompanyInfo {

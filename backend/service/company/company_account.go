@@ -34,13 +34,15 @@ func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq)
 
 	companyToBeReviewed := entity.CompanyPendingReview{
 		Company: entity.Company{
-			Account:               req.Account,
-			Password:              string(encryptedPassword),
-			Name:                  req.Name,
-			Address:               req.Address,
-			ManagerName:           req.ManagerName,
-			ManagerTel:            req.ManagerTel,
-			BusinessLicenseNumber: req.BusinessLicenseNumber,
+			Password: string(encryptedPassword),
+			CompanyInfo: company_model.CompanyInfo{
+				Account:               req.Account,
+				Name:                  req.Name,
+				Address:               req.Address,
+				ManagerName:           req.ManagerName,
+				ManagerTel:            req.ManagerTel,
+				BusinessLicenseNumber: req.BusinessLicenseNumber,
+			},
 		},
 	}
 	err = global.GVA_DB.Create(&companyToBeReviewed).Error

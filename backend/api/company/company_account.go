@@ -55,7 +55,7 @@ func (com *CompanyAccountApi) CompanyLogout(c *gin.Context) {
 
 func (com *CompanyAccountApi) CompanyUpdateInfo(c *gin.Context) {
 	var companyUpdateInfoReq request.CompanyUpdateInfoReq
-	if err := gin_ext.BindJSON(c, &companyUpdateInfoReq); err != nil {
+	if err := gin_ext.ShouldBindJSON(c, &companyUpdateInfoReq); err != nil {
 		return
 	}
 	if err := companyService.CompanyUpdateInfo(companyUpdateInfoReq); err != nil {
@@ -67,7 +67,7 @@ func (com *CompanyAccountApi) CompanyUpdateInfo(c *gin.Context) {
 
 func (com *CompanyAccountApi) CompanyUpdatePwd(c *gin.Context) {
 	var companyUpdatePwdReq request.CompanyUpdatePwdReq
-	if err := gin_ext.BindJSON(c, &companyUpdatePwdReq); err != nil {
+	if err := gin_ext.ShouldBindJSON(c, &companyUpdatePwdReq); err != nil {
 		return
 	}
 	token := c.Request.Header.Get("Authorization")

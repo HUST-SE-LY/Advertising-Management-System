@@ -62,19 +62,30 @@ func (m *ManageCompanyApi) GetCompaniesByTerm(c *gin.Context) {
 
 func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
 	var allowCompaniesRegisterReq request.AllowCompaniesRegisterReq
-	err := c.ShouldBindJSON(&allowCompaniesRegisterReq)
-	if err != nil {
+	if err := gin_ext.BindJSON(c, &allowCompaniesRegisterReq); err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
 	}
-	allowCompanies, err := adminService.ManageCompanyService.AllowRegistrationForCompanies(allowCompaniesRegisterReq.CompanyAccounts)
+	allowAccounts, err := adminService.ManageCompanyService.AllowRegistrationForCompanies(allowCompaniesRegisterReq.CompanyAccounts)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
-	allowAccounts := functional.Map(*allowCompanies, func(com entity.Company) string {
-		return com.Account
-	})
+	jsonResp, _ := jsoniter.Marshal(allowAccounts)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+func (m *ManageCompanyApi) AllowUpdateForCompanies(c *gin.Context) {
+	var allowCompaniesUpdateReq request.AllowCompaniesUpdateReq
+	if err := gin_ext.BindJSON(c, &allowCompaniesUpdateReq); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	allowAccounts, err := adminService.ManageCompanyService.AllowCompaniesInfoUpdate(allowCompaniesUpdateReq.CompanyAccounts)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	}
 	jsonResp, _ := jsoniter.Marshal(allowAccounts)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

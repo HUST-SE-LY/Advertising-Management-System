@@ -30,6 +30,7 @@ func Gorm() *gorm.DB {
 	_ = db.AutoMigrate(&entity2.Admin{})
 	_ = db.AutoMigrate(&entity2.AdminToken{})
 	_ = db.AutoMigrate(&entity.Company{})
+	_ = db.AutoMigrate(&entity.CompanyToken{})
 	_ = db.AutoMigrate(&entity.CompanyPendingReview{})
 	_ = db.AutoMigrate(&entity.CompanyInfoPendingReview{})
 
