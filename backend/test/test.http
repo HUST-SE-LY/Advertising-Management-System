@@ -1,5 +1,5 @@
 ### POST "fnfunfunc"
-POST http://localhost:8080/manage/create-admin
+POST http://localhost:8080/manage/admin/create
 Content-Type: application/json
 
 {

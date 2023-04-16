@@ -14,7 +14,7 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 	var manageAdminApi = api.ApiGroupApp.ManageApiGroup.ManageAdminApi
 	var manageCompanyApi = api.ApiGroupApp.ManageApiGroup.ManageCompanyApi
 	{
-		manageRouter.POST("create-admin", manageAdminApi.CreateAdmin)
+		manageRouter.POST("admin/create", manageAdminApi.CreateAdmin)
 		manageRouter.GET("company/list", manageCompanyApi.GetAllCompanies)
 		manageRouter.GET("company/search", manageCompanyApi.GetCompaniesByTerm)
 		// TODO(Determine the name of the route)

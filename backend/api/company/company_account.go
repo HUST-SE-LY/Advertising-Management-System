@@ -14,7 +14,7 @@ type CompanyAccountApi struct {
 
 func (com *CompanyAccountApi) RegisterCompany(c *gin.Context) {
 	var companyRegisterReq request.CompanyRegisterReq
-	err := c.ShouldBindJSON(&companyRegisterReq)
+	err := c.BindJSON(&companyRegisterReq)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
@@ -32,7 +32,7 @@ func (com *CompanyAccountApi) RegisterCompany(c *gin.Context) {
 
 func (com *CompanyAccountApi) CompanyLogin(c *gin.Context) {
 	var companyLoginReq request.CompanyLoginReq
-	err := c.ShouldBindJSON(&companyLoginReq)
+	err := c.BindJSON(&companyLoginReq)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
@@ -43,5 +43,29 @@ func (com *CompanyAccountApi) CompanyLogin(c *gin.Context) {
 		jsonResp, _ := jsoniter.Marshal(company)
 		c.Header("Authorization", companyToken.Token)
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+	}
+}
+
+func (com *CompanyAccountApi) CompanyLogout(c *gin.Context) {
+	token := c.Request.Header.Get("Authorization")
+	err := companyService.CompanyLogout(token)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.LogoutError, nil))
+		return
+	}
+	c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
+}
+
+func (com *CompanyAccountApi) CompanyUpdateInfo(c *gin.Context) {
+	var companyUpdateInfoReq request.CompanyUpdateInfoReq
+	err := c.BindJSON(&companyUpdateInfoReq)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.LogoutError, nil))
+		return
+	}
+	if err = companyService.CompanyUpdateInfo(companyUpdateInfoReq); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+	} else {
+		c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
 	}
 }

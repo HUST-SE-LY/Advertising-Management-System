@@ -2,6 +2,7 @@ package company
 
 import (
 	"backend/global"
+	"backend/models/company_model"
 	"backend/models/company_model/entity"
 	"backend/models/company_model/request"
 	"backend/utils/jwt"
@@ -15,8 +16,8 @@ type CompanyAccountService struct {
 }
 
 func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq) error {
-	// Check in CompanyToBeReviewed
-	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&entity.CompanyToBeReviewed{}).Error,
+	// Check in CompanyPendingReview
+	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&entity.CompanyPendingReview{}).Error,
 		gorm.ErrRecordNotFound) {
 		return status.SameAccountExists
 	}
@@ -30,14 +31,17 @@ func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq)
 	if err != nil {
 		return err
 	}
-	companyToBeReviewed := entity.CompanyToBeReviewed{
-		Account:               req.Account,
-		Password:              string(encryptedPassword),
-		Name:                  req.Name,
-		Address:               req.Address,
-		ManagerName:           req.ManagerName,
-		ManagerTel:            req.ManagerTel,
-		BusinessLicenseNumber: req.BusinessLicenseNumber,
+
+	companyToBeReviewed := entity.CompanyPendingReview{
+		Company: entity.Company{
+			Account:               req.Account,
+			Password:              string(encryptedPassword),
+			Name:                  req.Name,
+			Address:               req.Address,
+			ManagerName:           req.ManagerName,
+			ManagerTel:            req.ManagerTel,
+			BusinessLicenseNumber: req.BusinessLicenseNumber,
+		},
 	}
 	err = global.GVA_DB.Create(&companyToBeReviewed).Error
 	return err
@@ -46,8 +50,8 @@ func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq)
 func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (company entity.Company, companyToken entity.CompanyToken, err error) {
 	err = global.GVA_DB.Where("account = ?", req.Account).Take(&company).Error
 	if company == (entity.Company{}) {
-		// Then search in CompanyToBeReviewed
-		var companyToBeReviewed *entity.CompanyToBeReviewed
+		// Then search in CompanyPendingReview
+		var companyToBeReviewed *entity.CompanyPendingReview
 		err = global.GVA_DB.Where("account = ?", req.Account).Take(&companyToBeReviewed).Error
 		if companyToBeReviewed != nil {
 			err = status.UserIsPendingReview
@@ -66,22 +70,43 @@ func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (compa
 		token := getNewToken(company.Account, company.Password)
 		global.GVA_DB.Take(companyToken, company.Id)
 
-		if companyToken == (entity.CompanyToken{}) {
-			companyToken = entity.CompanyToken{
-				CompanyId: company.Id,
-				Token:     token,
-			}
-			if err = global.GVA_DB.Create(&companyToken).Error; err != nil {
-				return
-			}
-		} else {
-			companyToken.Token = token
-			if err = global.GVA_DB.Save(&companyToken).Error; err != nil {
-				return
-			}
+		companyToken = entity.CompanyToken{
+			CompanyId: company.Id,
+			Token:     token,
+		}
+		if err = global.GVA_DB.Save(&companyToken).Error; err != nil {
+			return
 		}
 	}
 	return company, companyToken, err
+}
+
+func (c *CompanyAccountService) CompanyLogout(token string) (err error) {
+	return c.DeleteCompanyToken(token)
+}
+
+func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoReq) (err error) {
+	var company entity.Company
+	err = global.GVA_DB.Where("account = ?", req.Account).Take(&company).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			err = status.AccountNotFound
+		}
+		return
+	}
+	companyInfoPendingReview := entity.CompanyInfoPendingReview{
+		Id: company.Id,
+		CompanyInfo: company_model.CompanyInfo{
+			Account:               req.Account,
+			Name:                  req.Name,
+			Address:               req.Address,
+			ManagerName:           req.ManagerName,
+			ManagerTel:            req.ManagerTel,
+			BusinessLicenseNumber: req.BusinessLicenseNumber,
+		},
+	}
+	err = global.GVA_DB.Save(&companyInfoPendingReview).Error
+	return
 }
 
 func (c *CompanyAccountService) FindCompanyToken(token string) (companyToken entity.CompanyToken, err error) {

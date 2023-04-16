@@ -20,7 +20,7 @@ func (m *ManageCompanyService) GetAllCompanies() (companies []entity.Company, er
 	return companies, nil
 }
 
-func (m *ManageCompanyService) GetAllCompaniesToBeReviewed() (companies []entity.CompanyToBeReviewed, err error) {
+func (m *ManageCompanyService) GetAllCompaniesToBeReviewed() (companies []entity.CompanyPendingReview, err error) {
 	if err = global.GVA_DB.Find(&companies).Error; err != nil {
 		return nil, err
 	}
@@ -40,11 +40,11 @@ func (m *ManageCompanyService) GetCompaniesByTerm(term string, termType enum.Com
 }
 
 func (m *ManageCompanyService) AllowRegistrationForCompanies(companyAccounts []string) (registeredCompanies *[]entity.Company, err error) {
-	var companiesToBeReviewed *[]entity.CompanyToBeReviewed
+	var companiesToBeReviewed *[]entity.CompanyPendingReview
 	if err = global.GVA_DB.Where("account IN ?", companyAccounts).Find(&companiesToBeReviewed).Error; err != nil {
 		return nil, err
 	}
-	companies := functional.Map(*companiesToBeReviewed, entity.CompanyToBeReviewed.ToCompany)
+	companies := functional.Map(*companiesToBeReviewed, entity.CompanyPendingReview.ToCompany)
 	companiesNumber := len(companies)
 
 	if err = global.GVA_DB.CreateInBatches(&companies, companiesNumber).Error; err != nil {

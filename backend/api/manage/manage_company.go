@@ -35,7 +35,7 @@ func (m *ManageCompanyApi) GetAllCompaniesToBeReviewed(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
-	companiesInfo := functional.Map(companies, entity.CompanyToBeReviewed.GetInfo)
+	companiesInfo := functional.Map(companies, entity.CompanyPendingReview.GetInfo)
 	resp := response.GetCompaniesToBeReviewedResp{CompanyInfos: companiesInfo}
 	jsonResp, _ := jsoniter.Marshal(resp)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
