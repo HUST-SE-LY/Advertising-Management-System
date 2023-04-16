@@ -1,5 +1,5 @@
 package response
 
-type AdminRegisterResp struct {
+type AdminCreateResp struct {
 	Account string
 }

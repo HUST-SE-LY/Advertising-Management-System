@@ -3,7 +3,7 @@ package manage
 import (
 	"backend/global"
 	"backend/models/admin_model"
-	"backend/models/admin_model/request"
+	"backend/models/manage_model/request"
 	"backend/utils/status"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
@@ -15,7 +15,7 @@ import (
 type ManageAdminService struct {
 }
 
-func (m *ManageAdminService) CreateAdmin(req *request.AdminRegisterReq) (admin *admin_model.Admin, err error) {
+func (m *ManageAdminService) CreateAdmin(req *request.AdminCreateReq) (admin *admin_model.Admin, err error) {
 	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).Take(&admin_model.Admin{}).Error, gorm.ErrRecordNotFound) {
 		return nil, status.SameAccountExists
 	}

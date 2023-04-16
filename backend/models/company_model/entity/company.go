@@ -1,6 +1,10 @@
-package company_model
+package entity
 
-type CompanyToBeReviewed struct {
+import "backend/models/company_model"
+
+const COMPANY_ROLE = "role_company"
+
+type Company struct {
 	Id                    int64  `gorm:"column:id; not null; primaryKey; autoIncrement"`
 	Account               string `gorm:"column:account; not null; unique"`
 	Password              string `gorm:"column:password"`
@@ -11,11 +15,9 @@ type CompanyToBeReviewed struct {
 	BusinessLicenseNumber string `gorm:"column:business_license_number"`
 }
 
-func (c CompanyToBeReviewed) ToCompany() Company {
-	return Company{
-		Id:                    c.Id,
+func (c Company) GetInfo() company_model.CompanyInfo {
+	return company_model.CompanyInfo{
 		Account:               c.Account,
-		Password:              c.Password,
 		Name:                  c.Name,
 		Address:               c.Address,
 		ManagerName:           c.ManagerName,

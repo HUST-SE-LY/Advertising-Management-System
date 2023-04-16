@@ -2,26 +2,33 @@ package manage
 
 import (
 	"backend/global"
-	"backend/models/company_model"
+	"backend/models/company_model/entity"
 	"backend/utils/functional"
 )
 
 type ManageCompanyService struct {
 }
 
-func (m *ManageCompanyService) ReadAllCompaniesToBeReviewed() (companies *[]company_model.CompanyToBeReviewed, err error) {
+func (m *ManageCompanyService) GetAllCompanies() (companies []entity.Company, err error) {
 	if err = global.GVA_DB.Find(&companies).Error; err != nil {
 		return nil, err
 	}
 	return companies, nil
 }
 
-func (m *ManageCompanyService) AllowRegistrationForCompanies(companyAccounts *[]string) (registeredCompanies *[]company_model.Company, err error) {
-	var companiesToBeReviewed *[]company_model.CompanyToBeReviewed
+func (m *ManageCompanyService) GetAllCompaniesToBeReviewed() (companies []entity.CompanyToBeReviewed, err error) {
+	if err = global.GVA_DB.Find(&companies).Error; err != nil {
+		return nil, err
+	}
+	return companies, nil
+}
+
+func (m *ManageCompanyService) AllowRegistrationForCompanies(companyAccounts *[]string) (registeredCompanies *[]entity.Company, err error) {
+	var companiesToBeReviewed *[]entity.CompanyToBeReviewed
 	if err = global.GVA_DB.Where("account IN ?", companyAccounts).Find(&companiesToBeReviewed).Error; err != nil {
 		return nil, err
 	}
-	companies := functional.Map(*companiesToBeReviewed, company_model.CompanyToBeReviewed.ToCompany)
+	companies := functional.Map(*companiesToBeReviewed, entity.CompanyToBeReviewed.ToCompany)
 	companiesNumber := len(companies)
 
 	if err = global.GVA_DB.CreateInBatches(&companies, companiesNumber).Error; err != nil {

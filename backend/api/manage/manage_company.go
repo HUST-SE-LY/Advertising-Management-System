@@ -1,6 +1,9 @@
 package manage
 
 import (
+	"backend/models/company_model/entity"
+	"backend/models/manage_model/response"
+	"backend/utils/functional"
 	"backend/utils/gin_ext"
 	"backend/utils/status"
 	"github.com/gin-gonic/gin"
@@ -11,13 +14,27 @@ import (
 type ManageCompanyApi struct {
 }
 
-func (m *ManageCompanyApi) ReadAllCompaniesToBeReviewed(c *gin.Context) {
-	companies, err := adminService.ManageCompanyService.ReadAllCompaniesToBeReviewed()
+func (m *ManageCompanyApi) GetAllCompanies(c *gin.Context) {
+	companies, err := adminService.ManageCompanyService.GetAllCompanies()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
-	jsonResp, _ := jsoniter.Marshal(companies)
+	companiesInfo := functional.Map(companies, entity.Company.GetInfo)
+	resp := response.GetCompaniesResp{CompanyInfos: companiesInfo}
+	jsonResp, _ := jsoniter.Marshal(resp)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+func (m *ManageCompanyApi) GetAllCompaniesToBeReviewed(c *gin.Context) {
+	companies, err := adminService.ManageCompanyService.GetAllCompaniesToBeReviewed()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	}
+	companiesInfo := functional.Map(companies, entity.CompanyToBeReviewed.GetInfo)
+	resp := response.GetCompaniesToBeReviewedResp{CompanyInfos: companiesInfo}
+	jsonResp, _ := jsoniter.Marshal(resp)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
@@ -33,6 +50,9 @@ func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
-	jsonResp, _ := jsoniter.Marshal(allowCompanies)
+	allowAccounts := functional.Map(*allowCompanies, func(com entity.Company) string {
+		return com.Account
+	})
+	jsonResp, _ := jsoniter.Marshal(allowAccounts)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

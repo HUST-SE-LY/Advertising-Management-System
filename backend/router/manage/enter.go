@@ -10,14 +10,15 @@ type ManageRouterGroup struct {
 }
 
 func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
-	adminRouter := router.Group("manage").Use(middleware.AdminJWTAuth())
+	manageRouter := router.Group("manage").Use(middleware.AdminJWTAuth())
 	var manageAdminApi = api.ApiGroupApp.ManageApiGroup.ManageAdminApi
 	var manageCompanyApi = api.ApiGroupApp.ManageApiGroup.ManageCompanyApi
 	{
-		adminRouter.POST("create-admin", manageAdminApi.CreateAdmin)
+		manageRouter.POST("create-admin", manageAdminApi.CreateAdmin)
+		manageRouter.GET("company", manageCompanyApi.GetAllCompanies)
 		// TODO(Determine the name of the route)
-		adminRouter.GET("company-review", manageCompanyApi.ReadAllCompaniesToBeReviewed)
-		adminRouter.POST("allow-company-register", manageCompanyApi.AllowRegistrationForCompanies)
+		manageRouter.GET("company-review", manageCompanyApi.GetAllCompaniesToBeReviewed)
+		manageRouter.POST("allow-company-register", manageCompanyApi.AllowRegistrationForCompanies)
 	}
 
 }

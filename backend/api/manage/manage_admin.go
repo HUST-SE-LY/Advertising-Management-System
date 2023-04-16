@@ -2,8 +2,8 @@ package manage
 
 import (
 	"backend/models/admin_model"
-	"backend/models/admin_model/request"
-	"backend/models/admin_model/response"
+	"backend/models/manage_model/request"
+	"backend/models/manage_model/response"
 	"backend/utils/gin_ext"
 	"backend/utils/status"
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ type ManageAdminApi struct {
 }
 
 func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
-	var adminRegisterReq request.AdminRegisterReq
+	var adminRegisterReq request.AdminCreateReq
 	err := c.ShouldBindJSON(&adminRegisterReq)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
@@ -39,7 +39,7 @@ func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 	//	return
 	//}
 
-	adminLoginResp := response.AdminRegisterResp{
+	adminLoginResp := response.AdminCreateResp{
 		Account: admin.Account,
 	}
 

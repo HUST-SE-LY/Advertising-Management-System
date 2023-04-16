@@ -1,6 +1,6 @@
 package request
 
-type AdminRegisterReq struct {
+type AdminCreateReq struct {
 	Account  string
 	Password string
 }

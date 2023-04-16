@@ -2,7 +2,7 @@ package company
 
 import (
 	"backend/global"
-	"backend/models/company_model"
+	"backend/models/company_model/entity"
 	"backend/models/company_model/request"
 	"backend/utils/jwt"
 	"backend/utils/status"
@@ -16,12 +16,12 @@ type CompanyAccountService struct {
 
 func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq) error {
 	// Check in CompanyToBeReviewed
-	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&company_model.CompanyToBeReviewed{}).Error,
+	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&entity.CompanyToBeReviewed{}).Error,
 		gorm.ErrRecordNotFound) {
 		return status.SameAccountExists
 	}
 	// Check in Company
-	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&company_model.Company{}).Error,
+	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&entity.Company{}).Error,
 		gorm.ErrRecordNotFound) {
 		return status.SameAccountExists
 	}
@@ -30,7 +30,7 @@ func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq)
 	if err != nil {
 		return err
 	}
-	companyToBeReviewed := company_model.CompanyToBeReviewed{
+	companyToBeReviewed := entity.CompanyToBeReviewed{
 		Account:               req.Account,
 		Password:              string(encryptedPassword),
 		Name:                  req.Name,
@@ -43,11 +43,11 @@ func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq)
 	return err
 }
 
-func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (company company_model.Company, companyToken company_model.CompanyToken, err error) {
+func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (company entity.Company, companyToken entity.CompanyToken, err error) {
 	err = global.GVA_DB.Where("account = ?", req.Account).Take(&company).Error
-	if company == (company_model.Company{}) {
+	if company == (entity.Company{}) {
 		// Then search in CompanyToBeReviewed
-		var companyToBeReviewed *company_model.CompanyToBeReviewed
+		var companyToBeReviewed *entity.CompanyToBeReviewed
 		err = global.GVA_DB.Where("account = ?", req.Account).Take(&companyToBeReviewed).Error
 		if companyToBeReviewed != nil {
 			err = status.UserIsPendingReview
@@ -66,8 +66,8 @@ func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (compa
 		token := getNewToken(company.Account, company.Password)
 		global.GVA_DB.Take(companyToken, company.Id)
 
-		if companyToken == (company_model.CompanyToken{}) {
-			companyToken = company_model.CompanyToken{
+		if companyToken == (entity.CompanyToken{}) {
+			companyToken = entity.CompanyToken{
 				CompanyId: company.Id,
 				Token:     token,
 			}
@@ -84,17 +84,17 @@ func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (compa
 	return company, companyToken, err
 }
 
-func (c *CompanyAccountService) FindCompanyToken(token string) (companyToken company_model.CompanyToken, err error) {
+func (c *CompanyAccountService) FindCompanyToken(token string) (companyToken entity.CompanyToken, err error) {
 	err = global.GVA_DB.Take(&companyToken, "token = ?", token).Error
 	return
 }
 
 func (c *CompanyAccountService) DeleteCompanyToken(token string) error {
-	err := global.GVA_DB.Delete(&[]company_model.CompanyToken{}, "token = ?", token).Error
+	err := global.GVA_DB.Delete(&[]entity.CompanyToken{}, "token = ?", token).Error
 	return err
 }
 
 func getNewToken(account, password string) (token string) {
-	token, _ = jwt.GenerateToken(account, password, company_model.COMPANY_ROLE)
+	token, _ = jwt.GenerateToken(account, password, entity.COMPANY_ROLE)
 	return
 }
