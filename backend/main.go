@@ -14,7 +14,6 @@ func init() {
 }
 
 func main() {
-
 	r := gin.Default()
 	initialize.Routers(r)
 
