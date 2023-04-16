@@ -15,7 +15,9 @@ func (c *CompanyRouterGroup) Init(router *gin.RouterGroup) {
 	{
 		companyRouterWithoutJwt.POST("register", companyAccountApi.RegisterCompany)
 		companyRouterWithoutJwt.POST("login", companyAccountApi.CompanyLogin)
-		companyRouterWithoutJwt.POST("update", companyAccountApi.CompanyUpdateInfo)
+		companyRouterWithoutJwt.POST("update-info", companyAccountApi.CompanyUpdateInfo)
+		companyRouterWithoutJwt.POST("update-pwd", companyAccountApi.CompanyUpdatePwd)
+
 		companyRouter.GET("logout", companyAccountApi.CompanyLogout)
 	}
 }

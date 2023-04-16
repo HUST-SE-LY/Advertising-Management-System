@@ -109,6 +109,23 @@ func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoR
 	return
 }
 
+func (c *CompanyAccountService) CompanyUpdatePwd(req request.CompanyUpdatePwdReq, account string) (err error) {
+	var company entity.Company
+	err = global.GVA_DB.Where("account = ?", account).Take(&company).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			err = status.AccountNotFound
+		}
+		return
+	}
+	newPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return
+	}
+	err = global.GVA_DB.Model(&company).Update("password", newPassword).Error
+	return
+}
+
 func (c *CompanyAccountService) FindCompanyToken(token string) (companyToken entity.CompanyToken, err error) {
 	err = global.GVA_DB.Take(&companyToken, "token = ?", token).Error
 	return
