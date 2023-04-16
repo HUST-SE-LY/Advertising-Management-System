@@ -66,6 +66,14 @@ export default {
       },
       boxShadow: {
         'home': '0px 0 500px rgba(0,0,0,0.1)'
+      },
+      screens: {
+        'lg-height': {
+          'raw': '(min-height: 1080px)'
+        },
+        'md-height': {
+          'raw': '(min-height: 800px)'
+        }
       }
     },
   },
