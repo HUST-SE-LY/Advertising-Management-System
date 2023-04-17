@@ -23,10 +23,8 @@ func (m *ManageAdminService) CreateAdmin(req *request.AdminCreateReq) (admin *en
 	if err != nil {
 		return
 	}
-	admin = &entity.Admin{
-		Account:  req.Account,
-		Password: string(encryptedPassword),
-	}
+	admin = entity.NewAdminWithoutId(req.Account, string(encryptedPassword))
+
 	err = global.GVA_DB.Create(admin).Error
 	return
 }

@@ -7,3 +7,18 @@ type Admin struct {
 	Account  string `gorm:"column:account; not null; unique"`
 	Password string `gorm:"column:password; not null;"`
 }
+
+func NewAdminWithoutId(account, password string) *Admin {
+	return &Admin{
+		Account:  account,
+		Password: password,
+	}
+}
+
+func NewAdmin(id int64, account, password string) *Admin {
+	return &Admin{
+		Id:       id,
+		Account:  account,
+		Password: password,
+	}
+}

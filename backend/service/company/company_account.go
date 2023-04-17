@@ -32,19 +32,16 @@ func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq)
 		return err
 	}
 
-	companyToBeReviewed := entity.CompanyPendingReview{
-		Company: entity.Company{
-			Password: string(encryptedPassword),
-			CompanyInfo: company_model.CompanyInfo{
-				Account:               req.Account,
-				Name:                  req.Name,
-				Address:               req.Address,
-				ManagerName:           req.ManagerName,
-				ManagerTel:            req.ManagerTel,
-				BusinessLicenseNumber: req.BusinessLicenseNumber,
-			},
-		},
-	}
+	companyToBeReviewed := entity.NewCompanyPendingReview(
+		*entity.NewCompanyWithoutId(string(encryptedPassword), *company_model.NewCompanyInfo(
+			req.Account,
+			req.Name,
+			req.Address,
+			req.ManagerName,
+			req.ManagerTel,
+			req.BusinessLicenseNumber,
+		)),
+	)
 	err = global.GVA_DB.Create(&companyToBeReviewed).Error
 	return err
 }
@@ -68,14 +65,12 @@ func (c *CompanyAccountService) CompanyLogin(req request.CompanyLoginReq) (compa
 			err = status.WrongPassword
 			return
 		}
-
 		token := getNewToken(company.Account, company.Password)
-		global.GVA_DB.Take(companyToken, company.Id)
 
-		companyToken = entity.CompanyToken{
-			CompanyId: company.Id,
-			Token:     token,
-		}
+		companyToken = *entity.NewCompanyToken(
+			company.Id,
+			token,
+		)
 		if err = global.GVA_DB.Save(&companyToken).Error; err != nil {
 			return
 		}
@@ -96,17 +91,16 @@ func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoR
 		}
 		return
 	}
-	companyInfoPendingReview := entity.CompanyInfoPendingReview{
-		Id: company.Id,
-		CompanyInfo: company_model.CompanyInfo{
-			Account:               req.Account,
-			Name:                  req.Name,
-			Address:               req.Address,
-			ManagerName:           req.ManagerName,
-			ManagerTel:            req.ManagerTel,
-			BusinessLicenseNumber: req.BusinessLicenseNumber,
-		},
-	}
+	companyInfoPendingReview := entity.NewCompanyInfoPendingReview(
+		company.Id, *company_model.NewCompanyInfo(
+			req.Account,
+			req.Name,
+			req.Address,
+			req.ManagerName,
+			req.ManagerTel,
+			req.BusinessLicenseNumber,
+		),
+	)
 	err = global.GVA_DB.Save(&companyInfoPendingReview).Error
 	return
 }

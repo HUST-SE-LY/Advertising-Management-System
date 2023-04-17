@@ -30,10 +30,7 @@ func (a *AdminAccountService) AdminLogin(req *request.AdminLoginReq) (err error,
 
 		// There was no token stored in the database before.
 		if adminToken == nil {
-			adminToken = &entity.AdminToken{
-				AdminId: admin.Id,
-				Token:   token,
-			}
+			adminToken = entity.NewAdminToken(admin.Id, token)
 			if err = global.GVA_DB.Create(adminToken).Error; err != nil {
 				return
 			}

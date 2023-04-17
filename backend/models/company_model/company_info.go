@@ -8,3 +8,14 @@ type CompanyInfo struct {
 	ManagerTel            string `json:"manager_tel" gorm:"column:manager_tel"`
 	BusinessLicenseNumber string `json:"business_license_number" gorm:"column:business_license_number"`
 }
+
+func NewCompanyInfo(account, name, address, managerName, managerTel, businessLicenseNumber string) *CompanyInfo {
+	return &CompanyInfo{
+		Account:               account,
+		Name:                  name,
+		Address:               address,
+		ManagerName:           managerName,
+		ManagerTel:            managerTel,
+		BusinessLicenseNumber: businessLicenseNumber,
+	}
+}

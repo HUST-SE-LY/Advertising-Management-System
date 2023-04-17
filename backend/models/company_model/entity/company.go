@@ -17,6 +17,21 @@ type Company struct {
 	//BusinessLicenseNumber string `gorm:"column:business_license_number"`
 }
 
+func NewCompanyWithoutId(password string, companyInfo company_model.CompanyInfo) *Company {
+	return &Company{
+		Password:    password,
+		CompanyInfo: companyInfo,
+	}
+}
+
+func NewCompany(id int64, password string, companyInfo company_model.CompanyInfo) *Company {
+	return &Company{
+		Id:          id,
+		Password:    password,
+		CompanyInfo: companyInfo,
+	}
+}
+
 func (c Company) GetInfo() company_model.CompanyInfo {
 	return c.CompanyInfo
 }
