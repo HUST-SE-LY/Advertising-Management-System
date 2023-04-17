@@ -18,7 +18,7 @@ func (com *CompanyAccountApi) CompanyRegister(c *gin.Context) {
 	if err := gin_ext.BindJSON(c, &companyRegisterReq); err != nil {
 		return
 	}
-	if err := companyService.RegisterCompany(&companyRegisterReq); err != nil {
+	if err := companyService.CompanyRegister(&companyRegisterReq); err != nil {
 		// Same account
 		if st, ok := err.(status.Status); ok {
 			c.JSON(http.StatusBadRequest, gin_ext.Response(st, nil))

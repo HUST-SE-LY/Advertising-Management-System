@@ -15,7 +15,7 @@ import (
 type CompanyAccountService struct {
 }
 
-func (c *CompanyAccountService) RegisterCompany(req *request.CompanyRegisterReq) error {
+func (c *CompanyAccountService) CompanyRegister(req *request.CompanyRegisterReq) error {
 	// Check in CompanyPendingReview
 	if !errors.Is(global.GVA_DB.Where("account = ?", req.Account).First(&entity.CompanyPendingReview{}).Error,
 		gorm.ErrRecordNotFound) {

@@ -1,6 +1,7 @@
 package manage
 
 import (
+	"backend/global"
 	"backend/models/company_model/entity"
 	"backend/models/manage_model/enum"
 	"backend/models/manage_model/request"
@@ -66,11 +67,14 @@ func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
 	}
-	allowAccounts, err := adminService.ManageCompanyService.AllowRegistrationForCompanies(allowCompaniesRegisterReq.CompanyAccounts)
+	companyAccount := allowCompaniesRegisterReq.CompanyAccounts
+	allowAccounts, err := adminService.ManageCompanyService.AllowRegistrationForCompanies(companyAccount)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
+	// Delete company in pending reviews
+	err = global.GVA_DB.Where("account LIKE ?", companyAccount).Delete(&entity.CompanyPendingReview{}).Error
 	jsonResp, _ := jsoniter.Marshal(allowAccounts)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
