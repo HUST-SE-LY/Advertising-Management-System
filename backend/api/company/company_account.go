@@ -13,7 +13,7 @@ import (
 type CompanyAccountApi struct {
 }
 
-func (com *CompanyAccountApi) RegisterCompany(c *gin.Context) {
+func (com *CompanyAccountApi) CompanyRegister(c *gin.Context) {
 	var companyRegisterReq request.CompanyRegisterReq
 	if err := gin_ext.BindJSON(c, &companyRegisterReq); err != nil {
 		return
