@@ -29,6 +29,7 @@ const (
 	WRONG_PASSWORD         StatusCode = 703
 	USER_IS_PEDNING_REVIEW StatusCode = 704
 	LOGOUT_ERROR           StatusCode = 705
+	CANCEL_ERROR           StatusCode = 706
 
 	ERROR_AUTH_CHECK_TOKEN_FAIL      StatusCode = 800
 	ERROR_AUTH_CHECK_TOKEN_INVALID   StatusCode = 801
@@ -49,6 +50,7 @@ var (
 	WrongPassword       = Status{Code: WRONG_PASSWORD, Msg: "Wrong password"}
 	UserIsPendingReview = Status{Code: USER_IS_PEDNING_REVIEW, Msg: "User is pending review"}
 	LogoutError         = Status{Code: LOGOUT_ERROR, Msg: "Logout error"}
+	CancelError         = Status{Code: CANCEL_ERROR, Msg: "Cancel error"}
 
 	ErrorAuthCheckTokenFail     = Status{Code: ERROR_AUTH_CHECK_TOKEN_FAIL, Msg: "Token authentication failed"}
 	ErrorAuthCheckTokenInvalid  = Status{Code: ERROR_AUTH_CHECK_TOKEN_INVALID, Msg: "Token is invalid"}

@@ -79,3 +79,15 @@ func (com *CompanyAccountApi) CompanyUpdatePwd(c *gin.Context) {
 		c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
 	}
 }
+
+func (com *CompanyAccountApi) CompanyCancel(c *gin.Context) {
+	// TODO
+	token := c.Request.Header.Get("Authorization")
+
+	if err := companyService.CompanyCancel(token); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+	} else {
+		c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
+	}
+
+}

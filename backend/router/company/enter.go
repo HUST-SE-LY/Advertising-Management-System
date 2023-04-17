@@ -20,6 +20,6 @@ func (c *CompanyRouterGroup) Init(router *gin.RouterGroup) {
 		companyRouter.POST("update-info", companyAccountApi.CompanyUpdateInfo)
 		companyRouter.POST("update-pwd", companyAccountApi.CompanyUpdatePwd)
 		companyRouter.GET("logout", companyAccountApi.CompanyLogout)
-
+		companyRouter.GET("cancel", companyAccountApi.CompanyCancel)
 	}
 }
