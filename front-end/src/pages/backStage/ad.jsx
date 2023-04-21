@@ -1,5 +1,5 @@
 function BackStageAd() {
-  return <div>ad</div>
+  return <div></div>
 }
 
 export default BackStageAd
