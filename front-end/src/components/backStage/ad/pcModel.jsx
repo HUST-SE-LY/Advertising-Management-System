@@ -19,7 +19,7 @@ function PcModel() {
 
   return (
     <div className="border-2 relative border-blue-200 rounded-[2rem] shadow-xl shadow-blue-600/10 animate-fadein ">
-      <div className="h-[2rem] w-full bg-white rounded-[2rem_2rem_0_0] flex gap-[1rem] items-center px-[2rem]">
+      <div className="h-[2rem] w-full bg-white rounded-[2rem_2rem_0_0] flex gap-[0.5rem] items-center px-[2rem]">
         <div className="w-[1rem] h-[1rem] bg-red-400 rounded-full"></div>
         <div className="w-[1rem] h-[1rem] bg-yellow-400 rounded-full"></div>
         <div className="w-[1rem] h-[1rem] bg-green-400 rounded-full"></div>

@@ -39,7 +39,7 @@ function ShowInfo(props) {
   return (
     <div className="bg-white min-h-[calc(50%_-_3.5rem)]  flex flex-col gap-[1rem] rounded-[2rem] shadow-xl shadow-gray-200/50 p-[2rem]">
       <Title title="广告栏信息"></Title>
-      <div className="h-full overflow-y-auto scrollbar-blue">
+      <div className="h-full overflow-y-auto scrollbar-blue animate-fadein">
         <p className=" leading-[3rem] text-lg relative before:w-[3px] before:h-full before:left-[-10px] before:top-0 before:bg-blue-300 before:absolute">
           状态：
           {props.info.state === "using" ? (
@@ -79,7 +79,7 @@ function ShowInfo(props) {
 
 function SetInfo(props) {
   return (
-    <div className="bg-white min-h-[calc(50%_-_3.5rem)] rounded-[2rem] shadow-xl shadow-gray-200/50 p-[2rem]">
+    <div className="animate-fadein bg-white min-h-[calc(50%_-_3.5rem)] rounded-[2rem] shadow-xl shadow-gray-200/50 p-[2rem]">
       <Title title="编辑广告栏"></Title>
       <div className="h-[calc(100%_-_2rem)] flex flex-col mt-[1rem] gap-[1rem] overflow-y-auto scrollbar-blue">
         <Input title="编辑价格 元/天"></Input>
