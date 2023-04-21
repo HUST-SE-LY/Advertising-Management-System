@@ -14,7 +14,6 @@ import AdDetail from './components/backStage/ad/AdDetail';
 import Application from './pages/application';
 import User from './pages/user';
 import UserHome from './components/user/userHome';
-import UserDetail from './components/user/userDetail';
 
 import {
   createBrowserRouter,
@@ -78,17 +77,6 @@ const router = createBrowserRouter([
   },{
     path: '/user',
     element: <User></User>,
-    children: [
-      {
-        path: '/user/home',
-        element: <UserHome></UserHome>
-      }
-      ,
-      {
-        path: '/user/detail',
-        element: <UserDetail></UserDetail>
-      }
-    ]
   }
 ]);
 
