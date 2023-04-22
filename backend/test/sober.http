@@ -96,10 +96,9 @@ Content-Type: application/json
 {
    "title": "advertisement example",
    "position": 1,
-   "image_url": "114514.com/114514",
-   "jump_to_url": "1919810.com/1919810",
-   "start_date": "0417",
-   "end_date": "0512"
+   "jump_to_url": "example.com/1919810",
+   "start_date": "2023-04-17",
+   "end_date": "2023-05-11"
 }
 --WebAppBoundary
 Content-Disposition: form-data; name="image"; filename="xmj.jpg"

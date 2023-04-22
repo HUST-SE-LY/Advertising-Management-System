@@ -13,18 +13,19 @@ type CompanyAdvertisementApi struct {
 }
 
 func (com *CompanyAdvertisementApi) CompanyUploadAdvertisement(c *gin.Context) {
-	// TODO
 	var companyUploadAdvtReq request.CompanyUploadAdvtReq
+
 	if err := c.Bind(&companyUploadAdvtReq); err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
 	}
+
 	token := c.Request.Header.Get("Authorization")
 	claims, _ := jwt.ParseToken(token)
 	account := claims.Username
 	err := companyService.CompanyUploadAdvertisement(companyUploadAdvtReq, account)
 	if err != nil {
-		// TODO
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
 		return
 	}
 	c.JSON(http.StatusOK, gin_ext.Response(nil, nil))

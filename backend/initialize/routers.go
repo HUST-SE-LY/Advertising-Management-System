@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"backend/global"
 	"backend/middleware"
 	"backend/router"
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,6 @@ func Routers(r *gin.Engine) {
 
 	router.RouterGroupApp.Init(rootRouterGroup)
 
-	r.Static("public", "./public")
+	r.Static("/public", *global.GVA_FILE_SETTING)
 
 }
