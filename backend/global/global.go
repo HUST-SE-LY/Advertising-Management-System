@@ -5,9 +5,10 @@ import (
 )
 
 var (
-	GVA_DB          *gorm.DB
-	GVA_APP_SETTING *AppSetting
-	GVA_DB_SETTING  *DatabaseSetting
+	GVA_DB           *gorm.DB
+	GVA_APP_SETTING  *AppSetting
+	GVA_DB_SETTING   *DatabaseSetting
+	GVA_FILE_SETTING *FileSetting
 )
 
 const (

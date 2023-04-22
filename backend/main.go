@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	global.GVA_APP_SETTING, global.GVA_DB_SETTING = initialize.Settings()
+	global.GVA_APP_SETTING, global.GVA_DB_SETTING, global.GVA_FILE_SETTING = initialize.Settings()
 	global.GVA_DB = initialize.Gorm()
 	utils.Setup()
 }

@@ -10,5 +10,6 @@
     "host": "127.0.0.1:3306",
     "name": "ams",
     "table_prefix": "ams_"
-  }
+  },
+  "file_location": "./public"
 }

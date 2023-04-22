@@ -15,4 +15,6 @@ func Routers(r *gin.Engine) {
 
 	router.RouterGroupApp.Init(rootRouterGroup)
 
+	r.Static("public", "./public")
+
 }

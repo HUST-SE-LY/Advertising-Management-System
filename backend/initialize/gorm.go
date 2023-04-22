@@ -3,6 +3,7 @@ package initialize
 import (
 	"backend/global"
 	entity2 "backend/models/admin_model/entity"
+	entity3 "backend/models/advertisement_model/entity"
 	"backend/models/company_model/entity"
 	"fmt"
 	"gorm.io/driver/mysql"
@@ -33,6 +34,7 @@ func Gorm() *gorm.DB {
 	_ = db.AutoMigrate(&entity.CompanyToken{})
 	_ = db.AutoMigrate(&entity.CompanyPendingReview{})
 	_ = db.AutoMigrate(&entity.CompanyInfoPendingReview{})
+	_ = db.AutoMigrate(&entity3.Advertisement{})
 
 	return db
 }

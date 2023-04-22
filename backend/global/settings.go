@@ -13,3 +13,5 @@ type DatabaseSetting struct {
 	Name        string `json:"name"`
 	TablePrefix string `json:"table_prefix"`
 }
+
+type FileSetting = string
