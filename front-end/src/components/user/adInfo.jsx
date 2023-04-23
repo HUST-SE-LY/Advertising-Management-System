@@ -72,7 +72,7 @@ function AdInfo(props) {
           <p className="w-[7rem]">{info.id + 1}号广告位</p>
           <p className={`w-[4rem] ${info.state === 'free'?'text-blue-500':'text-red-500'}`}>{info.state === 'free'?'空闲':'已售'}</p>
           <p className="">{info.price}元/天</p>
-          <button className="ml-[auto] px-[1rem] py-[0.5rem] bg-blue-300 rounded-2xl transition-all hover:bg-blue-600 hover:shadow-xl hover:shadow-blue-600/10 hover:text-white">{info.state === 'free'?'购买':'预定'}</button>
+          <button className="ml-[auto] px-[1rem] py-[0.5rem] bg-blue-300 rounded-xl transition-all hover:bg-blue-600 hover:shadow-xl hover:shadow-blue-600/10 hover:text-white">{info.state === 'free'?'购买':'预定'}</button>
         </div>)
       }
     </div>

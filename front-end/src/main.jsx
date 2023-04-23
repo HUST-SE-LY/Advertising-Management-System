@@ -13,7 +13,6 @@ import CompanyDetail from './components/backStage/company/companyDetail';
 import AdDetail from './components/backStage/ad/AdDetail';
 import Application from './pages/application';
 import User from './pages/user';
-import UserHome from './components/user/userHome';
 
 import {
   createBrowserRouter,

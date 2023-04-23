@@ -3,14 +3,8 @@ import { useState } from "react";
 function Application(props) {
 
   const [list,setList] = useState([
-    {
-      url: 'https://github.com/',
-      image: 'https://w.wallhaven.cc/full/g7/wallhaven-g77oz7.jpg'
-    },
-    {
-      url: 'https://github.com/',
-      image: 'https://w.wallhaven.cc/full/g7/wallhaven-g77oz7.jpg'
-    },
+    null,
+    null,
     null,
     null,
     null,
