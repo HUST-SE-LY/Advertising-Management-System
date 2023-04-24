@@ -64,7 +64,7 @@ function AdInfo(props) {
     }
   ])
 
-  return <div className="row-span-1 col-span-1 bg-gray-50 rounded-[2rem] p-[2rem]">
+  return <div className="row-span-1 col-span-1 bg-gray-50 rounded-[2rem] p-[2rem] animate-listItemIn">
     <Title title="广告位信息"></Title>
     <div className="mt-[1rem] flex flex-col gap-[1rem] h-[calc(100%_-_3rem)] overflow-y-auto scrollbar-blue pr-3">
       {

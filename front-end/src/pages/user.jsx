@@ -61,7 +61,7 @@ function User() {
 
   return <div>
     <TabBar></TabBar>
-    <div className="grid grid-rows-2 grid-cols-3 w-[100vw] h-[calc(100vh_-_4rem)] p-[2rem] gap-[2rem]">
+    <div className="relative grid grid-rows-2 grid-cols-3 w-[100vw] h-[calc(100vh_-_4rem)] p-[2rem] gap-[2rem]">
       <UserInfo info={userInfo}></UserInfo>
       <AdInfo></AdInfo>
       <AccountInfo info={accountInfo}></AccountInfo>
@@ -77,6 +77,7 @@ function TabBar() {
     <p className="text-2xl font-bold text-gray-700 tracking-widest">欢迎回来!</p>
   </div>
 }
+
 
 
 export default User
