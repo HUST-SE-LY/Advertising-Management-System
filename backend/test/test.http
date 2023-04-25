@@ -1,0 +1,85 @@
+### POST "fnfunfunc"
+POST http://localhost:8080/manage/admin/create
+Content-Type: application/json
+
+{
+  "account": "fnfunfunc",
+  "password": "1234"
+}
+
+### Login "fnfunfunc"
+POST http://localhost:8080/admin/login
+Content-Type: application/json
+
+{
+  "account": "fnfunfunc",
+  "password": "1234"
+}
+
+### Register Company "联小创在线科技有限公司"
+POST http://localhost:8080/company/register
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "password": "uniquestudio",
+  "name": "联小创在线科技有限公司",
+  "address": "启明学院亮胜楼八楼",
+  "manager_name": "汉堡",
+  "manager_tel": "1919810",
+  "business_license_number": "114514"
+}
+
+### Login Company "联小创在线科技有限公司"
+POST http://localhost:8080/company/login
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "password": "uniquestudio"
+}
+
+### List pending review companies
+GET http://localhost:8080/manage/company/review
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJHBUMVVFS0szTHFsUC9rSDVSQ1FhaGVxWVpvM2F1NUg1eDJtc3pJb3puSTVmYkcyWlhOTjJ1IiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjMxOTA2NTE5Miwicm9sZSI6InJvbGVfYWRtaW4ifX0.A8NmP6WjTpQbGi2odnyvVBSXyrJI5b1-xDzEN8kP_3c
+
+### List all registered companies
+GET http://localhost:8080/manage/company/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJHBUMVVFS0szTHFsUC9rSDVSQ1FhaGVxWVpvM2F1NUg1eDJtc3pJb3puSTVmYkcyWlhOTjJ1IiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjMxOTA2NTE5Miwicm9sZSI6InJvbGVfYWRtaW4ifX0.A8NmP6WjTpQbGi2odnyvVBSXyrJI5b1-xDzEN8kP_3c
+
+
+### Allow "联小创在线科技有限公司"
+POST http://localhost:8080/manage/company/register
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJHBUMVVFS0szTHFsUC9rSDVSQ1FhaGVxWVpvM2F1NUg1eDJtc3pJb3puSTVmYkcyWlhOTjJ1IiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjMzMjI5Mjc5Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.cZltpGs1lu9Pyj6i0ADNcsucs773Y4vM1YFkHd1A30w
+Content-Type: application/json
+
+{
+  "company_accounts": ["联创"]
+}
+
+### Search "联小创在线科技有限公司"
+GET http://localhost:8080/manage/company/search?term=联小创在线科技有限公司&type=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJHBUMVVFS0szTHFsUC9rSDVSQ1FhaGVxWVpvM2F1NUg1eDJtc3pJb3puSTVmYkcyWlhOTjJ1IiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjQyNjQ5MTM2Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.ukh1fk7VDGrPkM1LnQ0ygIgi8Gv3QEoXdsGCxnTlJSE
+
+### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
+POST http://localhost:8080/company/update-info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJEVndFZLWGtRZElSUkJGRUI1OGJZLmU5N1Z5RW9OVHN0aWplQ0dKL0dZLmM4bFlVaE1FeE1pIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjI1MTY4NDgxMywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.L8vTAiczhIyAzjo2pJ9ZijJohmbr5bDPc1zXnbVAXk8
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "manager_name": "Hamburger"
+}
+
+### Allow "联小创在线科技有限公司" update info
+POST http://localhost:8080/manage/company/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGZ3UVBVbDRGZkZRVDBIUXE5QzNremVVNTc1OGdNMW5VdTguZTRCcXphTnprOG9Hb3VwOUptIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjE4NjY5MDI5Miwicm9sZSI6InJvbGVfYWRtaW4ifX0.g5xSTvmZKN5ViwgmHMAtRoqu57HTHFMBYrFQmggRC4o
+Content-Type: application/json
+
+{
+  "company_accounts": ["联创"]
+}
+
+### cancel "联小创在线科技有限公司"
+GET http://localhost:8080/company/cancel
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFFkczVmTC5BaS5OR0lkTVN5OG9XUnU2cHdDbFAucVR0L3o1VTYzMGJzUlJ6NjNyVWdTaGxHIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjMzMzgxNzg0Mywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.pEU_bb88B9zPpergLk8ivROMjnOjHcSBMrpnrER4Rqk

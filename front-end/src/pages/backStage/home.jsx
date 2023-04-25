@@ -2,10 +2,12 @@ import CompanyList from "../../components/backStage/home/companyList"
 import AdsForSale from "../../components/backStage/home/adsForSale"
 import Judge from "../../components/backStage/home/judge"
 import LongButton from "../../components/longButton"
+import AddManager from "../../components/backStage/home/addManager"
+
 import { Link } from "react-router-dom"
+import { useState } from "react"
 function BackStageHome() {
-
-
+  const [showAddManager, setShowAddManager] = useState();
   return <div className="bg-gray-50 h-[calc(100vh_-_4rem)] rounded-3xl">
     <div className="w-full h-fit px-[2rem] py-[1rem] flex gap-[2rem] bg-blue-200 rounded-3xl shadow-xl shadow-blue-300/20 items-center">
       <p className="text-2xl font-bold tracking-widest text-gray-700 ">欢迎回来!</p>
@@ -26,11 +28,13 @@ function BackStageHome() {
       <AdsForSale></AdsForSale>
       <CompanyList></CompanyList>
       <div>
-      <LongButton content="添加管理员"></LongButton>
+      <LongButton content="添加管理员" handle={() => setShowAddManager(true)}></LongButton>
         <LongButton content="退出登录" color="red"></LongButton>
       </div>
-      
     </div>
+    {
+      showAddManager?<AddManager close={() => setShowAddManager(false)}></AddManager>:null
+    }
   </div>
 }
 

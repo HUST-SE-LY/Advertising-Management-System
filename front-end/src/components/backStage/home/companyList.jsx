@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Title from "../title";
 
 function CompanyList() {
@@ -78,7 +79,7 @@ function CompanyList() {
           <p>负责人电话</p>
         </div>
       </div>
-      <div className="flex flex-col gap-[1rem] h-[calc(100%_-_5rem)] overflow-y-auto">
+      <div className="flex flex-col gap-[1rem] h-[calc(100%_-_5rem)] overflow-y-auto pl-3 pr-3 scrollbar-blue">
         {list.map((info) => (
           <SingleCompany key={info.account} info={info}></SingleCompany>
         ))}
@@ -88,12 +89,13 @@ function CompanyList() {
 }
 
 function SingleCompany(props) {
+  const navigate = useNavigate()
   return (
     <div className="flex bg-blue-100 rounded-xl items-center p-[1rem] pr-[2rem] shadow-lg shadow-blue-600/10">
       <p className="w-[10rem]">{props.info.name}</p>
       <p className="w-[10rem]">{props.info.managerName}</p>
       <p>{props.info.managerTel}</p>
-      <button className="px-[1rem] py-[0.5rem] rounded-2xl bg-blue-500 text-white hover:shadow-lg hover:shadow-blue-600/20 hover:bg-blue-600 transition-all ml-[auto]">详情</button>
+      <button onClick={() => navigate(`/back-stage/companies/${props.info.account}`)} className="px-[1rem] py-[0.5rem] rounded-2xl bg-blue-500 text-white hover:shadow-lg hover:shadow-blue-600/20 hover:bg-blue-600 transition-all ml-[auto]">详情</button>
     </div>
   );
 }

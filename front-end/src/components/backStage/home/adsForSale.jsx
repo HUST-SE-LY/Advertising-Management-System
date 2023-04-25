@@ -28,7 +28,7 @@ function AdsForSale() {
   return (
     <div className="bg-blue-50 w-full row-span-2 rounded-3xl p-[2rem] animate-floatin">
       <Title title={"广告位总览"}></Title>
-      <div className="flex flex-col gap-[1rem] mt-[1rem] h-[calc(100%_-_3rem)] overflow-y-auto">
+      <div className="flex flex-col gap-[1rem] mt-[1rem] h-[calc(100%_-_3rem)] overflow-y-auto scrollbar-blue pl-3 pr-3">
         {
         list.map((info) => <SingleAds key={info.id} info={info}></SingleAds> )
       }

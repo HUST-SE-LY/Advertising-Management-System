@@ -10,6 +10,10 @@ import BackStageJudge from './pages/backStage/judge';
 import BackStageAd from './pages/backStage/ad';
 import BackStageCompany from './pages/backStage/company';
 import CompanyDetail from './components/backStage/company/companyDetail';
+import AdDetail from './components/backStage/ad/AdDetail';
+import Application from './pages/application';
+import User from './pages/user';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -43,16 +47,35 @@ const router = createBrowserRouter([
         element: <BackStageJudge></BackStageJudge>
       },{
         path: '/back-stage/Ads',
-        element: <BackStageAd></BackStageAd>
+        element: <BackStageAd></BackStageAd>,
+        children: [
+          {
+            path: '/back-stage/Ads',
+            element: <div className='text-center text-2xl'>广告信息会展示在这</div>
+          },
+          {
+            path: '/back-stage/Ads/:id',
+            element: <AdDetail></AdDetail>
+          }
+        ]
       },{
         path: '/back-stage/companies',
         element: <BackStageCompany></BackStageCompany>,
         children:[{
+          path: '/back-stage/companies',
+          element: <div className='text-center text-2xl mt-[2rem]'>企业信息会展示在这</div>
+        },{
           path: '/back-stage/companies/:id',
           element: <CompanyDetail></CompanyDetail>,
         }]
       }
     ]
+  },{
+    path: '/app',
+    element: <Application></Application>
+  },{
+    path: '/user',
+    element: <User></User>,
   }
 ]);
 

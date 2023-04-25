@@ -1,0 +1,3 @@
+.DS_Store
+backend/test/image/*.jpg
+backend/public/*.jpg
