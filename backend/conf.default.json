@@ -5,8 +5,8 @@
   },
   "database": {
     "type": "mysql",
-    "user": "root",
-    "password": "114514",
+    "user": "[your_user]",
+    "password": "[your_password]",
     "host": "127.0.0.1:3306",
     "name": "ams",
     "table_prefix": "ams_"
