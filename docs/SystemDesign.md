@@ -2,9 +2,9 @@
 
 ## 组件设计
 
+[如图所示](Architenture.png)
+
 ![](Architenture.png)
-
-
 
 
 
@@ -18,11 +18,17 @@
 
 
 
+
+
+
+
 ## 数据库设计
 
-ER图如下
+[ER图如下](./pic/DatabaseDesign.png)
 
-![](pic/DatabaseDesign.svg)
+![](./pic/DatabaseDesign.png)
+
+
 
 1. Admin（管理员）
    - `Id` 管理员id
