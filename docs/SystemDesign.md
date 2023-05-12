@@ -1,5 +1,7 @@
 # 系统设计文档
 
+~~（如果图片显示失败可以点击链接）~~
+
 ## 组件设计
 
 [如图所示](Architenture.png)
@@ -14,11 +16,14 @@
 
 ## 组件接口设计
 
+[如图](./pic/ComponentInterfaceDesign.png)
 
+![](./pic/ComponentInterfaceDesign.png)
 
-
-
-
+1. 后端通过`Router`对接收到的`HTTP Request`进行分流，并且调用`Api`
+2. `Api`对`HTTP Request`的`payload`进行简单解析，转化成参数，调用`Service`进行处理
+3. `Service`对于传入的参数进行处理，有必要可以对数据库进行处理（包括读写数据库），执行过程会进行错误处理，最后会把处理结果返回给`Api`
+4. `Api`对`Service`的返回值进行处理，决定`Respones`的类型以及内容，然后返回请求者
 
 
 
