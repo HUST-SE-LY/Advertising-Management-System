@@ -9,6 +9,7 @@ import (
 	"mime/multipart"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -19,6 +20,7 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	// TODO
 	var company entity.Company
 	filename := account + "_" + req.AdvtInfo.Title + "_" + time.Now().Format(time.RFC3339) + getFileExtension(req.FileData.Filename)
+	filename = strings.Replace(filename, " ", "_", -1)
 	if err := saveFile(req.FileData, filename); err != nil {
 		return err
 	}
@@ -28,7 +30,7 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	CompanyId := company.Id
 	err := global.GVA_DB.Create(&entity2.Advertisement{
 		CompanyId:         CompanyId,
-		ImageUrl:          global.GVA_APP_SETTING.Address + "/" + *global.GVA_FILE_SETTING + filename,
+		ImageUrl:          global.GVA_APP_SETTING.Address + "/" + *global.GVA_FILE_SETTING + "/" + filename,
 		AdvertisementInfo: req.AdvtInfo,
 	}).Error
 
