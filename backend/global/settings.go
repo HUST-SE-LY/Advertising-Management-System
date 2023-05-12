@@ -1,6 +1,7 @@
 package global
 
 type AppSetting struct {
+	Domain    string `json:"domain"`
 	Address   string `json:"address"`
 	JwtSecret string `json:"jwt_secret"`
 }

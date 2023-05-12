@@ -30,7 +30,7 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	CompanyId := company.Id
 	err := global.GVA_DB.Create(&entity2.Advertisement{
 		CompanyId:         CompanyId,
-		ImageUrl:          global.GVA_APP_SETTING.Address + "/" + *global.GVA_FILE_SETTING + "/" + filename,
+		ImageUrl:          global.GVA_APP_SETTING.Domain + "/" + *global.GVA_FILE_SETTING + "/" + filename,
 		AdvertisementInfo: req.AdvtInfo,
 	}).Error
 
