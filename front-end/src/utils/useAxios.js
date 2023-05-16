@@ -14,6 +14,11 @@ function useAxios() {
     return config;
   });
 
+  instance.interceptors.response.use((config) => {
+    console.log(config);
+    return config;
+  })
+
   return instance;
 }
 

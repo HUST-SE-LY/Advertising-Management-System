@@ -13,7 +13,7 @@ import CompanyDetail from './components/backStage/company/companyDetail';
 import AdDetail from './components/backStage/ad/AdDetail';
 import Application from './pages/application';
 import User from './pages/user';
-
+import BuyAd from './pages/buyAd';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -76,6 +76,9 @@ const router = createBrowserRouter([
   },{
     path: '/user',
     element: <User></User>,
+  },{
+    path: 'buy/:id',
+    element: <BuyAd></BuyAd>
   }
 ]);
 

@@ -54,7 +54,7 @@ function EditInfo(props) {
 function EditPassword(props) {
   return <div className="flex items-center justify-center w-full h-full bg-white/20 absolute z-10  top-0 left-0 animate-fadein" onClick={props.hide}>
     <div className="p-[2rem] w-1/2 h-1/2 bg-white rounded-2xl shadow-2xl shadow-gray-500/20 overflow-y-auto scrollbar-blue" onClick={(e) => e.stopPropagation()}>
-      <Title title="修改信息"></Title>
+      <Title title="修改密码"></Title>
       <NoBorderInput type="password">输入新密码</NoBorderInput>
       <NoBorderInput type="password">再次输入新密码</NoBorderInput>
       <LongButton content="修改"></LongButton>
