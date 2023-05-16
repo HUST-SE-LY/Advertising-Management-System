@@ -1,4 +1,5 @@
 .DS_Store
-backend/test/image/*.jpg
-backend/public/*.jpg
+backend/test/image/
+backend/public/
 backend/conf.json
+.idea

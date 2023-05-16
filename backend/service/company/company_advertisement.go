@@ -20,7 +20,9 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	// TODO
 	var company entity.Company
 	filename := account + "_" + req.AdvtInfo.Title + "_" + time.Now().Format(time.RFC3339) + getFileExtension(req.FileData.Filename)
-	filename = strings.Replace(filename, " ", "_", -1)
+
+	r := strings.NewReplacer(" ", "_", ":", "_")
+	filename = r.Replace(filename)
 	if err := saveFile(req.FileData, filename); err != nil {
 		return err
 	}
