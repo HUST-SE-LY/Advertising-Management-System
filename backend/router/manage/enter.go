@@ -11,12 +11,11 @@ type ManageRouterGroup struct {
 
 func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 	manageRouter := router.Group("manage").Use(middleware.AdminJWTAuth())
-	manageRouterWithoutJWT := router.Group("manage")
 	var manageAdminApi = api.ApiGroupApp.ManageApiGroup.ManageAdminApi
 	var manageCompanyApi = api.ApiGroupApp.ManageApiGroup.ManageCompanyApi
 	var manageAdvertisement = api.ApiGroupApp.ManageApiGroup.ManageAdvertisementApi
 	{
-		manageRouterWithoutJWT.POST("admin/create", manageAdminApi.CreateAdmin)
+		manageRouter.POST("admin/create", manageAdminApi.CreateAdmin)
 		manageRouter.GET("company/list", manageCompanyApi.GetAllCompanies)
 		manageRouter.GET("company/search", manageCompanyApi.GetCompaniesByTerm)
 		// TODO(Determine the name of the route)
