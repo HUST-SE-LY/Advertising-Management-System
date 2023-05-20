@@ -8,3 +8,7 @@ type Advertisement struct {
 	ImageUrl  string `json:"image_url" gorm:"column:image_url"`
 	advertisement_model.AdvertisementInfo
 }
+
+func (a Advertisement) GetInfo() advertisement_model.AdvertisementInfo {
+	return a.AdvertisementInfo
+}

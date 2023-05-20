@@ -5,4 +5,5 @@ package manage
 type ManageServiceGroup struct {
 	ManageAdminService
 	ManageCompanyService
+	ManageAdvertisementService
 }
