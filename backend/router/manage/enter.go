@@ -25,6 +25,8 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 
 		manageRouter.GET("advertisement/list", manageAdvertisement.GetAllAdvertisements)
 		manageRouter.GET("advertisement/review", manageAdvertisement.GetAllAdvertisementsToBeReviewed)
-		manageRouter.GET("advertisement/allow", manageAdvertisement.AllowAdvertisement)
+		manageRouter.POST("advertisement/allow", manageAdvertisement.AllowAdvertisement)
+		//manageRouter.GET("advertisement/delete", manageAdvertisement.DeleteAdvertisement)
 	}
+
 }
