@@ -205,6 +205,28 @@ const docTemplate = `{
                 }
             }
         },
+        "/manage/company/count": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get companies count",
+                "responses": {
+                    "200": {
+                        "description": "Get companies count response",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesCountResp"
+                        }
+                    }
+                }
+            }
+        },
         "/manage/create": {
             "post": {
                 "description": "Create Admin with account and password",
@@ -440,6 +462,14 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/advertisement_model.AdvertisementToBePreviewedInfo"
                     }
+                }
+            }
+        },
+        "response.GetCompaniesCountResp": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
                 }
             }
         }

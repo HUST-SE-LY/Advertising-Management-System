@@ -123,6 +123,11 @@ definitions:
           $ref: '#/definitions/advertisement_model.AdvertisementToBePreviewedInfo'
         type: array
     type: object
+  response.GetCompaniesCountResp:
+    properties:
+      count:
+        type: integer
+    type: object
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
@@ -256,6 +261,20 @@ paths:
       summary: Company update password
       tags:
       - Company
+  /manage/company/count:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Get companies count response
+          schema:
+            $ref: '#/definitions/response.GetCompaniesCountResp'
+      summary: Get companies count
+      tags:
+      - Manage
   /manage/create:
     post:
       consumes:
