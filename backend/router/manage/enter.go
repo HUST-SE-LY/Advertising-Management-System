@@ -16,6 +16,7 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 	var manageAdvertisement = api.ApiGroupApp.ManageApiGroup.ManageAdvertisementApi
 	{
 		manageRouter.POST("admin/create", manageAdminApi.CreateAdmin)
+		manageRouter.GET("company/count", manageCompanyApi.GetCompaniesCount)
 		manageRouter.GET("company/list", manageCompanyApi.GetAllCompanies)
 		manageRouter.GET("company/search", manageCompanyApi.GetCompaniesByTerm)
 		// TODO(Determine the name of the route)
