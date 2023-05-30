@@ -17,6 +17,7 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 	{
 		manageRouter.POST("admin/create", manageAdminApi.CreateAdmin)
 		manageRouter.GET("company/count", manageCompanyApi.GetCompaniesCount)
+		manageRouter.GET("company/review_count", manageCompanyApi.GetInfoPendingReviewCompaniesCount)
 		manageRouter.GET("company/list", manageCompanyApi.GetAllCompanies)
 		manageRouter.GET("company/search", manageCompanyApi.GetCompaniesByTerm)
 		// TODO(Determine the name of the route)

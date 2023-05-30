@@ -259,10 +259,32 @@ const docTemplate = `{
                 "tags": [
                     "Manage"
                 ],
-                "summary": "Get companies count",
+                "summary": "Get all companies count",
                 "responses": {
                     "200": {
                         "description": "Get companies count response",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesCountResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/company/review_count": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get info pending review companies count",
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/response.GetCompaniesCountResp"
                         }
