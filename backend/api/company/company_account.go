@@ -118,7 +118,7 @@ func (com *CompanyAccountApi) CompanyUpdateInfo(c *gin.Context) {
 //	@Accept			json
 //	@Produce		json
 //	@Param			request_body	body		request.CompanyUpdatePwdReq	false	"company update password request"
-//	@Success		200				{object}	nil								"Company update password response"
+//	@Success		200				{object}	nil							"Company update password response"
 //	@Router			/company/update-pwd [post]
 func (com *CompanyAccountApi) CompanyUpdatePwd(c *gin.Context) {
 	var companyUpdatePwdReq request.CompanyUpdatePwdReq
@@ -143,7 +143,7 @@ func (com *CompanyAccountApi) CompanyUpdatePwd(c *gin.Context) {
 //	@Tags			Company
 //	@Accept			json
 //	@Produce		json
-//	@Success		200				{object}	nil								"nil"
+//	@Success		200	{object}	nil	"nil"
 //	@Router			/company/cancel [post]
 func (com *CompanyAccountApi) CompanyCancel(c *gin.Context) {
 	// TODO

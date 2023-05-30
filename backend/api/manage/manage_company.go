@@ -20,13 +20,13 @@ type ManageCompanyApi struct {
 
 // GetCompaniesCount godoc
 //
-//	@Summary		Get all companies count
+//	@Summary	Get all companies count
 //
-//	@Tags			Manage
-//	@Accept			json
-//	@Produce		json
-//	@Success		200				{object}   response.GetCompaniesCountResp	"Get companies count response"
-//	@Router			/manage/company/count [get]
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetCompaniesCountResp	"Get companies count response"
+//	@Router		/manage/company/count [get]
 func (m *ManageCompanyApi) GetCompaniesCount(c *gin.Context) {
 	count, err := adminService.ManageCompanyService.GetCompaniesCount()
 	if err != nil {
@@ -40,13 +40,13 @@ func (m *ManageCompanyApi) GetCompaniesCount(c *gin.Context) {
 
 // GetPendingReviewCompaniesCount godoc
 //
-//	@Summary		Get info pending review companies count
+//	@Summary	Get info pending review companies count
 //
-//	@Tags			Manage
-//	@Accept			json
-//	@Produce		json
-//	@Success		200				{object}   response.GetCompaniesCountResp
-//	@Router			/manage/company/review_count [get]
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetCompaniesCountResp
+//	@Router		/manage/company/review_count [get]
 func (m *ManageCompanyApi) GetPendingReviewCompaniesCount(c *gin.Context) {
 	count, err := adminService.ManageCompanyService.GetPendingReviewCompaniesCount()
 	if err != nil {
@@ -60,13 +60,13 @@ func (m *ManageCompanyApi) GetPendingReviewCompaniesCount(c *gin.Context) {
 
 // GetInfoPendingReviewCompaniesCount godoc
 //
-//	@Summary		Get info pending review companies count
+//	@Summary	Get info pending review companies count
 //
-//	@Tags			Manage
-//	@Accept			json
-//	@Produce		json
-//	@Success		200				{object}   response.GetCompaniesCountResp
-//	@Router			/manage/company/info_review_count [get]
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetCompaniesCountResp
+//	@Router		/manage/company/info_review_count [get]
 func (m *ManageCompanyApi) GetInfoPendingReviewCompaniesCount(c *gin.Context) {
 	count, err := adminService.ManageCompanyService.GetInfoPendingReviewCompaniesCount()
 	if err != nil {
@@ -78,6 +78,15 @@ func (m *ManageCompanyApi) GetInfoPendingReviewCompaniesCount(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// GetAllCompanies godoc
+//
+//	@Summary	Get all companies
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetCompaniesResp	"Get companies response"
+//	@Router		/manage/company/list [get]
 func (m *ManageCompanyApi) GetAllCompanies(c *gin.Context) {
 	companies, err := adminService.ManageCompanyService.GetAllCompanies()
 	if err != nil {
@@ -90,6 +99,15 @@ func (m *ManageCompanyApi) GetAllCompanies(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// GetAllCompaniesToBeReviewed godoc
+//
+//	@Summary	Get all companies to be reviewed
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetCompaniesToBeReviewedResp	"Get companies to be reviewed response"
+//	@Router		/manage/company/review [get]
 func (m *ManageCompanyApi) GetAllCompaniesToBeReviewed(c *gin.Context) {
 	companies, err := adminService.ManageCompanyService.GetAllCompaniesToBeReviewed()
 	if err != nil {
@@ -102,6 +120,7 @@ func (m *ManageCompanyApi) GetAllCompaniesToBeReviewed(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// TODO
 func (m *ManageCompanyApi) GetCompaniesByTerm(c *gin.Context) {
 	term := c.Query("term")
 	_type, err := strconv.Atoi(c.Query("type"))
@@ -121,6 +140,16 @@ func (m *ManageCompanyApi) GetCompaniesByTerm(c *gin.Context) {
 	}
 }
 
+// AllowRegistrationForCompanies godoc
+//
+//	@Summary	Allow Registration For Companies
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Param		request_body	body		request.AllowCompaniesRegisterReq	true	"allow companies register request"
+//	@Success	200				{object}	[]string							"allow companies response"
+//	@Router		/manage/company/register [post]
 func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
 	var allowCompaniesRegisterReq request.AllowCompaniesRegisterReq
 	if err := gin_ext.BindJSON(c, &allowCompaniesRegisterReq); err != nil {
@@ -139,6 +168,16 @@ func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// AllowUpdateForCompanies godoc
+//
+//	@Summary	Allow Update For Companies
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Param		request_body	body		request.AllowCompaniesUpdateReq	true	"allow companies update request"
+//	@Success	200				{object}	[]string						"allow update for companies response"
+//	@Router		/manage/company/info [post]
 func (m *ManageCompanyApi) AllowUpdateForCompanies(c *gin.Context) {
 	var allowCompaniesUpdateReq request.AllowCompaniesUpdateReq
 	if err := gin_ext.BindJSON(c, &allowCompaniesUpdateReq); err != nil {

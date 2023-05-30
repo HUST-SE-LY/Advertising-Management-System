@@ -248,6 +248,28 @@ const docTemplate = `{
                 }
             }
         },
+        "/manage/advertisement/list": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all advertisements to be reviewed",
+                "responses": {
+                    "200": {
+                        "description": "All advertisements",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetAdvertisementsResp"
+                        }
+                    }
+                }
+            }
+        },
         "/manage/company/count": {
             "get": {
                 "consumes": [
@@ -270,6 +292,42 @@ const docTemplate = `{
                 }
             }
         },
+        "/manage/company/info": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Allow Update For Companies",
+                "parameters": [
+                    {
+                        "description": "allow companies update request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.AllowCompaniesUpdateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "allow update for companies response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/manage/company/info_review_count": {
             "get": {
                 "consumes": [
@@ -287,6 +345,86 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/response.GetCompaniesCountResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/company/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all companies",
+                "responses": {
+                    "200": {
+                        "description": "Get companies response",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/company/register": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Allow Registration For Companies",
+                "parameters": [
+                    {
+                        "description": "allow companies register request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.AllowCompaniesRegisterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "allow companies response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/company/review": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all companies to be reviewed",
+                "responses": {
+                    "200": {
+                        "description": "Get companies to be reviewed response",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesToBeReviewedResp"
                         }
                     }
                 }
@@ -343,28 +481,6 @@ const docTemplate = `{
                         "description": "Admin create response",
                         "schema": {
                             "$ref": "#/definitions/response.AdminCreateResp"
-                        }
-                    }
-                }
-            }
-        },
-        "/manage/list": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Manage"
-                ],
-                "summary": "Get all advertisements",
-                "responses": {
-                    "200": {
-                        "description": "All advertisements",
-                        "schema": {
-                            "$ref": "#/definitions/response.GetAdvertisementsResp"
                         }
                     }
                 }
@@ -428,6 +544,35 @@ const docTemplate = `{
                 }
             }
         },
+        "company_model.CompanyInfo": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "联创"
+                },
+                "address": {
+                    "type": "string",
+                    "example": "启明学院亮胜楼八楼"
+                },
+                "business_license_number": {
+                    "type": "string",
+                    "example": "114514"
+                },
+                "manager_name": {
+                    "type": "string",
+                    "example": "汉堡"
+                },
+                "manager_tel": {
+                    "type": "string",
+                    "example": "1919810"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "联小创在线科技有限公司"
+                }
+            }
+        },
         "request.AdminCreateReq": {
             "type": "object",
             "properties": {
@@ -449,6 +594,28 @@ const docTemplate = `{
                 "password": {
                     "type": "string",
                     "example": "1234"
+                }
+            }
+        },
+        "request.AllowCompaniesRegisterReq": {
+            "type": "object",
+            "properties": {
+                "company_accounts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "request.AllowCompaniesUpdateReq": {
+            "type": "object",
+            "properties": {
+                "company_accounts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -592,6 +759,28 @@ const docTemplate = `{
             "properties": {
                 "count": {
                     "type": "integer"
+                }
+            }
+        },
+        "response.GetCompaniesResp": {
+            "type": "object",
+            "properties": {
+                "company_infos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/company_model.CompanyInfo"
+                    }
+                }
+            }
+        },
+        "response.GetCompaniesToBeReviewedResp": {
+            "type": "object",
+            "properties": {
+                "company_infos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/company_model.CompanyInfo"
+                    }
                 }
             }
         }

@@ -20,13 +20,13 @@ type ManageAdvertisementApi struct {
 
 // GetAllAdvertisements godoc
 //
-//	@Summary		Get all advertisements
+//	@Summary	Get all advertisements
 //
-//	@Tags			Manage
-//	@Accept			json
-//	@Produce		json
-//	@Success		200				{object}	 response.GetAdvertisementsResp	"All advertisements"
-//	@Router			/manage/list [post]
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetAdvertisementsResp	"All advertisements"
+//	@Router		/manage/advertisement/list [post]
 func (m *ManageAdvertisementApi) GetAllAdvertisements(c *gin.Context) {
 	advertisements, err := adminService.ManageAdvertisementService.GetAllAdvertisements()
 	if err != nil {
@@ -40,6 +40,15 @@ func (m *ManageAdvertisementApi) GetAllAdvertisements(c *gin.Context) {
 
 }
 
+// GetAllAdvertisementsToBeReviewed godoc
+//
+//	@Summary	Get all advertisements to be reviewed
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetAdvertisementsResp	"All advertisements"
+//	@Router		/manage/advertisement/list [post]
 func (m *ManageAdvertisementApi) GetAllAdvertisementsToBeReviewed(c *gin.Context) {
 	advertisements, err := adminService.ManageAdvertisementService.GetAllAdvertisementsToBeReview()
 	if err != nil {

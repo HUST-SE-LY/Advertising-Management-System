@@ -39,6 +39,27 @@ definitions:
       title:
         type: string
     type: object
+  company_model.CompanyInfo:
+    properties:
+      account:
+        example: 联创
+        type: string
+      address:
+        example: 启明学院亮胜楼八楼
+        type: string
+      business_license_number:
+        example: "114514"
+        type: string
+      manager_name:
+        example: 汉堡
+        type: string
+      manager_tel:
+        example: "1919810"
+        type: string
+      name:
+        example: 联小创在线科技有限公司
+        type: string
+    type: object
   request.AdminCreateReq:
     properties:
       account:
@@ -54,6 +75,20 @@ definitions:
       password:
         example: "1234"
         type: string
+    type: object
+  request.AllowCompaniesRegisterReq:
+    properties:
+      company_accounts:
+        items:
+          type: string
+        type: array
+    type: object
+  request.AllowCompaniesUpdateReq:
+    properties:
+      company_accounts:
+        items:
+          type: string
+        type: array
     type: object
   request.CompanyLoginReq:
     properties:
@@ -152,6 +187,20 @@ definitions:
     properties:
       count:
         type: integer
+    type: object
+  response.GetCompaniesResp:
+    properties:
+      company_infos:
+        items:
+          $ref: '#/definitions/company_model.CompanyInfo'
+        type: array
+    type: object
+  response.GetCompaniesToBeReviewedResp:
+    properties:
+      company_infos:
+        items:
+          $ref: '#/definitions/company_model.CompanyInfo'
+        type: array
     type: object
 externalDocs:
   description: OpenAPI
@@ -314,6 +363,20 @@ paths:
       summary: Company update password
       tags:
       - Company
+  /manage/advertisement/list:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: All advertisements
+          schema:
+            $ref: '#/definitions/response.GetAdvertisementsResp'
+      summary: Get all advertisements to be reviewed
+      tags:
+      - Manage
   /manage/company/count:
     get:
       consumes:
@@ -328,6 +391,29 @@ paths:
       summary: Get all companies count
       tags:
       - Manage
+  /manage/company/info:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: allow companies update request
+        in: body
+        name: request_body
+        required: true
+        schema:
+          $ref: '#/definitions/request.AllowCompaniesUpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: allow update for companies response
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Allow Update For Companies
+      tags:
+      - Manage
   /manage/company/info_review_count:
     get:
       consumes:
@@ -340,6 +426,57 @@ paths:
           schema:
             $ref: '#/definitions/response.GetCompaniesCountResp'
       summary: Get info pending review companies count
+      tags:
+      - Manage
+  /manage/company/list:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Get companies response
+          schema:
+            $ref: '#/definitions/response.GetCompaniesResp'
+      summary: Get all companies
+      tags:
+      - Manage
+  /manage/company/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: allow companies register request
+        in: body
+        name: request_body
+        required: true
+        schema:
+          $ref: '#/definitions/request.AllowCompaniesRegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: allow companies response
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Allow Registration For Companies
+      tags:
+      - Manage
+  /manage/company/review:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Get companies to be reviewed response
+          schema:
+            $ref: '#/definitions/response.GetCompaniesToBeReviewedResp'
+      summary: Get all companies to be reviewed
       tags:
       - Manage
   /manage/company/review_count:
@@ -376,20 +513,6 @@ paths:
           schema:
             $ref: '#/definitions/response.AdminCreateResp'
       summary: Admin create
-      tags:
-      - Manage
-  /manage/list:
-    post:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: All advertisements
-          schema:
-            $ref: '#/definitions/response.GetAdvertisementsResp'
-      summary: Get all advertisements
       tags:
       - Manage
 securityDefinitions:
