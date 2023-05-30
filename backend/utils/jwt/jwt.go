@@ -3,6 +3,7 @@ package jwt
 import (
 	"backend/global"
 	"github.com/golang-jwt/jwt/v5"
+	"log"
 	"strings"
 	"time"
 )
@@ -38,6 +39,7 @@ func GenerateToken(username, password, role string) (string, error) {
 
 func ParseToken(token string) (*Claims, error) {
 	token = strings.Replace(token, global.JWT_TOKEN_PREFIX, "", -1)
+	log.Printf("Token: %s\n", token)
 	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return JwtSecret, nil
 	})
