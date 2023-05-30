@@ -26,7 +26,7 @@ type ManageCompanyApi struct {
 //	@Accept			json
 //	@Produce		json
 //	@Success		200				{object}   response.GetCompaniesCountResp	"Get companies count response"
-//	@Router			/manage/company/count [post]
+//	@Router			/manage/company/count [get]
 func (m *ManageCompanyApi) GetCompaniesCount(c *gin.Context) {
 	count, err := adminService.ManageCompanyService.GetCompaniesCount()
 	if err != nil {
