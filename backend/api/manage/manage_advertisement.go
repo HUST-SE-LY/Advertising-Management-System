@@ -3,6 +3,7 @@ package manage
 import (
 	"backend/global"
 	"backend/models/advertisement_model/entity"
+	"backend/models/manage_model/enum"
 	"backend/models/manage_model/request"
 	"backend/models/manage_model/response"
 	"backend/utils/functional"
@@ -11,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 	"net/http"
+	"strconv"
 )
 
 type ManageAdvertisementApi struct {
@@ -70,4 +72,45 @@ func (m *ManageAdvertisementApi) AllowAdvertisement(c *gin.Context) {
 	}
 	jsonResp, _ := jsoniter.Marshal(allowAdvertisements)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+func (m *ManageAdvertisementApi) DeleteAdvertisement(c *gin.Context) {
+	var deleteAdvertisementReq request.DeleteAdvertisementReq
+	if err := gin_ext.BindJSON(c, &deleteAdvertisementReq); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	deletenumbers := deleteAdvertisementReq.DeleteNumbers
+	deleteAdvertisements, err := adminService.ManageAdvertisementService.DeleteAdvertisement(deletenumbers)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+		return
+	}
+	err = global.GVA_DB.Where("id In ?", deleteAdvertisements).Delete(&entity.Advertisement{}).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+		return
+	}
+	jsonResp, _ := jsoniter.Marshal(deleteAdvertisements)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+func (m *ManageAdvertisementApi) GetAdvertisementsByTerm(c *gin.Context) {
+	term := c.Query("term")
+	_type, err := strconv.Atoi(c.Query("type"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.InvalidParams, nil))
+		return
+	}
+	termType := enum.AdvertisementType(_type)
+	if advertisements, err := adminService.GetAdvertisementsByTerm(term, termType); err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	} else {
+		advertisementsInfo := functional.Map(advertisements, entity.Advertisement.GetInfo)
+		resp := response.GetAdvertisementToBePreviewedResp{AdvertisementInfos: advertisementsInfo}
+		jsonResp, _ := jsoniter.Marshal(resp)
+		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+	}
+
 }
