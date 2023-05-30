@@ -1,5 +1,5 @@
 package request
 
 type CompanyUpdatePwdReq struct {
-	Password string
+	Password string `json:"password" example:"1919810"`
 }

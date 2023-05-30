@@ -22,6 +22,6 @@ func (c *CompanyRouterGroup) Init(router *gin.RouterGroup) {
 		companyRouter.POST("update-pwd", companyAccountApi.CompanyUpdatePwd)
 		companyRouter.GET("logout", companyAccountApi.CompanyLogout)
 		companyRouter.GET("cancel", companyAccountApi.CompanyCancel)
-		companyRouter.PUT("upload-ad", companyAdvertisementApi.CompanyUploadAdvertisement)
+		companyRouter.PUT("advt/upload", companyAdvertisementApi.CompanyUploadAdvertisement)
 	}
 }

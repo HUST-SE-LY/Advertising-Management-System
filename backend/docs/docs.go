@@ -27,7 +27,6 @@ const docTemplate = `{
     "paths": {
         "/admin/login": {
             "post": {
-                "description": "Create Admin with account and password",
                 "consumes": [
                     "application/json"
                 ],
@@ -35,25 +34,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Advertisement"
                 ],
-                "summary": "Admin create",
-                "parameters": [
-                    {
-                        "description": "Admin create request",
-                        "name": "request_body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.AdminCreateReq"
-                        }
-                    }
-                ],
+                "summary": "Get all advertisements",
                 "responses": {
                     "200": {
-                        "description": "Admin create response",
+                        "description": "All advertisements",
                         "schema": {
-                            "$ref": "#/definitions/response.AdminCreateResp"
+                            "$ref": "#/definitions/response.GetAdvertisementsResp"
                         }
                     }
                 }
@@ -74,7 +62,7 @@ const docTemplate = `{
                 "summary": "Company login",
                 "parameters": [
                     {
-                        "description": "password",
+                        "description": "company login request",
                         "name": "request_body",
                         "in": "body",
                         "required": true,
@@ -89,6 +77,26 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/response.CompanyLoginResp"
                         }
+                    }
+                }
+            }
+        },
+        "/company/logout": {
+            "post": {
+                "description": "Company logout",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company logout",
+                "responses": {
+                    "200": {
+                        "description": "response"
                     }
                 }
             }
@@ -108,7 +116,7 @@ const docTemplate = `{
                 "summary": "Company register",
                 "parameters": [
                     {
-                        "description": "company business license number",
+                        "description": "company register request",
                         "name": "request_body",
                         "in": "body",
                         "required": true,
@@ -123,9 +131,99 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/company/update-info": {
+            "post": {
+                "description": "Company update info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company update info",
+                "parameters": [
+                    {
+                        "description": "company update info  request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CompanyUpdateInfoReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company UpdateInfoReq response"
+                    }
+                }
+            }
+        },
+        "/company/update-pwd": {
+            "post": {
+                "description": "Company update password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company update password",
+                "parameters": [
+                    {
+                        "description": "company update password request",
+                        "name": "request_body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/request.CompanyUpdatePwdReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company update password response"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "advertisement_model.AdvertisementToBePreviewedInfo": {
+            "type": "object",
+            "properties": {
+                "company_id": {
+                    "type": "integer"
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "jump_to_url": {
+                    "type": "string"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "start_date": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
         "request.AdminCreateReq": {
             "type": "object",
             "properties": {
@@ -194,6 +292,44 @@ const docTemplate = `{
                 }
             }
         },
+        "request.CompanyUpdateInfoReq": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "联创"
+                },
+                "address": {
+                    "type": "string",
+                    "example": "启明学院亮胜楼八楼"
+                },
+                "business_license_number": {
+                    "type": "string",
+                    "example": "114514"
+                },
+                "manager_name": {
+                    "type": "string",
+                    "example": "汉堡"
+                },
+                "manager_tel": {
+                    "type": "string",
+                    "example": "1919810"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "联小创在线科技有限公司"
+                }
+            }
+        },
+        "request.CompanyUpdatePwdReq": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "example": "1919810"
+                }
+            }
+        },
         "response.AdminCreateResp": {
             "type": "object",
             "properties": {
@@ -225,6 +361,17 @@ const docTemplate = `{
                 "token": {
                     "type": "string",
                     "example": "114514"
+                }
+            }
+        },
+        "response.GetAdvertisementsResp": {
+            "type": "object",
+            "properties": {
+                "advertisement_infos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/advertisement_model.AdvertisementToBePreviewedInfo"
+                    }
                 }
             }
         }

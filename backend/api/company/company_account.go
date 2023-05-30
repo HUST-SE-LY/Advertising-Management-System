@@ -22,7 +22,7 @@ type CompanyAccountApi struct {
 //	@Tags			Company
 //	@Accept			json
 //	@Produce		json
-//	@Param			request_body	body		request.CompanyRegisterReq	true	"company business license number"
+//	@Param			request_body	body		request.CompanyRegisterReq	true	"company register request"
 //	@Success		200				{object}	nil							"response"
 //	@Router			/company/register [post]
 func (com *CompanyAccountApi) CompanyRegister(c *gin.Context) {
@@ -49,7 +49,7 @@ func (com *CompanyAccountApi) CompanyRegister(c *gin.Context) {
 //	@Tags			Company
 //	@Accept			json
 //	@Produce		json
-//	@Param			request_body	body		request.CompanyLoginReq		true	"password"
+//	@Param			request_body	body		request.CompanyLoginReq		true	"company login request"
 //	@Success		200				{object}	response.CompanyLoginResp	"Company login response"
 //	@Router			/company/login [post]
 func (com *CompanyAccountApi) CompanyLogin(c *gin.Context) {
@@ -66,6 +66,16 @@ func (com *CompanyAccountApi) CompanyLogin(c *gin.Context) {
 	}
 }
 
+// CompanyLogout godoc
+//
+//	@Summary		Company logout
+//	@Description	Company logout
+//
+//	@Tags			Company
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{object}	nil	"response"
+//	@Router			/company/logout [post]
 func (com *CompanyAccountApi) CompanyLogout(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	err := companyService.CompanyLogout(token)
@@ -76,6 +86,17 @@ func (com *CompanyAccountApi) CompanyLogout(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
 }
 
+// CompanyUpdateInfo godoc
+//
+//	@Summary		Company update info
+//	@Description	Company update info
+//
+//	@Tags			Company
+//	@Accept			json
+//	@Produce		json
+//	@Param			request_body	body		request.CompanyUpdateInfoReq	true	"company update info  request"
+//	@Success		200				{object}	nil								"Company UpdateInfoReq response"
+//	@Router			/company/update-info [post]
 func (com *CompanyAccountApi) CompanyUpdateInfo(c *gin.Context) {
 	var companyUpdateInfoReq request.CompanyUpdateInfoReq
 	if err := gin_ext.ShouldBindJSON(c, &companyUpdateInfoReq); err != nil {
@@ -88,6 +109,17 @@ func (com *CompanyAccountApi) CompanyUpdateInfo(c *gin.Context) {
 	}
 }
 
+// CompanyUpdatePwd godoc
+//
+//	@Summary		Company update password
+//	@Description	Company update password
+//
+//	@Tags			Company
+//	@Accept			json
+//	@Produce		json
+//	@Param			request_body	body		request.CompanyUpdatePwdReq	false	"company update password request"
+//	@Success		200				{object}	nil								"Company update password response"
+//	@Router			/company/update-pwd [post]
 func (com *CompanyAccountApi) CompanyUpdatePwd(c *gin.Context) {
 	var companyUpdatePwdReq request.CompanyUpdatePwdReq
 	if err := gin_ext.ShouldBindJSON(c, &companyUpdatePwdReq); err != nil {
