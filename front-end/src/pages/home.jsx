@@ -3,16 +3,6 @@ import NavigateButton from "../components/navigateButton";
 import TypingWord from "../components/typingWord";
 import useAxios from "../utils/useAxios";
 function Home() {
-  const axios = useAxios()
-  useEffect(() => {
-    (async () => {
-      const res = await axios.post("/company/register",{})
-      console.log(res)
-    })()
-
-  },[])
-
-
   return (
     <div className="w-screen h-screen grid grid-cols-[3fr_2fr] justify-center items-center bg-slate-50">
       <div className="w-[400px] h-[400px] rounded-full bg-blue-200/50 fixed top-[50px] left-[50px] animate-float"></div>

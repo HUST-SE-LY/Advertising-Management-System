@@ -3,11 +3,23 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/input";
 import LongButton from "../components/longButton";
+import useAxios from "../utils/useAxios";
 function CompanyLogin() {
   const [companyId, setCompanyId] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  const axios = useAxios();
+  async function login() {
+    try {
+      axios.post("/company/login", {
+        account: companyId,
+        password: password,
+      });
+      navigate("/user");
+    } catch (err) {
+      alert("账号或密码错误");
+    }
+  }
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[url('/src/assets/companyLoginBack.jpg')] bg-cover bg-center">
       <div className="grid grid-cols-2 w-1/2 h-1/2 bg-white rounded-lg p-[1rem] gap-[2rem] animate-floatin">
@@ -15,7 +27,9 @@ function CompanyLogin() {
           <p className="font-sans font-bold text-[2rem] leading-[3rem]">
             Put your AD on our app
           </p>
-          <p className="font-sans text-[1.2rem] leading-[2rem]">Sign in or sign up</p>
+          <p className="font-sans text-[1.2rem] leading-[2rem]">
+            Sign in or sign up
+          </p>
           <p className="font-sans text-[1.2rem] leading-[2rem]">
             and choose an Ad to put
           </p>
@@ -30,8 +44,10 @@ function CompanyLogin() {
           <p className="text-[1.5rem] font-bold">企业客户登录</p>
           <Input title="账号" setInfo={setCompanyId}></Input>
           <Input title="密码" setInfo={setPassword}></Input>
-          <LongButton content="登录" handle={() => navigate('/user')}></LongButton>
-          <p className="text-sm text-blue-400 underline cursor-pointer text-right transition-all hover:text-blue-600"><Link to="/company-signup">没有账号？注册</Link></p>
+          <LongButton content="登录" handle={login}></LongButton>
+          <p className="text-sm text-blue-400 underline cursor-pointer text-right transition-all hover:text-blue-600">
+            <Link to="/company-signup">没有账号？注册</Link>
+          </p>
         </div>
       </div>
     </div>
