@@ -1,0 +1,90 @@
+info:
+  contact: {}
+paths:
+  /admin/login:
+    post:
+      consumes:
+      - application/json
+      description: Admin Login by account and password
+      parameters:
+      - description: account
+        in: body
+        name: account
+        required: true
+        schema:
+          type: string
+      - description: password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: TODO
+          schema:
+            type: string
+      summary: Admin login
+      tags:
+      - accounts
+  /company/register:
+    post:
+      consumes:
+      - application/json
+      description: Company register
+      parameters:
+      - description: account
+        in: body
+        name: account
+        required: true
+        schema:
+          type: string
+      - description: password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      - description: name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: address
+        in: body
+        name: address
+        required: true
+        schema:
+          type: string
+      - description: company manager name
+        in: body
+        name: manager_name
+        required: true
+        schema:
+          type: string
+      - description: company manager telephone number
+        in: body
+        name: manager_tel
+        required: true
+        schema:
+          type: string
+      - description: company business license number
+        in: body
+        name: business_license_number
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: TODO
+          schema:
+            type: string
+      summary: Company register
+      tags:
+      - accounts
+swagger: "2.0"

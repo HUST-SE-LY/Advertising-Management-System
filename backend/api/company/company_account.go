@@ -13,6 +13,23 @@ import (
 type CompanyAccountApi struct {
 }
 
+// CompanyRegister godoc
+//
+//	@Summary		Company register
+//	@Description	Company register
+//
+//	@Tags			accounts
+//	@Accept			json
+//	@Produce		json
+//	@Param			account					body		string	true	"account"
+//	@Param			password				body		string	true	"password"
+//	@Param			name					body		string	true	"name"
+//	@Param			address					body		string	true	"address"
+//	@Param			manager_name			body		string	true	"company manager name"
+//	@Param			manager_tel				body		string	true	"company manager telephone number"
+//	@Param			business_license_number	body		string	true	"company business license number"
+//	@Success		200						{object}	string	"TODO"
+//	@Router			/company/register [post]
 func (com *CompanyAccountApi) CompanyRegister(c *gin.Context) {
 	var companyRegisterReq request.CompanyRegisterReq
 	if err := gin_ext.BindJSON(c, &companyRegisterReq); err != nil {

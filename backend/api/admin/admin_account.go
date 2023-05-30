@@ -12,6 +12,18 @@ import (
 type AdminAccountApi struct {
 }
 
+// AdminLogin godoc
+//
+//	@Summary		Admin login
+//	@Description	Admin Login by account and password
+//
+//	@Tags			accounts
+//	@Accept			json
+//	@Produce		json
+//	@Param			account		body		string	true	"account"
+//	@Param			password	body		string	true	"password"
+//	@Success		200			{object}	string	"TODO"
+//	@Router			/admin/login [post]
 func (a *AdminAccountApi) AdminLogin(c *gin.Context) {
 	var adminLoginReq request.AdminLoginReq
 	err := c.ShouldBindJSON(&adminLoginReq)

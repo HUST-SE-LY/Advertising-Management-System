@@ -1,0 +1,111 @@
+### POST "fnfunfunc"
+POST https://aivwe.top/manage/admin/create
+Content-Type: application/json
+
+{
+  "account": "fnfunfunc2",
+  "password": "1234"
+}
+
+### Login "fnfunfunc"
+POST https://aivwe.top/admin/login
+Content-Type: application/json
+
+{
+  "account": "fnfunfunc2",
+  "password": "1234"
+}
+
+### Register Company "联小创在线科技有限公司"
+POST https://aivwe.top/company/register
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "password": "uniquestudio",
+  "name": "联小创在线科技有限公司",
+  "address": "启明学院亮胜楼八楼",
+  "manager_name": "汉堡",
+  "manager_tel": "1919810",
+  "business_license_number": "114514"
+}
+
+### Login Company "联小创在线科技有限公司"
+POST https://aivwe.top/company/login
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "password": "uniquestudio"
+}
+
+### List pending review companies
+GET https://aivwe.top/manage/company/review
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+
+### List all registered companies
+GET https://aivwe.top/manage/company/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+
+### Allow "联小创在线科技有限公司"
+POST https://aivwe.top/manage/company/register
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Content-Type: application/json
+
+{
+  "company_accounts": ["联创"]
+}
+
+### Search "联小创在线科技有限公司"
+GET https://aivwe.top/manage/company/search?term=联小创在线科技有限公司&type=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+
+### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
+POST https://aivwe.top/company/update-info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "manager_name": "Hamburger"
+}
+
+### Allow "联小创在线科技有限公司" update info
+POST https://aivwe.top/manage/company/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Content-Type: application/json
+
+{
+  "company_accounts": ["联创"]
+}
+
+### cancel "联小创在线科技有限公司"
+GET https://aivwe.top/company/cancel
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFFkczVmTC5BaS5OR0lkTVN5OG9XUnU2cHdDbFAucVR0L3o1VTYzMGJzUlJ6NjNyVWdTaGxHIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjMzMzgxNzg0Mywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.pEU_bb88B9zPpergLk8ivROMjnOjHcSBMrpnrER4Rqk
+
+### List all  advertisements
+GET https://aivwe.top/manage/advertisement/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+
+
+### upload Advertisement
+PUT https://aivwe.top/company/upload-ad
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="advertisementInfo"
+Content-Type: application/json
+
+{
+   "title": "advertisement example",
+   "position": 1,
+   "jump_to_url": "example.com/1919810",
+   "start_date": "2023-04-17",
+   "end_date": "2023-05-11"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="xmj.jpg"
+
+< ./image/xmj.jpg
+--WebAppBoundary--
