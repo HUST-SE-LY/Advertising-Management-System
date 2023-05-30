@@ -29,13 +29,12 @@ func (m *ManageCompanyService) GetInfoPendingReviewCompaniesCount() (int, error)
 	return len(companies), nil
 }
 
-func (m *ManageCompanyService) GetPendingReviewCompaniesCount() (int64, error) {
-	var count int64 = 0
+func (m *ManageCompanyService) GetPendingReviewCompaniesCount() (int, error) {
 	var companies []entity.CompanyPendingReview
-	if err := global.GVA_DB.Find(&companies).Count(&count).Error; err != nil {
+	if err := global.GVA_DB.Find(&companies).Error; err != nil {
 		return 0, err
 	}
-	return count, nil
+	return len(companies), nil
 }
 
 func (m *ManageCompanyService) GetAllCompanies() (companies []entity.Company, err error) {

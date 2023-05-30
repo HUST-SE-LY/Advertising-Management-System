@@ -270,6 +270,28 @@ const docTemplate = `{
                 }
             }
         },
+        "/manage/company/info_review_count": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get info pending review companies count",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesCountResp"
+                        }
+                    }
+                }
+            }
+        },
         "/manage/company/review_count": {
             "get": {
                 "consumes": [

@@ -328,6 +328,20 @@ paths:
       summary: Get all companies count
       tags:
       - Manage
+  /manage/company/info_review_count:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.GetCompaniesCountResp'
+      summary: Get info pending review companies count
+      tags:
+      - Manage
   /manage/company/review_count:
     get:
       consumes:

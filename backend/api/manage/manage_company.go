@@ -38,7 +38,7 @@ func (m *ManageCompanyApi) GetCompaniesCount(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
-// GetInfoPendingReviewCompaniesCount godoc
+// GetPendingReviewCompaniesCount godoc
 //
 //	@Summary		Get info pending review companies count
 //
@@ -47,6 +47,26 @@ func (m *ManageCompanyApi) GetCompaniesCount(c *gin.Context) {
 //	@Produce		json
 //	@Success		200				{object}   response.GetCompaniesCountResp
 //	@Router			/manage/company/review_count [get]
+func (m *ManageCompanyApi) GetPendingReviewCompaniesCount(c *gin.Context) {
+	count, err := adminService.ManageCompanyService.GetPendingReviewCompaniesCount()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	}
+	resp := response.GetCompaniesCountResp{Count: count}
+	jsonResp, _ := jsoniter.Marshal(resp)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+// GetInfoPendingReviewCompaniesCount godoc
+//
+//	@Summary		Get info pending review companies count
+//
+//	@Tags			Manage
+//	@Accept			json
+//	@Produce		json
+//	@Success		200				{object}   response.GetCompaniesCountResp
+//	@Router			/manage/company/info_review_count [get]
 func (m *ManageCompanyApi) GetInfoPendingReviewCompaniesCount(c *gin.Context) {
 	count, err := adminService.ManageCompanyService.GetInfoPendingReviewCompaniesCount()
 	if err != nil {
