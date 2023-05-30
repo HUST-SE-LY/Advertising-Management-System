@@ -3,17 +3,44 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/input";
 import LongButton from "../components/longButton";
+import useAxios from "../utils/useAxios";
+
 function ManagerLogin() {
   const [managerId, setManagerId] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+  const axios = useAxios();
 
   async function login() {
-    console.log(managerId);
-    console.log(password);
-    navigate("/back-stage/home")
+    try {
+      const res = await axios.post("/admin/login", {
+        account: managerId,
+        password: password,
+      });
+      const token = res.data.data.token;
+      localStorage.setItem("token", token);
+      navigate("/back-stage/home");
+    } catch (err) {
+      console.log(err);
+      alert("账号或者密码错误");
+    }
   }
+
+  async function checkLogin() {
+    try {
+      const res = await axios.get("/admin/check_login");
+      console.log(res);
+      if (res.status === 200) {
+        navigate("/back-stage/home");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[url('/src/assets/managerLoginBack.jpg')] bg-cover bg-center">
