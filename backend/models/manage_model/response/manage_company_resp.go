@@ -3,7 +3,7 @@ package response
 import "backend/models/company_model"
 
 type GetCompaniesCountResp struct {
-	Count int64 `json:"count"`
+	Count int `json:"count"`
 }
 
 type GetCompaniesResp struct {

@@ -13,22 +13,20 @@ import (
 type ManageCompanyService struct {
 }
 
-func (m *ManageCompanyService) GetCompaniesCount() (int64, error) {
-	var count int64 = 0
+func (m *ManageCompanyService) GetCompaniesCount() (int, error) {
 	var companies []entity.Company
-	if err := global.GVA_DB.Find(&companies).Count(&count).Error; err != nil {
+	if err := global.GVA_DB.Find(&companies).Error; err != nil {
 		return 0, err
 	}
-	return count, nil
+	return len(companies), nil
 }
 
-func (m *ManageCompanyService) GetInfoPendingReviewCompaniesCount() (int64, error) {
-	var count int64 = 0
+func (m *ManageCompanyService) GetInfoPendingReviewCompaniesCount() (int, error) {
 	var companies []entity.CompanyInfoPendingReview
-	if err := global.GVA_DB.Find(&companies).Count(&count).Error; err != nil {
+	if err := global.GVA_DB.Find(&companies).Error; err != nil {
 		return 0, err
 	}
-	return count, nil
+	return len(companies), nil
 }
 
 func (m *ManageCompanyService) GetPendingReviewCompaniesCount() (int64, error) {
