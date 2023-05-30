@@ -16,6 +16,7 @@ Content-Type: application/json
   "password": "1234"
 }
 
+
 ### Register Company "联小创在线科技有限公司"
 POST http://localhost:8080/company/register
 Content-Type: application/json
@@ -69,6 +70,11 @@ Content-Type: application/json
   "account": "联创",
   "manager_name": "Hamburger"
 }
+
+### Allow "联小创在线科技有限公司" update info
+GET http://localhost:8080/manage/company/count
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Content-Type: application/json
 
 ### Allow "联小创在线科技有限公司" update info
 POST http://localhost:8080/manage/company/info
@@ -131,6 +137,11 @@ Content-Type: application/json
 {
   "delete_numbers": [30]
 }
+
+### Get advertisementpedingreviewcount
+GET http://localhost:8080/manage/advertisement/count
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Content-Type: application/json
 
 ### Search "companyid = 1"
 GET http://localhost:8080/manage/advertisement/search?term=1&type=1

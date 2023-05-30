@@ -11,3 +11,7 @@ type GetAdvertisementsResp struct {
 type GetAdvertisementToBePreviewedResp struct {
 	AdvertisementInfos []advertisement_model.AdvertisementToBePreviewedInfo `json:"advertisement_infos"`
 }
+
+type GetAdvertisementsPendingReview struct {
+	Count int64 `json:"adcount"`
+}

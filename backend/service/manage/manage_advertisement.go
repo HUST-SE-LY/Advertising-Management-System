@@ -70,6 +70,14 @@ func (m *ManageAdvertisementService) GetAdvertisementsByTerm(term string, termTy
 
 	return advertisements, nil
 }
+func (m *ManageAdvertisementService) GetAdvertisementsPendingReviewCount() (int64, error) {
+	var count int64 = 0
+	var ads []entity.AdvertisementPendingReview
+	if err := global.GVA_DB.Find(&ads).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
 
 func DeleteFile(filename string) error {
 	realfilename := filename[15:]

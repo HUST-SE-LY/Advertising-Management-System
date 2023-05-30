@@ -25,6 +25,7 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 		manageRouter.GET("company/review", manageCompanyApi.GetAllCompaniesToBeReviewed)
 		manageRouter.POST("company/register", manageCompanyApi.AllowRegistrationForCompanies)
 		manageRouter.POST("company/info", manageCompanyApi.AllowUpdateForCompanies)
+		manageRouter.GET("advertisement/count", manageAdvertisement.GetAdvertisementsPendingReviewCount)
 		manageRouter.GET("advertisement/list", manageAdvertisement.GetAllAdvertisements)
 		manageRouter.GET("advertisement/review", manageAdvertisement.GetAllAdvertisementsToBeReviewed)
 		manageRouter.POST("advertisement/allow", manageAdvertisement.AllowAdvertisement)
