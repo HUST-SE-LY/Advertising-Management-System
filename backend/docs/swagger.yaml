@@ -363,6 +363,28 @@ paths:
       summary: Company update password
       tags:
       - Company
+  /manage/admin/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Admin with account and password
+      parameters:
+      - description: Admin create request
+        in: body
+        name: request_body
+        required: true
+        schema:
+          $ref: '#/definitions/request.AdminCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Admin create response
+          schema:
+            $ref: '#/definitions/response.AdminCreateResp'
+      summary: Admin create
+      tags:
+      - Manage
   /manage/advertisement/list:
     post:
       consumes:
@@ -375,20 +397,6 @@ paths:
           schema:
             $ref: '#/definitions/response.GetAdvertisementsResp'
       summary: Get all advertisements to be reviewed
-      tags:
-      - Manage
-  /manage/company/count:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Get companies count response
-          schema:
-            $ref: '#/definitions/response.GetCompaniesCountResp'
-      summary: Get all companies count
       tags:
       - Manage
   /manage/company/info:
@@ -491,28 +499,6 @@ paths:
           schema:
             $ref: '#/definitions/response.GetCompaniesCountResp'
       summary: Get info pending review companies count
-      tags:
-      - Manage
-  /manage/create:
-    post:
-      consumes:
-      - application/json
-      description: Create Admin with account and password
-      parameters:
-      - description: Admin create request
-        in: body
-        name: request_body
-        required: true
-        schema:
-          $ref: '#/definitions/request.AdminCreateReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Admin create response
-          schema:
-            $ref: '#/definitions/response.AdminCreateResp'
-      summary: Admin create
       tags:
       - Manage
 securityDefinitions:

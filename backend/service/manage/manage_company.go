@@ -13,14 +13,6 @@ import (
 type ManageCompanyService struct {
 }
 
-func (m *ManageCompanyService) GetCompaniesCount() (int, error) {
-	var companies []entity.Company
-	if err := global.GVA_DB.Find(&companies).Error; err != nil {
-		return 0, err
-	}
-	return len(companies), nil
-}
-
 func (m *ManageCompanyService) GetInfoPendingReviewCompaniesCount() (int, error) {
 	var companies []entity.CompanyInfoPendingReview
 	if err := global.GVA_DB.Find(&companies).Error; err != nil {

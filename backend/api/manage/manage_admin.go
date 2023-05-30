@@ -24,7 +24,7 @@ type ManageAdminApi struct {
 //	@Produce		json
 //	@Param			request_body	body		request.AdminCreateReq		true	"Admin create request"
 //	@Success		200				{object}	response.AdminCreateResp	"Admin create response"
-//	@Router			/manage/create [post]
+//	@Router			/manage/admin/create [post]
 func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 	var adminCreateReq request.AdminCreateReq
 	err := c.ShouldBindJSON(&adminCreateReq)
