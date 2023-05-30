@@ -18,7 +18,7 @@ func (adv AdvertisementPendingReview) ToAdvertisement() Advertisement {
 	return adv.Advertisement
 }
 
-func (adv AdvertisementPendingReview) GetInfo() advertisement_model.AdvertisementpreviewedInfo {
+func (adv AdvertisementPendingReview) GetInfo() advertisement_model.AdvertisementToBePreviewedInfo {
 	return *advertisement_model.NewAdvertisementInfo(
 		adv.Id,
 		adv.CompanyId,

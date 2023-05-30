@@ -10,7 +10,16 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -18,7 +27,7 @@ const docTemplate = `{
     "paths": {
         "/admin/login": {
             "post": {
-                "description": "Admin Login by account and password",
+                "description": "Create Admin with account and password",
                 "consumes": [
                     "application/json"
                 ],
@@ -28,23 +37,23 @@ const docTemplate = `{
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Admin login",
+                "summary": "Admin create",
                 "parameters": [
                     {
-                        "description": "Admin login request",
+                        "description": "Admin create request",
                         "name": "request_body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.AdminLoginReq"
+                            "$ref": "#/definitions/request.AdminCreateReq"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Admin login response",
+                        "description": "Admin create response",
                         "schema": {
-                            "$ref": "#/definitions/response.AdminLoginResp"
+                            "$ref": "#/definitions/response.AdminCreateResp"
                         }
                     }
                 }
@@ -117,6 +126,17 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "request.AdminCreateReq": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
         "request.AdminLoginReq": {
             "type": "object",
             "properties": {
@@ -174,6 +194,14 @@ const docTemplate = `{
                 }
             }
         },
+        "response.AdminCreateResp": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                }
+            }
+        },
         "response.AdminLoginResp": {
             "type": "object",
             "properties": {
@@ -200,17 +228,26 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BasicAuth": {
+            "type": "basic"
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
+	Version:          "1.0",
+	Host:             "localhost:8080",
+	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Swagger Example API",
+	Description:      "This is a sample server celler server.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

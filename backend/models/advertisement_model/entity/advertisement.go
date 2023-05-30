@@ -11,7 +11,7 @@ type Advertisement struct {
 	advertisement_model.AdvertisementInfo
 }
 
-func (a Advertisement) GetInfo() advertisement_model.AdvertisementpreviewedInfo {
+func (a Advertisement) GetInfo() advertisement_model.AdvertisementToBePreviewedInfo {
 	return *advertisement_model.NewAdvertisementInfo(
 		a.Id,
 		a.CompanyId,

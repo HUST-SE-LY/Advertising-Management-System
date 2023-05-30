@@ -1,12 +1,26 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is a sample server celler server.",
+        "title": "Swagger Example API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
     },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
     "paths": {
         "/admin/login": {
             "post": {
-                "description": "Admin Login by account and password",
+                "description": "Create Admin with account and password",
                 "consumes": [
                     "application/json"
                 ],
@@ -16,23 +30,23 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "Admin login",
+                "summary": "Admin create",
                 "parameters": [
                     {
-                        "description": "Admin login request",
+                        "description": "Admin create request",
                         "name": "request_body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.AdminLoginReq"
+                            "$ref": "#/definitions/request.AdminCreateReq"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Admin login response",
+                        "description": "Admin create response",
                         "schema": {
-                            "$ref": "#/definitions/response.AdminLoginResp"
+                            "$ref": "#/definitions/response.AdminCreateResp"
                         }
                     }
                 }
@@ -105,6 +119,17 @@
         }
     },
     "definitions": {
+        "request.AdminCreateReq": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
         "request.AdminLoginReq": {
             "type": "object",
             "properties": {
@@ -162,6 +187,14 @@
                 }
             }
         },
+        "response.AdminCreateResp": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                }
+            }
+        },
         "response.AdminLoginResp": {
             "type": "object",
             "properties": {
@@ -188,5 +221,14 @@
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BasicAuth": {
+            "type": "basic"
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
     }
 }

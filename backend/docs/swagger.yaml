@@ -1,4 +1,12 @@
+basePath: /api/v1
 definitions:
+  request.AdminCreateReq:
+    properties:
+      account:
+        type: string
+      password:
+        type: string
+    type: object
   request.AdminLoginReq:
     properties:
       account:
@@ -39,6 +47,11 @@ definitions:
         example: uniquestudio
         type: string
     type: object
+  response.AdminCreateResp:
+    properties:
+      account:
+        type: string
+    type: object
   response.AdminLoginResp:
     properties:
       account:
@@ -57,29 +70,43 @@ definitions:
         example: "114514"
         type: string
     type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
 info:
-  contact: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
 paths:
   /admin/login:
     post:
       consumes:
       - application/json
-      description: Admin Login by account and password
+      description: Create Admin with account and password
       parameters:
-      - description: Admin login request
+      - description: Admin create request
         in: body
         name: request_body
         required: true
         schema:
-          $ref: '#/definitions/request.AdminLoginReq'
+          $ref: '#/definitions/request.AdminCreateReq'
       produces:
       - application/json
       responses:
         "200":
-          description: Admin login response
+          description: Admin create response
           schema:
-            $ref: '#/definitions/response.AdminLoginResp'
-      summary: Admin login
+            $ref: '#/definitions/response.AdminCreateResp'
+      summary: Admin create
       tags:
       - Admin
   /company/login:
@@ -124,4 +151,7 @@ paths:
       summary: Company register
       tags:
       - Company
+securityDefinitions:
+  BasicAuth:
+    type: basic
 swagger: "2.0"

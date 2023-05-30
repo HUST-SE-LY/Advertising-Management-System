@@ -5,9 +5,9 @@ import (
 )
 
 type GetAdvertisementsResp struct {
-	AdvertisementInfos []advertisement_model.AdvertisementInfo `json:"advertisement_infos"`
+	AdvertisementInfos []advertisement_model.AdvertisementToBePreviewedInfo `json:"advertisement_infos"`
 }
 
 type GetAdvertisementToBePreviewedResp struct {
-	AdvertisementInfos []advertisement_model.AdvertisementpreviewedInfo `json:"advertisement_infos"`
+	AdvertisementInfos []advertisement_model.AdvertisementToBePreviewedInfo `json:"advertisement_infos"`
 }
