@@ -38,3 +38,8 @@ func (a *AdminAccountApi) AdminLogin(c *gin.Context) {
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 	}
 }
+
+// dummy
+func (a *AdminAccountApi) CheckLogin(c *gin.Context) {
+
+}
