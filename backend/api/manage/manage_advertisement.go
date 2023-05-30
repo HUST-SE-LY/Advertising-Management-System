@@ -20,11 +20,11 @@ type ManageAdvertisementApi struct {
 //
 //	@Summary		Get all advertisements
 //
-//	@Tags			Advertisement
+//	@Tags			Manage
 //	@Accept			json
 //	@Produce		json
 //	@Success		200				{object}	 response.GetAdvertisementsResp	"All advertisements"
-//	@Router			/admin/login [post]
+//	@Router			/manage/list [post]
 func (m *ManageAdvertisementApi) GetAllAdvertisements(c *gin.Context) {
 	advertisements, err := adminService.ManageAdvertisementService.GetAllAdvertisements()
 	if err != nil {

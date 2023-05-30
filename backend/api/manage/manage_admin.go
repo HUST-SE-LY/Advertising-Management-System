@@ -19,12 +19,12 @@ type ManageAdminApi struct {
 //	@Summary		Admin create
 //	@Description	Create Admin with account and password
 //
-//	@Tags			Admin
+//	@Tags			Manage
 //	@Accept			json
 //	@Produce		json
 //	@Param			request_body	body		request.AdminCreateReq	true	"Admin create request"
 //	@Success		200				{object}	response.AdminCreateResp	"Admin create response"
-//	@Router			/admin/login [post]
+//	@Router			/manage/create [post]
 func (m *ManageAdminApi) CreateAdmin(c *gin.Context) {
 	var adminCreateReq request.AdminCreateReq
 	err := c.ShouldBindJSON(&adminCreateReq)

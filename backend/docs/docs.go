@@ -27,6 +27,7 @@ const docTemplate = `{
     "paths": {
         "/admin/login": {
             "post": {
+                "description": "Admin Login by account and password",
                 "consumes": [
                     "application/json"
                 ],
@@ -34,14 +35,25 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Advertisement"
+                    "Admin"
                 ],
-                "summary": "Get all advertisements",
+                "summary": "Admin login",
+                "parameters": [
+                    {
+                        "description": "Admin login request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.AdminLoginReq"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "All advertisements",
+                        "description": "Admin login response",
                         "schema": {
-                            "$ref": "#/definitions/response.GetAdvertisementsResp"
+                            "$ref": "#/definitions/response.AdminLoginResp"
                         }
                     }
                 }
@@ -189,6 +201,62 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "Company update password response"
+                    }
+                }
+            }
+        },
+        "/manage/create": {
+            "post": {
+                "description": "Create Admin with account and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Admin create",
+                "parameters": [
+                    {
+                        "description": "Admin create request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.AdminCreateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Admin create response",
+                        "schema": {
+                            "$ref": "#/definitions/response.AdminCreateResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/list": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all advertisements",
+                "responses": {
+                    "200": {
+                        "description": "All advertisements",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetAdvertisementsResp"
+                        }
                     }
                 }
             }
