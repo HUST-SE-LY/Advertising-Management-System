@@ -2,6 +2,7 @@ package company
 
 import (
 	"backend/models/company_model/request"
+	"backend/models/company_model/response"
 	"backend/utils/gin_ext"
 	"backend/utils/jwt"
 	"backend/utils/status"
@@ -18,17 +19,11 @@ type CompanyAccountApi struct {
 //	@Summary		Company register
 //	@Description	Company register
 //
-//	@Tags			accounts
+//	@Tags			Company
 //	@Accept			json
 //	@Produce		json
-//	@Param			account					body		string	true	"account"
-//	@Param			password				body		string	true	"password"
-//	@Param			name					body		string	true	"name"
-//	@Param			address					body		string	true	"address"
-//	@Param			manager_name			body		string	true	"company manager name"
-//	@Param			manager_tel				body		string	true	"company manager telephone number"
-//	@Param			business_license_number	body		string	true	"company business license number"
-//	@Success		200						{object}	string	"TODO"
+//	@Param			request_body	body		request.CompanyRegisterReq	true	"company business license number"
+//	@Success		200				{object}	nil							"response"
 //	@Router			/company/register [post]
 func (com *CompanyAccountApi) CompanyRegister(c *gin.Context) {
 	var companyRegisterReq request.CompanyRegisterReq
@@ -46,6 +41,17 @@ func (com *CompanyAccountApi) CompanyRegister(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
 }
 
+// CompanyLogin godoc
+//
+//	@Summary		Company login
+//	@Description	Company Login by account and password
+//
+//	@Tags			Company
+//	@Accept			json
+//	@Produce		json
+//	@Param			request_body	body		request.CompanyLoginReq		true	"password"
+//	@Success		200				{object}	response.CompanyLoginResp	"Company login response"
+//	@Router			/company/login [post]
 func (com *CompanyAccountApi) CompanyLogin(c *gin.Context) {
 	var companyLoginReq request.CompanyLoginReq
 	if err := gin_ext.BindJSON(c, &companyLoginReq); err != nil {
@@ -54,7 +60,7 @@ func (com *CompanyAccountApi) CompanyLogin(c *gin.Context) {
 	if company, companyToken, err := companyService.CompanyLogin(companyLoginReq); err != nil {
 		c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
 	} else {
-		jsonResp, _ := jsoniter.Marshal(company)
+		jsonResp, _ := jsoniter.Marshal(response.CompanyLoginResp{company.Account, companyToken.Token})
 		c.Header("Authorization", companyToken.Token)
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 	}

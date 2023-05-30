@@ -1,7 +1,6 @@
 package response
 
-import "backend/models/company_model"
-
 type CompanyLoginResp struct {
-	company_model.CompanyInfo
+	Account string `json:"account" example:"联创"`
+	Token   string `json:"token" example:"114514"`
 }

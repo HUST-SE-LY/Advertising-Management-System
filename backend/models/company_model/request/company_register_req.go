@@ -4,5 +4,5 @@ import "backend/models/company_model"
 
 type CompanyRegisterReq struct {
 	company_model.CompanyInfo
-	Password string `json:"password"`
+	Password string `json:"password" example:"uniquestudio"`
 }

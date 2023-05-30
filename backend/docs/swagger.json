@@ -14,34 +14,59 @@
                     "application/json"
                 ],
                 "tags": [
-                    "accounts"
+                    "Admin"
                 ],
                 "summary": "Admin login",
                 "parameters": [
                     {
-                        "description": "account",
-                        "name": "account",
+                        "description": "Admin login request",
+                        "name": "request_body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "password",
-                        "name": "password",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/request.AdminLoginReq"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "TODO",
+                        "description": "Admin login response",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/response.AdminLoginResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/company/login": {
+            "post": {
+                "description": "Company Login by account and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company login",
+                "parameters": [
+                    {
+                        "description": "password",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CompanyLoginReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company login response",
+                        "schema": {
+                            "$ref": "#/definitions/response.CompanyLoginResp"
                         }
                     }
                 }
@@ -57,81 +82,109 @@
                     "application/json"
                 ],
                 "tags": [
-                    "accounts"
+                    "Company"
                 ],
                 "summary": "Company register",
                 "parameters": [
                     {
-                        "description": "account",
-                        "name": "account",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "password",
-                        "name": "password",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "name",
-                        "name": "name",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "address",
-                        "name": "address",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "company manager name",
-                        "name": "manager_name",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "description": "company manager telephone number",
-                        "name": "manager_tel",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "description": "company business license number",
-                        "name": "business_license_number",
+                        "name": "request_body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/request.CompanyRegisterReq"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "TODO",
-                        "schema": {
-                            "type": "string"
-                        }
+                        "description": "response"
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "request.AdminLoginReq": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "fnfunfunc"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "1234"
+                }
+            }
+        },
+        "request.CompanyLoginReq": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.CompanyRegisterReq": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "联创"
+                },
+                "address": {
+                    "type": "string",
+                    "example": "启明学院亮胜楼八楼"
+                },
+                "business_license_number": {
+                    "type": "string",
+                    "example": "114514"
+                },
+                "manager_name": {
+                    "type": "string",
+                    "example": "汉堡"
+                },
+                "manager_tel": {
+                    "type": "string",
+                    "example": "1919810"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "联小创在线科技有限公司"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "uniquestudio"
+                }
+            }
+        },
+        "response.AdminLoginResp": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "fnfunfunc"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "114514"
+                }
+            }
+        },
+        "response.CompanyLoginResp": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "联创"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "114514"
                 }
             }
         }

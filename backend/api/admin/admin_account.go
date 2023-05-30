@@ -18,12 +18,11 @@ type AdminAccountApi struct {
 //	@Summary		Admin login
 //	@Description	Admin Login by account and password
 //
-//	@Tags			accounts
+//	@Tags			Admin
 //	@Accept			json
 //	@Produce		json
-//	@Param			account		body		string	true	"account"
-//	@Param			password	body		string	true	"password"
-//	@Success		200			{object}	string	"TODO"
+//	@Param			request_body	body		request.AdminLoginReq	true	"Admin login request"
+//	@Success		200				{object}	response.AdminLoginResp	"Admin login response"
 //	@Router			/admin/login [post]
 func (a *AdminAccountApi) AdminLogin(c *gin.Context) {
 	var adminLoginReq request.AdminLoginReq

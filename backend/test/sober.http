@@ -17,11 +17,11 @@ Content-Type: application/json
 }
 
 ### Register Company "联小创在线科技有限公司"
-POST https://aivwe.top/company/register
+POST http://localhost:8080/company/register
 Content-Type: application/json
 
 {
-  "account": "联创",
+  "account": "联创2",
   "password": "uniquestudio",
   "name": "联小创在线科技有限公司",
   "address": "启明学院亮胜楼八楼",
