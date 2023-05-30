@@ -135,6 +135,16 @@ func (com *CompanyAccountApi) CompanyUpdatePwd(c *gin.Context) {
 	}
 }
 
+// CompanyCancel godoc
+//
+//	@Summary		Company Cancel
+//	@Description	Company Cancel
+//
+//	@Tags			Company
+//	@Accept			json
+//	@Produce		json
+//	@Success		200				{object}	nil								"nil"
+//	@Router			/company/cancel [post]
 func (com *CompanyAccountApi) CompanyCancel(c *gin.Context) {
 	// TODO
 	token := c.Request.Header.Get("Authorization")

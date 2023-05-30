@@ -1,10 +1,29 @@
 basePath: /api/v1
 definitions:
+  advertisement_model.AdvertisementInfo:
+    properties:
+      end_date:
+        example: "2023-06-04"
+        type: string
+      jump_to_url:
+        example: example.com/1919810.jpg
+        type: string
+      position:
+        example: 1
+        type: integer
+      start_date:
+        example: "2023-05-14"
+        type: string
+      title:
+        example: advertisement example
+        type: string
+    type: object
   advertisement_model.AdvertisementToBePreviewedInfo:
     properties:
       company_id:
         type: integer
       end_date:
+        example: "2023-06-04"
         type: string
       id:
         type: integer
@@ -15,6 +34,7 @@ definitions:
       position:
         type: integer
       start_date:
+        example: "2023-05-14"
         type: string
       title:
         type: string
@@ -93,6 +113,11 @@ definitions:
         example: "1919810"
         type: string
     type: object
+  request.CompanyUploadAdvtReq:
+    properties:
+      advertisementInfo:
+        $ref: '#/definitions/advertisement_model.AdvertisementInfo'
+    type: object
   response.AdminCreateResp:
     properties:
       account:
@@ -167,6 +192,34 @@ paths:
       summary: Admin login
       tags:
       - Admin
+  /company/advt/upload:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Company upload advertisement
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Company upload advertisement request body
+          schema:
+            $ref: '#/definitions/request.CompanyUploadAdvtReq'
+      summary: Company upload advertisement
+      tags:
+      - Company
+  /company/cancel:
+    post:
+      consumes:
+      - application/json
+      description: Company Cancel
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: nil
+      summary: Company Cancel
+      tags:
+      - Company
   /company/login:
     post:
       consumes:

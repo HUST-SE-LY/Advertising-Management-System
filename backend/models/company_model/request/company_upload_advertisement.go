@@ -7,5 +7,5 @@ import (
 
 type CompanyUploadAdvtReq struct {
 	AdvtInfo advertisement_model.AdvertisementInfo `form:"advertisementInfo"`
-	FileData *multipart.FileHeader                 `form:"image"`
+	FileData *multipart.FileHeader                 `form:"image" swaggerignore:"true"`
 }

@@ -59,6 +59,49 @@ const docTemplate = `{
                 }
             }
         },
+        "/company/advt/upload": {
+            "put": {
+                "description": "Company upload advertisement",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company upload advertisement",
+                "responses": {
+                    "200": {
+                        "description": "Company upload advertisement request body",
+                        "schema": {
+                            "$ref": "#/definitions/request.CompanyUploadAdvtReq"
+                        }
+                    }
+                }
+            }
+        },
+        "/company/cancel": {
+            "post": {
+                "description": "Company Cancel",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company Cancel",
+                "responses": {
+                    "200": {
+                        "description": "nil"
+                    }
+                }
+            }
+        },
         "/company/login": {
             "post": {
                 "description": "Company Login by account and password",
@@ -285,6 +328,31 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "advertisement_model.AdvertisementInfo": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string",
+                    "example": "2023-06-04"
+                },
+                "jump_to_url": {
+                    "type": "string",
+                    "example": "example.com/1919810.jpg"
+                },
+                "position": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "start_date": {
+                    "type": "string",
+                    "example": "2023-05-14"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "advertisement example"
+                }
+            }
+        },
         "advertisement_model.AdvertisementToBePreviewedInfo": {
             "type": "object",
             "properties": {
@@ -292,7 +360,8 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "end_date": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2023-06-04"
                 },
                 "id": {
                     "type": "integer"
@@ -307,7 +376,8 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "start_date": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2023-05-14"
                 },
                 "title": {
                     "type": "string"
@@ -417,6 +487,14 @@ const docTemplate = `{
                 "password": {
                     "type": "string",
                     "example": "1919810"
+                }
+            }
+        },
+        "request.CompanyUploadAdvtReq": {
+            "type": "object",
+            "properties": {
+                "advertisementInfo": {
+                    "$ref": "#/definitions/advertisement_model.AdvertisementInfo"
                 }
             }
         },

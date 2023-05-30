@@ -1,9 +1,9 @@
 package advertisement_model
 
 type AdvertisementInfo struct {
-	Title     string `json:"title" gorm:"column:title"`
-	Position  int    `json:"position" gorm:"column:position"`
-	JumpToUrl string `json:"jump_to_url" gorm:"column:jump_to_url"`
+	Title     string `json:"title" gorm:"column:title" example:"advertisement example"`
+	Position  int    `json:"position" gorm:"column:position" example:"1"`
+	JumpToUrl string `json:"jump_to_url" gorm:"column:jump_to_url" example:"example.com/1919810.jpg"`
 	DisplayTime
 }
 type AdvertisementToBePreviewedInfo struct {

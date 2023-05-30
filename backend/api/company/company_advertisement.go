@@ -12,6 +12,16 @@ import (
 type CompanyAdvertisementApi struct {
 }
 
+// CompanyUploadAdvertisement godoc
+//
+//	@Summary		Company upload advertisement
+//	@Description	Company upload advertisement
+//
+//	@Tags			Company
+//	@Accept			mpfd
+//	@Produce		json
+//	@Success		200				{object} 	request.CompanyUploadAdvtReq "Company upload advertisement request body"
+//	@Router			/company/advt/upload [put]
 func (com *CompanyAdvertisementApi) CompanyUploadAdvertisement(c *gin.Context) {
 	var companyUploadAdvtReq request.CompanyUploadAdvtReq
 
