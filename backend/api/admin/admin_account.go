@@ -2,6 +2,7 @@ package admin
 
 import (
 	"backend/models/admin_model/request"
+	"backend/models/admin_model/response"
 	"backend/utils/gin_ext"
 	"backend/utils/status"
 	"github.com/gin-gonic/gin"
@@ -32,10 +33,9 @@ func (a *AdminAccountApi) AdminLogin(c *gin.Context) {
 		return
 	}
 	if err, admin, adminToken := adminService.AdminLogin(&adminLoginReq); err != nil {
-		c.JSON(http.StatusUnauthorized, gin_ext.Response(err, nil))
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
 	} else {
-		jsonResp, _ := jsoniter.Marshal(admin)
-		c.Header("Authorization", adminToken.Token)
+		jsonResp, _ := jsoniter.Marshal(response.AdminLoginResp{Account: admin.Account, Token: adminToken.Token})
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 	}
 }
