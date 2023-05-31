@@ -31,19 +31,19 @@ function SignupInfo(props) {
           <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
             负责人：
           </p>
-          <span>{props.info.managerName}</span>
+          <span>{props.info.manager_name}</span>
         </div>
         <div className="flex text-lg mb-[1rem]">
           <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
             负责人电话：
           </p>
-          <span>{props.info.managerTel}</span>
+          <span>{props.info.manager_tel}</span>
         </div>
         <div className="flex text-lg mb-[1rem]">
           <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
             营业执照：
           </p>
-          <span>{props.info.businessLicenseNumber}</span>
+          <span>{props.info.business_license_number}</span>
         </div>
         <LongButton content="通过" handle={props.pass}></LongButton>
         <LongButton

@@ -1,90 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "../../components/searchBar";
 import CompanyDetail from "../../components/backStage/company/companyDetail";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import useAxios from "../../utils/useAxios";
 
 function BackStageCompany() {
-  const [list, setList] = useState([
-    {
-      account: "1",
-      name: "A",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },
-    {
-      account: "2",
-      name: "B",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "3",
-      name: "C",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "4",
-      name: "D",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "5",
-      name: "E",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "6",
-      name: "E",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "7",
-      name: "D",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "8",
-      name: "D",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "9",
-      name: "D",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "10",
-      name: "D",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    },{
-      account: "11",
-      name: "D",
-      address: "china",
-      managerName: "me",
-      managerTel: "123456",
-      businessLicenseNumber: "1111111111",
-    }
-  ]);
+  const axios = useAxios()
+  const [list, setList] = useState([]);
+  async function getCompanyList() {
+    const res = await axios.get("/manage/company/list");
+    setList(res.data.data.company_infos)
+  }
+  useEffect(() => {
+    getCompanyList()
+  },[])
 
   return (
     <div className="w-full h-[calc(100vh_-_4rem)] bg-gray-50 rounded-2xl grid grid-cols-[1fr_3.5fr]">
