@@ -167,6 +167,27 @@ definitions:
         example: "114514"
         type: string
     type: object
+  response.CompanyGetInfoResp:
+    properties:
+      account:
+        example: 联创
+        type: string
+      address:
+        example: 启明学院亮胜楼八楼
+        type: string
+      business_license_number:
+        example: "114514"
+        type: string
+      manager_name:
+        example: 汉堡
+        type: string
+      manager_tel:
+        example: "1919810"
+        type: string
+      name:
+        example: 联小创在线科技有限公司
+        type: string
+    type: object
   response.CompanyLoginResp:
     properties:
       account:
@@ -269,6 +290,21 @@ paths:
       summary: Company Cancel
       tags:
       - Company
+  /company/get-info:
+    get:
+      consumes:
+      - application/json
+      description: Company get information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: company info
+          schema:
+            $ref: '#/definitions/response.CompanyGetInfoResp'
+      summary: Company get information
+      tags:
+      - Company
   /company/login:
     post:
       consumes:
@@ -324,6 +360,33 @@ paths:
       summary: Company register
       tags:
       - Company
+  /company/search:
+    get:
+      consumes:
+      - application/json
+      description: Get Companies by term
+      parameters:
+      - description: term
+        in: query
+        name: term
+        required: true
+        type: string
+      - description: 'Enum: 0 -> Account, 1 -> Name, 2 -> Address, 3 -> ManagerName,
+          4 -> MangerTel, 5 -> BusinessLicenseNumber'
+        in: query
+        name: type
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Company Info
+          schema:
+            $ref: '#/definitions/response.GetCompaniesResp'
+      summary: Get Companies by term
+      tags:
+      - Manage
   /company/update-info:
     post:
       consumes:

@@ -149,6 +149,15 @@ func (c *CompanyAccountService) CompanyCancel(token string) (err error) {
 	return nil
 }
 
+func (c *CompanyAccountService) CompanyGetInfo(token string) (company entity.Company, err error) {
+	claims, err := jwt.ParseToken(token)
+	account := claims.Username
+	if err = global.GVA_DB.Where("account = ?", account).First(&company).Error; err != nil {
+		return entity.Company{}, err
+	}
+	return company, nil
+}
+
 func (c *CompanyAccountService) FindCompanyToken(token string) (companyToken entity.CompanyToken, err error) {
 	err = global.GVA_DB.Take(&companyToken, "token = ?", token).Error
 	return

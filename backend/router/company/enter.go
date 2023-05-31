@@ -23,5 +23,6 @@ func (c *CompanyRouterGroup) Init(router *gin.RouterGroup) {
 		companyRouter.GET("logout", companyAccountApi.CompanyLogout)
 		companyRouter.GET("cancel", companyAccountApi.CompanyCancel)
 		companyRouter.PUT("advt/upload", companyAdvertisementApi.CompanyUploadAdvertisement)
+		companyRouter.GET("get-info", companyAccountApi.CompanyGetInfo)
 	}
 }

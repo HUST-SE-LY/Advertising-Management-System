@@ -102,6 +102,29 @@ const docTemplate = `{
                 }
             }
         },
+        "/company/get-info": {
+            "get": {
+                "description": "Company get information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company get information",
+                "responses": {
+                    "200": {
+                        "description": "company info",
+                        "schema": {
+                            "$ref": "#/definitions/response.CompanyGetInfoResp"
+                        }
+                    }
+                }
+            }
+        },
         "/company/login": {
             "post": {
                 "description": "Company Login by account and password",
@@ -183,6 +206,45 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "response"
+                    }
+                }
+            }
+        },
+        "/company/search": {
+            "get": {
+                "description": "Get Companies by term",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get Companies by term",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "term",
+                        "name": "term",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Enum: 0 -\u003e Account, 1 -\u003e Name, 2 -\u003e Address, 3 -\u003e ManagerName, 4 -\u003e MangerTel, 5 -\u003e BusinessLicenseNumber",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company Info",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesResp"
+                        }
                     }
                 }
             }
@@ -705,6 +767,35 @@ const docTemplate = `{
                 "token": {
                     "type": "string",
                     "example": "114514"
+                }
+            }
+        },
+        "response.CompanyGetInfoResp": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "联创"
+                },
+                "address": {
+                    "type": "string",
+                    "example": "启明学院亮胜楼八楼"
+                },
+                "business_license_number": {
+                    "type": "string",
+                    "example": "114514"
+                },
+                "manager_name": {
+                    "type": "string",
+                    "example": "汉堡"
+                },
+                "manager_tel": {
+                    "type": "string",
+                    "example": "1919810"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "联小创在线科技有限公司"
                 }
             }
         },

@@ -100,7 +100,18 @@ func (m *ManageCompanyApi) GetAllCompaniesToBeReviewed(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
-// TODO
+// GetCompaniesByTerm godoc
+//
+//	@Summary		Get Companies by term
+//	@Description	Get Companies by term
+//
+//	@Tags			Manage
+//	@Accept			json
+//	@Produce		json
+//	@Param			term	query		string						true	"term"
+//	@Param			type	query		int							true	"Enum: 0 -> Account, 1 -> Name, 2 -> Address, 3 -> ManagerName, 4 -> MangerTel, 5 -> BusinessLicenseNumber"
+//	@Success		200		{object}	response.GetCompaniesResp	"Company Info"
+//	@Router			/company/search [get]
 func (m *ManageCompanyApi) GetCompaniesByTerm(c *gin.Context) {
 	term := c.Query("term")
 	_type, err := strconv.Atoi(c.Query("type"))
