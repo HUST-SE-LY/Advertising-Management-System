@@ -248,6 +248,40 @@ const docTemplate = `{
                 }
             }
         },
+        "/manage/admin/create": {
+            "post": {
+                "description": "Create Admin with account and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Admin create",
+                "parameters": [
+                    {
+                        "description": "Admin create request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.AdminCreateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Admin create response",
+                        "schema": {
+                            "$ref": "#/definitions/response.AdminCreateResp"
+                        }
+                    }
+                }
+            }
+        },
         "/manage/advertisement/list": {
             "post": {
                 "consumes": [
@@ -265,28 +299,6 @@ const docTemplate = `{
                         "description": "All advertisements",
                         "schema": {
                             "$ref": "#/definitions/response.GetAdvertisementsResp"
-                        }
-                    }
-                }
-            }
-        },
-        "/manage/company/count": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Manage"
-                ],
-                "summary": "Get all companies count",
-                "responses": {
-                    "200": {
-                        "description": "Get companies count response",
-                        "schema": {
-                            "$ref": "#/definitions/response.GetCompaniesCountResp"
                         }
                     }
                 }
@@ -447,40 +459,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/response.GetCompaniesCountResp"
-                        }
-                    }
-                }
-            }
-        },
-        "/manage/create": {
-            "post": {
-                "description": "Create Admin with account and password",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Manage"
-                ],
-                "summary": "Admin create",
-                "parameters": [
-                    {
-                        "description": "Admin create request",
-                        "name": "request_body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.AdminCreateReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Admin create response",
-                        "schema": {
-                            "$ref": "#/definitions/response.AdminCreateResp"
                         }
                     }
                 }

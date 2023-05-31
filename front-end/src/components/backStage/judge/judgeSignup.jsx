@@ -1,43 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../title";
 import SingleInfo from "./singleInfo";
 import SignupInfo from './judgeSignup/signupInfo'
+import useAxios from "../../../utils/useAxios";
 
 
 function JudgeSignup() {
-  const [list,setList] = useState([{
-    account: '1',
-    name: 'company',
-    address: "china",
-    managerName: 'me',
-    managerTel: '123456',
-    businessLicenseNumber: '1111111111',
-  },{
-    account: '2',
-    name: 'company2',
-    address: "china",
-    managerName: 'me',
-    managerTel: '123456',
-    businessLicenseNumber: '1111111111',
-  },{
-    account: '3',
-    name: 'company3',
-    address: "china",
-    managerName: 'me',
-    managerTel: '123456',
-    businessLicenseNumber: '1111111111',
-  },{
-    account: '4',
-    name: 'company4',
-    address: "china",
-    managerName: 'me',
-    managerTel: '123456',
-    businessLicenseNumber: '1111111111',
-  }])
-
+  const axios  = useAxios();
+  const [list,setList] = useState([])
+  async function getList() {
+    const res = await axios.get("/manage/company/review");
+    setList(res.data.data.company_infos)
+  }
+  useEffect(() => {
+    getList()
+  },[])
   const [company, setCompany] = useState(null);
 
-  function passCompany(info) {
+  async function passCompany(info) {
+    const res = await axios.post("/manage/company/register",{
+      company_accounts: [info.account]
+    })
+    console.log(res);
     setList(list.filter((company) => company.account !== info.account))
     setCompany(null);
   }

@@ -16,7 +16,6 @@ function useAxios() {
   });
 
   instance.interceptors.response.use((config) => {
-    console.log(config);
     if (config.data.data) {
       config.data.data = JSON.parse(config.data.data);
     }

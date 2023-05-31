@@ -11,48 +11,7 @@ function CompanyDetail(props) {
   const [account, setAccount] = useState(null);
   const [record, setRecord] = useState(null);
   async function getInfo() {
-    switch (params.id) {
-      case "1":
-        setInfo({
-          account: "1",
-          name: "A",
-          address: "china",
-          managerName: "me",
-          managerTel: "123456",
-          businessLicenseNumber: "1111111111",
-        });
-        break;
-      case "2":
-        setInfo({
-          account: "2",
-          name: "B",
-          address: "china",
-          managerName: "me",
-          managerTel: "123456",
-          businessLicenseNumber: "1111111111",
-        });
-        break;
-      case "3":
-        setInfo({
-          account: "3",
-          name: "C",
-          address: "china",
-          managerName: "me",
-          managerTel: "123456",
-          businessLicenseNumber: "1111111111",
-        });
-        break;
-      case "4":
-        setInfo({
-          account: "4",
-          name: "D",
-          address: "china",
-          managerName: "me",
-          managerTel: "123456",
-          businessLicenseNumber: "1111111111",
-        });
-        break;
-    }
+
   }
 
   async function getAccount() {
