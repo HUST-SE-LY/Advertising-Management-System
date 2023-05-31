@@ -89,10 +89,11 @@ func (m *ManageAdvertisementApi) GetAdvertisementsPendingReviewCount(c *gin.Cont
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
-	resp := response.GetCompaniesCountResp{Count: count}
+	resp := response.GetAdvertisementsCountResp{Count: count}
 	jsonResp, _ := jsoniter.Marshal(resp)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
+
 func (m *ManageAdvertisementApi) DeleteAdvertisement(c *gin.Context) {
 	var deleteAdvertisementReq request.DeleteAdvertisementReq
 	if err := gin_ext.BindJSON(c, &deleteAdvertisementReq); err != nil {
