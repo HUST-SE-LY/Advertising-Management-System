@@ -601,6 +601,28 @@
                     }
                 }
             }
+        },
+        "/manage/company/update-info/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get companies info update list",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesUpdateInfoResp"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -861,6 +883,55 @@
                 }
             }
         },
+        "response.CompaniesUpdateInfo": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "联创"
+                },
+                "new_address": {
+                    "type": "string",
+                    "example": "启明学院亮胜楼八楼11"
+                },
+                "new_business_license_number": {
+                    "type": "string",
+                    "example": "11451411"
+                },
+                "new_manager_name": {
+                    "type": "string",
+                    "example": "汉堡11"
+                },
+                "new_manager_tel": {
+                    "type": "string",
+                    "example": "191981011"
+                },
+                "new_name": {
+                    "type": "string",
+                    "example": "联小创在线科技有限公司11"
+                },
+                "previous_address": {
+                    "type": "string",
+                    "example": "启明学院亮胜楼八楼"
+                },
+                "previous_business_license_number": {
+                    "type": "string",
+                    "example": "114514"
+                },
+                "previous_manager_name": {
+                    "type": "string",
+                    "example": "汉堡"
+                },
+                "previous_manager_tel": {
+                    "type": "string",
+                    "example": "1919810"
+                },
+                "previous_name": {
+                    "type": "string",
+                    "example": "联小创在线科技有限公司"
+                }
+            }
+        },
         "response.CompanyGetInfoResp": {
             "type": "object",
             "properties": {
@@ -943,6 +1014,17 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/company_model.CompanyInfo"
+                    }
+                }
+            }
+        },
+        "response.GetCompaniesUpdateInfoResp": {
+            "type": "object",
+            "properties": {
+                "companiesUpdateInfoList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.CompaniesUpdateInfo"
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package manage
 
 import (
+	"backend/global"
 	"backend/models/company_model/entity"
 	"backend/models/manage_model/enum"
 	"backend/models/manage_model/request"
@@ -11,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 	"net/http"
+	"sort"
 	"strconv"
 )
 
@@ -229,5 +231,62 @@ func (m *ManageCompanyApi) RejectUpdateForCompanies(c *gin.Context) {
 		return
 	}
 	jsonResp, _ := jsoniter.Marshal(rejectAccounts)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+// GetCompaniesInfoUpdateList godoc
+//
+//	@Summary	Get companies info update list
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	response.GetCompaniesUpdateInfoResp	""
+//	@Router		/manage/company/update-info/list [get]
+func (m *ManageCompanyApi) GetCompaniesInfoUpdateList(c *gin.Context) {
+	var GetCompaniesInfoUpdateListResp response.GetCompaniesUpdateInfoResp
+	var companies []entity.Company
+	companiesInfoToBeReviewed, err := adminService.ManageCompanyService.GetAllCompaniesInfoToBeReviewed()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+		return
+	}
+
+	companiesNumber := len(companiesInfoToBeReviewed)
+	companiesAccounts := functional.Map(companiesInfoToBeReviewed, func(com entity.CompanyInfoPendingReview) string {
+		return com.Account
+	})
+
+	if err := global.GVA_DB.Where("account IN ?", companiesAccounts).Find(&companies).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+	}
+
+	sort.Slice(companies, func(i, j int) bool {
+		return companies[i].Id < companies[j].Id
+	})
+	sort.Slice(companiesInfoToBeReviewed, func(i, j int) bool {
+		return companiesInfoToBeReviewed[i].Id < companiesInfoToBeReviewed[j].Id
+	})
+	GetCompaniesInfoUpdateListResp.CompaniesUpdateInfoList = make([]response.CompaniesUpdateInfo, companiesNumber)
+	for i, _ := range companiesInfoToBeReviewed {
+		GetCompaniesInfoUpdateListResp.CompaniesUpdateInfoList[i] = response.CompaniesUpdateInfo{
+			Account:                       companies[i].Account,
+			PreviousName:                  companies[i].Name,
+			PreviousAddress:               companies[i].Address,
+			PreviousManagerName:           companies[i].ManagerName,
+			PreviousManagerTel:            companies[i].ManagerTel,
+			PreviousBusinessLicenseNumber: companies[i].BusinessLicenseNumber,
+			NewName:                       companiesInfoToBeReviewed[i].Name,
+			NewAddress:                    companiesInfoToBeReviewed[i].Address,
+			NewManagerName:                companiesInfoToBeReviewed[i].ManagerName,
+			NewManagerTel:                 companiesInfoToBeReviewed[i].ManagerTel,
+			NewBusinessLicenseNumber:      companiesInfoToBeReviewed[i].BusinessLicenseNumber,
+		}
+	}
+	jsonResp, err := jsoniter.Marshal(GetCompaniesInfoUpdateListResp)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+		return
+	}
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

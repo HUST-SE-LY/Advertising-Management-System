@@ -177,6 +177,42 @@ definitions:
         example: "114514"
         type: string
     type: object
+  response.CompaniesUpdateInfo:
+    properties:
+      account:
+        example: 联创
+        type: string
+      new_address:
+        example: 启明学院亮胜楼八楼11
+        type: string
+      new_business_license_number:
+        example: "11451411"
+        type: string
+      new_manager_name:
+        example: 汉堡11
+        type: string
+      new_manager_tel:
+        example: "191981011"
+        type: string
+      new_name:
+        example: 联小创在线科技有限公司11
+        type: string
+      previous_address:
+        example: 启明学院亮胜楼八楼
+        type: string
+      previous_business_license_number:
+        example: "114514"
+        type: string
+      previous_manager_name:
+        example: 汉堡
+        type: string
+      previous_manager_tel:
+        example: "1919810"
+        type: string
+      previous_name:
+        example: 联小创在线科技有限公司
+        type: string
+    type: object
   response.CompanyGetInfoResp:
     properties:
       account:
@@ -233,6 +269,13 @@ definitions:
       company_infos:
         items:
           $ref: '#/definitions/company_model.CompanyInfo'
+        type: array
+    type: object
+  response.GetCompaniesUpdateInfoResp:
+    properties:
+      companiesUpdateInfoList:
+        items:
+          $ref: '#/definitions/response.CompaniesUpdateInfo'
         type: array
     type: object
 externalDocs:
@@ -627,6 +670,20 @@ paths:
           schema:
             $ref: '#/definitions/response.GetCompaniesResp'
       summary: Get Companies by term
+      tags:
+      - Manage
+  /manage/company/update-info/list:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.GetCompaniesUpdateInfoResp'
+      summary: Get companies info update list
       tags:
       - Manage
 securityDefinitions:

@@ -45,6 +45,13 @@ func (m *ManageCompanyService) GetAllCompaniesToBeReviewed() (companies []entity
 	return companies, nil
 }
 
+func (m *ManageCompanyService) GetAllCompaniesInfoToBeReviewed() (companies []entity.CompanyInfoPendingReview, err error) {
+	if err = global.GVA_DB.Find(&companies).Error; err != nil {
+		return nil, err
+	}
+	return companies, nil
+}
+
 func (m *ManageCompanyService) GetCompaniesByTerm(term string, termType enum.CompanySearchType) (companies []entity.Company, err error) {
 	whereCondition := fmt.Sprintf("%s LIKE ?", termType.ToString())
 	term = fmt.Sprintf("%%%s%%", term)

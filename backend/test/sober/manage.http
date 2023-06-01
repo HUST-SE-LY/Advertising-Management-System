@@ -66,4 +66,7 @@ Content-Type: application/json
   "company_accounts": ["联创2", "联创1"]
 }
 
+###
+GET http://localhost:8080/manage/company/update-info/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJHBUMVVFS0szTHFsUC9rSDVSQ1FhaGVxWVpvM2F1NUg1eDJtc3pJb3puSTVmYkcyWlhOTjJ1IiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjIxMzU5ODE1NSwicm9sZSI6InJvbGVfYWRtaW4ifX0.cI3Bwfcr4xr3APFe_1XR3ppFyskqxmkJjUZ9D1IboXo
 
