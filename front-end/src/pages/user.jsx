@@ -12,13 +12,16 @@ function User() {
   const axios = useAxios()
   
   const [userInfo, setUserInfo] = useState({
-    account: "1",
-    name: "A",
-    address: "china",
-    managerName: "me",
-    managerTel: "123456",
-    businessLicenseNumber: "1111111111",
+    account: "加载中",
+    name: "加载中",
+    address: "加载中",
+    manager_name: "加载中",
+    manager_tel: "加载中",
+    business_license_number: "加载中",
   })
+
+  const [balance, setBalance] = useState(0);
+
 
   const [accountInfo, setAccountInfo] = useState({
     money: 114514,
@@ -61,6 +64,7 @@ function User() {
   async function getBasicInfo() {
     const res = await axios.get("/company/get-info");
     setUserInfo(res.data.data)
+    setBalance(res.data.data.balance)
   }
   useEffect(() => {
     getBasicInfo()
@@ -74,7 +78,7 @@ function User() {
     <div className="relative grid grid-rows-2 grid-cols-3 w-[100vw] h-[calc(100vh_-_4rem)] p-[2rem] gap-[2rem]">
       <UserInfo info={userInfo}></UserInfo>
       <AdInfo></AdInfo>
-      <AccountInfo info={accountInfo}></AccountInfo>
+      <AccountInfo balance={balance} info={accountInfo}></AccountInfo>
       <WaitingList></WaitingList>
       <MyAd></MyAd>
       <Other></Other>

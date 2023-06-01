@@ -39,15 +39,32 @@ function UserInfo(props) {
 
 
 function EditInfo(props) {
+  const axios = useAxios();
+  const [name, setName] = useState(props.info.name);
+  const [address, setAddress] = useState(props.info.address);
+  const [managerName, setManagerName] = useState(props.info.manager_name);
+  const [managerTel, setManagerTel] = useState(props.info.manager_tel);
+  const [businessLicenseNumber, setBusinessLicenseNumber] = useState(props.info.business_license_number);
+  async function changeInfo() {
+    const res = await axios.post("/company/update-info",{
+      account: props.info.account,
+      address: address,
+      name: name,
+      manager_name: managerName,
+      manager_tel: managerTel,
+      business_license_number:businessLicenseNumber
+    })
+    console.log(res)
+  }
   return <div className="flex items-center justify-center w-full h-full bg-white/20 absolute z-10  top-0 left-0 animate-fadein" onClick={props.hide}>
     <div className="p-[2rem] w-1/2 h-1/2 bg-white rounded-2xl shadow-2xl shadow-gray-500/20 overflow-y-auto scrollbar-blue" onClick={(e) => e.stopPropagation()}>
       <Title title="修改信息"></Title>
-      <NoBorderInput value={props.info.name}>公司名称</NoBorderInput>
-      <NoBorderInput value={props.info.address}>公司地址</NoBorderInput>
-      <NoBorderInput value={props.info.managerName}>负责人</NoBorderInput>
-      <NoBorderInput value={props.info.managerTel}>负责人电话</NoBorderInput>
-      <NoBorderInput value={props.info.businessLicenseNumber}>营业执照</NoBorderInput>
-      <LongButton content="提交申请"></LongButton>
+      <NoBorderInput value={name} setInfo={setName}>公司名称</NoBorderInput>
+      <NoBorderInput value={address} setInfo={setAddress}>公司地址</NoBorderInput>
+      <NoBorderInput value={managerName} setInfo={setManagerName}>负责人</NoBorderInput>
+      <NoBorderInput value={managerTel} setInfo={setManagerTel}>负责人电话</NoBorderInput>
+      <NoBorderInput value={businessLicenseNumber} setInfo={setBusinessLicenseNumber}>营业执照</NoBorderInput>
+      <LongButton content="提交申请" handle={changeInfo}></LongButton>
     </div>
   </div>
 }

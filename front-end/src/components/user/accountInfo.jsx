@@ -12,7 +12,7 @@ function AccountInfo(props) {
       <div className="row-span-1 col-span-1 bg-gray-50 rounded-[2rem] p-[2rem] animate-listItemIn">
         <Title title="账户信息"></Title>
         <p className="h-[2rem] leading-[2rem]">
-          账户余额：<span className="text-blue-500">{props.info.money}</span>元
+          账户余额：<span className="text-blue-500">{props.balance}</span>元
         </p>
         <div className="h-[calc(100%_-_7.5rem)] flex flex-col gap-[1rem] overflow-auto scrollbar-blue pr-3">
           <p>消费记录</p>

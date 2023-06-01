@@ -21,12 +21,14 @@ function JudgeSignup() {
     const res = await axios.post("/manage/company/register",{
       company_accounts: [info.account]
     })
-    console.log(res);
     setList(list.filter((company) => company.account !== info.account))
     setCompany(null);
   }
   
-  function rejectCompany(info) {
+  async function rejectCompany(info) {
+    const res = await axios.post("/manage/company/reject-registration",{
+      company_accounts: [info.account]
+    })
     setList(list.filter((company) => company.account !== info.account))
     setCompany(null)
   }
