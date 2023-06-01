@@ -38,6 +38,6 @@ func Gorm() *gorm.DB {
 	_ = db.AutoMigrate(&entity3.Advertisement{})
 	_ = db.AutoMigrate(&entity3.AdvertisementPendingReview{})
 	_ = db.AutoMigrate(&entity3.AdvertisingSpace{})
-	_ = db.AutoMigrate(&entity4.Record{})
+	_ = db.AutoMigrate(&entity4.ApplicationRecord{})
 	return db
 }
