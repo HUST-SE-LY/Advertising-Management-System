@@ -92,11 +92,12 @@ func SaveConsume(account string, req request.CompanyUploadAdvtReq) error {
 	global.GVA_DB.Where("id =?", int64(req.AdvtInfo.Position)).Find(&space)
 	var cost = space.Price * int(date2.Sub(date1).Hours()/24)
 	consumerecord := entity3.ConsumeRecord{
-		Account: account,
-		Start:   req.AdvtInfo.DisplayTime.StartDate,
-		End:     req.AdvtInfo.DisplayTime.EndDate,
-		Cost:    cost,
-		Status:  0,
+		Account:  account,
+		Start:    req.AdvtInfo.DisplayTime.StartDate,
+		End:      req.AdvtInfo.DisplayTime.EndDate,
+		Position: req.AdvtInfo.Position,
+		Cost:     cost,
+		Status:   0,
 	}
 	global.GVA_DB.Where("account=?", account).Find(&company)
 	if err := global.GVA_DB.Create(&consumerecord).Error; err != nil {

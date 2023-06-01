@@ -6,4 +6,5 @@ const (
 	UnderReview ReviewStatusType = iota
 	PASSED
 	REJECTED
+	STOP
 )
