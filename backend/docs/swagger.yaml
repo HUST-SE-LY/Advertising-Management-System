@@ -47,6 +47,8 @@ definitions:
       address:
         example: 启明学院亮胜楼八楼
         type: string
+      balance:
+        type: integer
       business_license_number:
         example: "114514"
         type: string
@@ -76,14 +78,14 @@ definitions:
         example: "1234"
         type: string
     type: object
-  request.AllowCompaniesUpdateReq:
+  request.CompaniesRegisterReq:
     properties:
       company_accounts:
         items:
           type: string
         type: array
     type: object
-  request.CompaniesRegisterReq:
+  request.CompaniesUpdateReq:
     properties:
       company_accounts:
         items:
@@ -105,6 +107,8 @@ definitions:
       address:
         example: 启明学院亮胜楼八楼
         type: string
+      balance:
+        type: integer
       business_license_number:
         example: "114514"
         type: string
@@ -129,6 +133,8 @@ definitions:
       address:
         example: 启明学院亮胜楼八楼
         type: string
+      balance:
+        type: integer
       business_license_number:
         example: "114514"
         type: string
@@ -152,6 +158,10 @@ definitions:
     properties:
       advertisementInfo:
         $ref: '#/definitions/advertisement_model.AdvertisementInfo'
+      cost:
+        type: integer
+      duration:
+        type: integer
     type: object
   response.AdminCreateResp:
     properties:
@@ -175,6 +185,8 @@ definitions:
       address:
         example: 启明学院亮胜楼八楼
         type: string
+      balance:
+        type: integer
       business_license_number:
         example: "114514"
         type: string
@@ -456,7 +468,7 @@ paths:
         name: request_body
         required: true
         schema:
-          $ref: '#/definitions/request.AllowCompaniesUpdateReq'
+          $ref: '#/definitions/request.CompaniesUpdateReq'
       produces:
       - application/json
       responses:
@@ -518,6 +530,29 @@ paths:
               type: string
             type: array
       summary: Allow Registration For Companies
+      tags:
+      - Manage
+  /manage/company/reject-info:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: account不能修改，Body不能出现account，根据token来判断account，其余每一项都是可选的，但是必须要有一项
+        in: body
+        name: request_body
+        required: true
+        schema:
+          $ref: '#/definitions/request.CompaniesUpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: reject update for companies response
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Reject Update For Companies
       tags:
       - Manage
   /manage/company/reject-registration:

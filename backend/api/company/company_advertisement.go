@@ -24,9 +24,9 @@ func (com *CompanyAdvertisementApi) CompanyBuyAdvertisementSpace(c *gin.Context)
 //	@Tags			Company
 //	@Accept			mpfd
 //	@Produce		json
-//	@Param			advertisementInfo	body		request.CompanyUploadAdvtReq.AdvtInfo	true "name: advertisementInfo"
-//	@Param			image				body		byte										true "name: image"
-//	@Success		200		{object}	nil
+//	@Param			advertisementInfo	body		request.CompanyUploadAdvtReq.AdvtInfo	true	"name: advertisementInfo"
+//	@Param			image				body		byte									true	"name: image"
+//	@Success		200					{object}	nil
 //	@Router			/company/advt/upload [put]
 func (com *CompanyAdvertisementApi) CompanyUploadAdvertisement(c *gin.Context) {
 	var companyUploadAdvtReq request.CompanyUploadAdvtReq

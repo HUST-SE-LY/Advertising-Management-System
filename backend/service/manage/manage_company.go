@@ -4,6 +4,8 @@ import (
 	"backend/global"
 	"backend/models/company_model/entity"
 	"backend/models/manage_model/enum"
+	recordEntity "backend/models/record_model/entity"
+	enum2 "backend/models/record_model/enum"
 	"backend/utils/functional"
 	"errors"
 	"fmt"
@@ -91,9 +93,14 @@ func (m *ManageCompanyService) RejectRegistrationForCompanies(companyAccounts []
 
 func (m *ManageCompanyService) AllowCompaniesInfoUpdate(companyAccounts []string) (allowAccounts []string, err error) {
 	var companiesToBeUpdated []entity.CompanyInfoPendingReview
+	var companiesApplictionRecord []recordEntity.ApplicationRecord
 	if err = global.GVA_DB.Where("account IN ?", companyAccounts).Find(&companiesToBeUpdated).Error; err != nil {
 		return
 	}
+	if err = global.GVA_DB.Where("account IN ? AND type = ? AND status = ?", companyAccounts, enum2.Info, enum2.UnderReview).Find(&companiesApplictionRecord).Error; err != nil {
+		return nil, err
+	}
+
 	companies := functional.Map(companiesToBeUpdated, func(com entity.CompanyInfoPendingReview) entity.Company {
 		return entity.Company{
 			Id:          com.Id,
@@ -103,6 +110,60 @@ func (m *ManageCompanyService) AllowCompaniesInfoUpdate(companyAccounts []string
 
 	for _, company := range companies {
 		global.GVA_DB.Model(&company).Updates(company)
+	}
+
+	recordToBeUpdate := functional.Map(companiesApplictionRecord, func(apr recordEntity.ApplicationRecord) recordEntity.ApplicationRecord {
+		return recordEntity.ApplicationRecord{
+			Id:      apr.Id,
+			Account: apr.Account,
+			Status:  enum2.PASSED,
+			Type:    apr.Type,
+			Date:    apr.Date,
+		}
+	})
+
+	for _, record := range recordToBeUpdate {
+		global.GVA_DB.Model(&record).Updates(record)
+	}
+
+	if err := global.GVA_DB.Delete(&companiesToBeUpdated).Error; err != nil {
+		return nil, err
+	}
+
+	return functional.Map(companies, func(com entity.Company) string {
+		return com.Account
+	}), nil
+}
+
+func (m *ManageCompanyService) RejectCompaniesInfoUpdate(companyAccounts []string) (allowAccounts []string, err error) {
+	var companiesToBeUpdated []entity.CompanyInfoPendingReview
+	var companiesApplicationRecord []recordEntity.ApplicationRecord
+	if err = global.GVA_DB.Where("account IN ?", companyAccounts).Find(&companiesToBeUpdated).Error; err != nil {
+		return
+	}
+	if err = global.GVA_DB.Where("account IN ? AND type = ? AND status = ?", companyAccounts, enum2.Info, enum2.UnderReview).Find(&companiesApplicationRecord).Error; err != nil {
+		return nil, err
+	}
+
+	companies := functional.Map(companiesToBeUpdated, func(com entity.CompanyInfoPendingReview) entity.Company {
+		return entity.Company{
+			Id:          com.Id,
+			CompanyInfo: com.CompanyInfo,
+		}
+	})
+
+	recordToBeUpdate := functional.Map(companiesApplicationRecord, func(apr recordEntity.ApplicationRecord) recordEntity.ApplicationRecord {
+		return recordEntity.ApplicationRecord{
+			Id:      apr.Id,
+			Account: apr.Account,
+			Status:  enum2.REJECTED,
+			Type:    apr.Type,
+			Date:    apr.Date,
+		}
+	})
+
+	for _, record := range recordToBeUpdate {
+		global.GVA_DB.Model(&record).Updates(record)
 	}
 
 	if err := global.GVA_DB.Delete(&companiesToBeUpdated).Error; err != nil {

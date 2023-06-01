@@ -363,7 +363,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.AllowCompaniesUpdateReq"
+                            "$ref": "#/definitions/request.CompaniesUpdateReq"
                         }
                     }
                 ],
@@ -450,6 +450,42 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "allow companies response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/company/reject-info": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Reject Update For Companies",
+                "parameters": [
+                    {
+                        "description": "account不能修改，Body不能出现account，根据token来判断account，其余每一项都是可选的，但是必须要有一项",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CompaniesUpdateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "reject update for companies response",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -642,6 +678,9 @@ const docTemplate = `{
                     "type": "string",
                     "example": "启明学院亮胜楼八楼"
                 },
+                "balance": {
+                    "type": "integer"
+                },
                 "business_license_number": {
                     "type": "string",
                     "example": "114514"
@@ -684,7 +723,7 @@ const docTemplate = `{
                 }
             }
         },
-        "request.AllowCompaniesUpdateReq": {
+        "request.CompaniesRegisterReq": {
             "type": "object",
             "properties": {
                 "company_accounts": {
@@ -695,7 +734,7 @@ const docTemplate = `{
                 }
             }
         },
-        "request.CompaniesRegisterReq": {
+        "request.CompaniesUpdateReq": {
             "type": "object",
             "properties": {
                 "company_accounts": {
@@ -727,6 +766,9 @@ const docTemplate = `{
                 "address": {
                     "type": "string",
                     "example": "启明学院亮胜楼八楼"
+                },
+                "balance": {
+                    "type": "integer"
                 },
                 "business_license_number": {
                     "type": "string",
@@ -761,6 +803,9 @@ const docTemplate = `{
                     "type": "string",
                     "example": "启明学院亮胜楼八楼"
                 },
+                "balance": {
+                    "type": "integer"
+                },
                 "business_license_number": {
                     "type": "string",
                     "example": "114514"
@@ -793,6 +838,12 @@ const docTemplate = `{
             "properties": {
                 "advertisementInfo": {
                     "$ref": "#/definitions/advertisement_model.AdvertisementInfo"
+                },
+                "cost": {
+                    "type": "integer"
+                },
+                "duration": {
+                    "type": "integer"
                 }
             }
         },
@@ -827,6 +878,9 @@ const docTemplate = `{
                 "address": {
                     "type": "string",
                     "example": "启明学院亮胜楼八楼"
+                },
+                "balance": {
+                    "type": "integer"
                 },
                 "business_license_number": {
                     "type": "string",
