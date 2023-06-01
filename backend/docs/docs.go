@@ -59,6 +59,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/admin/logout": {
+            "post": {
+                "description": "Company logout",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Admin logout",
+                "responses": {
+                    "200": {
+                        "description": "response"
+                    }
+                }
+            }
+        },
         "/company/advt/upload": {
             "put": {
                 "description": "Company upload advertisement",
@@ -115,6 +135,26 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "nil"
+                    }
+                }
+            }
+        },
+        "/company/get-applications": {
+            "get": {
+                "description": "CompanyGetAllApplications",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "CompanyGetAllApplications",
+                "responses": {
+                    "200": {
+                        "description": "status: 0 -\u003e under review, 1 -\u003e passed, 2 -\u003e rejected; type: 0 -\u003e information update, 1 -\u003e advertisement",
+                        "schema": {
+                            "$ref": "#/definitions/response.CompanyGetAllApplicationsResp"
+                        }
                     }
                 }
             }
@@ -192,6 +232,29 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "response"
+                    }
+                }
+            }
+        },
+        "/company/recharge": {
+            "post": {
+                "description": "Company recharge",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company recharge",
+                "responses": {
+                    "200": {
+                        "description": "company info",
+                        "schema": {
+                            "$ref": "#/definitions/response.CompanyGetInfoResp"
+                        }
                     }
                 }
             }
@@ -322,6 +385,78 @@ const docTemplate = `{
                 }
             }
         },
+        "/manage/advertisement/allow": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all advertisements to be allowed",
+                "responses": {
+                    "200": {
+                        "description": "All advertisements",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/advertisement/count": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all advertisements to be reviewed",
+                "responses": {
+                    "200": {
+                        "description": "All advertisements",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/advertisement/delete": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all advertisements to be reviewed",
+                "responses": {
+                    "200": {
+                        "description": "All advertisements",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/manage/advertisement/list": {
             "post": {
                 "consumes": [
@@ -339,6 +474,53 @@ const docTemplate = `{
                         "description": "All advertisements",
                         "schema": {
                             "$ref": "#/definitions/response.GetAdvertisementsResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/advertisement/reject": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all advertisements to be rejected",
+                "responses": {
+                    "200": {
+                        "description": "All advertisements",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/advertisement/search": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get all advertisements by term",
+                "responses": {
+                    "200": {
+                        "description": "All advertisements",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetAdvertisementToBePreviewedResp"
                         }
                     }
                 }
@@ -721,6 +903,32 @@ const docTemplate = `{
                 }
             }
         },
+        "enum.ApplicationType": {
+            "type": "integer",
+            "enum": [
+                0,
+                1
+            ],
+            "x-enum-varnames": [
+                "Info",
+                "Advertisement"
+            ]
+        },
+        "enum.ReviewStatusType": {
+            "type": "integer",
+            "enum": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "x-enum-varnames": [
+                "UnderReview",
+                "PASSED",
+                "REJECTED",
+                "STOP"
+            ]
+        },
         "request.AdminCreateReq": {
             "type": "object",
             "properties": {
@@ -860,12 +1068,6 @@ const docTemplate = `{
             "properties": {
                 "advertisementInfo": {
                     "$ref": "#/definitions/advertisement_model.AdvertisementInfo"
-                },
-                "cost": {
-                    "type": "integer"
-                },
-                "duration": {
-                    "type": "integer"
                 }
             }
         },
@@ -887,6 +1089,21 @@ const docTemplate = `{
                 "token": {
                     "type": "string",
                     "example": "114514"
+                }
+            }
+        },
+        "response.ApplicationContent": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "example": "2023-06-04"
+                },
+                "status": {
+                    "$ref": "#/definitions/enum.ReviewStatusType"
+                },
+                "type": {
+                    "$ref": "#/definitions/enum.ApplicationType"
                 }
             }
         },
@@ -939,6 +1156,17 @@ const docTemplate = `{
                 }
             }
         },
+        "response.CompanyGetAllApplicationsResp": {
+            "type": "object",
+            "properties": {
+                "applicationList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.ApplicationContent"
+                    }
+                }
+            }
+        },
         "response.CompanyGetInfoResp": {
             "type": "object",
             "properties": {
@@ -981,6 +1209,17 @@ const docTemplate = `{
                 "token": {
                     "type": "string",
                     "example": "114514"
+                }
+            }
+        },
+        "response.GetAdvertisementToBePreviewedResp": {
+            "type": "object",
+            "properties": {
+                "advertisement_infos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/advertisement_model.AdvertisementToBePreviewedInfo"
+                    }
                 }
             }
         },

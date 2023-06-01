@@ -15,6 +15,7 @@ func (a *AdminRouterGroup) Init(router *gin.RouterGroup) {
 	var adminAccountApi = api.ApiGroupApp.AdminApiGroup.AdminAccountApi
 	{
 		adminRouter.POST("login", adminAccountApi.AdminLogin)
+		adminRouter.POST("logout", adminAccountApi.AdminLogout)
 		adminRouterWithJwt.GET("check_login", adminAccountApi.CheckLogin)
 	}
 }

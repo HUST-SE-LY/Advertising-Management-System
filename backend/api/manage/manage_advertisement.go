@@ -69,7 +69,7 @@ func (m *ManageAdvertisementApi) GetAllAdvertisementsToBeReviewed(c *gin.Context
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Success	200	{object}	"All advertisements"
+//	@Success	200	{object}	[]string	"All advertisements"
 //	@Router		/manage/advertisement/allow [post]
 func (m *ManageAdvertisementApi) AllowAdvertisement(c *gin.Context) {
 	var allowAdvertisementReq request.AllowAdvertisementReq
@@ -99,7 +99,7 @@ func (m *ManageAdvertisementApi) AllowAdvertisement(c *gin.Context) {
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Success	200	{object}	"All advertisements"
+//	@Success	200	{object}	[]int64	"All advertisements"
 //	@Router		/manage/advertisement/reject [post]
 func (m *ManageAdvertisementApi) RejectAdvertisement(c *gin.Context) {
 	var rejectAdvertisementReq request.RejectAdvertisementReq
@@ -125,7 +125,7 @@ func (m *ManageAdvertisementApi) RejectAdvertisement(c *gin.Context) {
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Success	200	{object}	"All advertisements"
+//	@Success	200	{object}	int	"All advertisements"
 //	@Router		/manage/advertisement/count [get]
 func (m *ManageAdvertisementApi) GetAdvertisementsPendingReviewCount(c *gin.Context) {
 	count, err := adminService.ManageAdvertisementService.GetAdvertisementsPendingReviewCount()
@@ -146,7 +146,7 @@ func (m *ManageAdvertisementApi) GetAdvertisementsPendingReviewCount(c *gin.Cont
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Success	200	{object}	"All advertisements"
+//	@Success	200	{object}	[]int64	"All advertisements"
 //	@Router		/manage/advertisement/delete [post]
 func (m *ManageAdvertisementApi) DeleteAdvertisement(c *gin.Context) {
 	var deleteAdvertisementReq request.DeleteAdvertisementReq
@@ -176,7 +176,7 @@ func (m *ManageAdvertisementApi) DeleteAdvertisement(c *gin.Context) {
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Success	200	{object}	"All advertisements"
+//	@Success	200	{object}	response.GetAdvertisementToBePreviewedResp	"All advertisements"
 //	@Router		/manage/advertisement/search [get]
 func (m *ManageAdvertisementApi) GetAdvertisementsByTerm(c *gin.Context) {
 	term := c.Query("term")
@@ -195,5 +195,4 @@ func (m *ManageAdvertisementApi) GetAdvertisementsByTerm(c *gin.Context) {
 		jsonResp, _ := jsoniter.Marshal(resp)
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 	}
-
 }

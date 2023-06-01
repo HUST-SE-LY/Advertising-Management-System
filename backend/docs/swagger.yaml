@@ -62,6 +62,26 @@ definitions:
         example: 联小创在线科技有限公司
         type: string
     type: object
+  enum.ApplicationType:
+    enum:
+    - 0
+    - 1
+    type: integer
+    x-enum-varnames:
+    - Info
+    - Advertisement
+  enum.ReviewStatusType:
+    enum:
+    - 0
+    - 1
+    - 2
+    - 3
+    type: integer
+    x-enum-varnames:
+    - UnderReview
+    - PASSED
+    - REJECTED
+    - STOP
   request.AdminCreateReq:
     properties:
       account:
@@ -158,10 +178,6 @@ definitions:
     properties:
       advertisementInfo:
         $ref: '#/definitions/advertisement_model.AdvertisementInfo'
-      cost:
-        type: integer
-      duration:
-        type: integer
     type: object
   response.AdminCreateResp:
     properties:
@@ -176,6 +192,16 @@ definitions:
       token:
         example: "114514"
         type: string
+    type: object
+  response.ApplicationContent:
+    properties:
+      date:
+        example: "2023-06-04"
+        type: string
+      status:
+        $ref: '#/definitions/enum.ReviewStatusType'
+      type:
+        $ref: '#/definitions/enum.ApplicationType'
     type: object
   response.CompaniesUpdateInfo:
     properties:
@@ -213,6 +239,13 @@ definitions:
         example: 联小创在线科技有限公司
         type: string
     type: object
+  response.CompanyGetAllApplicationsResp:
+    properties:
+      applicationList:
+        items:
+          $ref: '#/definitions/response.ApplicationContent'
+        type: array
+    type: object
   response.CompanyGetInfoResp:
     properties:
       account:
@@ -244,6 +277,13 @@ definitions:
       token:
         example: "114514"
         type: string
+    type: object
+  response.GetAdvertisementToBePreviewedResp:
+    properties:
+      advertisement_infos:
+        items:
+          $ref: '#/definitions/advertisement_model.AdvertisementToBePreviewedInfo'
+        type: array
     type: object
   response.GetAdvertisementsResp:
     properties:
@@ -317,6 +357,19 @@ paths:
       summary: Admin login
       tags:
       - Admin
+  /admin/logout:
+    post:
+      consumes:
+      - application/json
+      description: Company logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: response
+      summary: Admin logout
+      tags:
+      - Admin
   /company/advt/upload:
     put:
       consumes:
@@ -354,6 +407,20 @@ paths:
         "200":
           description: nil
       summary: Company Cancel
+      tags:
+      - Company
+  /company/get-applications:
+    get:
+      description: CompanyGetAllApplications
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'status: 0 -> under review, 1 -> passed, 2 -> rejected; type:
+            0 -> information update, 1 -> advertisement'
+          schema:
+            $ref: '#/definitions/response.CompanyGetAllApplicationsResp'
+      summary: CompanyGetAllApplications
       tags:
       - Company
   /company/get-info:
@@ -404,6 +471,21 @@ paths:
         "200":
           description: response
       summary: Company logout
+      tags:
+      - Company
+  /company/recharge:
+    post:
+      consumes:
+      - application/json
+      description: Company recharge
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: company info
+          schema:
+            $ref: '#/definitions/response.CompanyGetInfoResp'
+      summary: Company recharge
       tags:
       - Company
   /company/register:
@@ -487,6 +569,52 @@ paths:
       summary: Admin create
       tags:
       - Manage
+  /manage/advertisement/allow:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: All advertisements
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Get all advertisements to be allowed
+      tags:
+      - Manage
+  /manage/advertisement/count:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: All advertisements
+          schema:
+            type: integer
+      summary: Get all advertisements to be reviewed
+      tags:
+      - Manage
+  /manage/advertisement/delete:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: All advertisements
+          schema:
+            items:
+              type: integer
+            type: array
+      summary: Get all advertisements to be reviewed
+      tags:
+      - Manage
   /manage/advertisement/list:
     post:
       consumes:
@@ -499,6 +627,36 @@ paths:
           schema:
             $ref: '#/definitions/response.GetAdvertisementsResp'
       summary: Get all advertisements to be reviewed
+      tags:
+      - Manage
+  /manage/advertisement/reject:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: All advertisements
+          schema:
+            items:
+              type: integer
+            type: array
+      summary: Get all advertisements to be rejected
+      tags:
+      - Manage
+  /manage/advertisement/search:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: All advertisements
+          schema:
+            $ref: '#/definitions/response.GetAdvertisementToBePreviewedResp'
+      summary: Get all advertisements by term
       tags:
       - Manage
   /manage/company/info:

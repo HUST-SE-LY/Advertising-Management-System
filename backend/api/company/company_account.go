@@ -3,12 +3,16 @@ package company
 import (
 	"backend/models/company_model/request"
 	"backend/models/company_model/response"
+	recordEntity "backend/models/record_model/entity"
+	"backend/utils/functional"
 	"backend/utils/gin_ext"
 	"backend/utils/jwt"
 	"backend/utils/status"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 	"net/http"
+	"sort"
+	"time"
 )
 
 type CompanyAccountApi struct {
@@ -203,4 +207,38 @@ func (com *CompanyAccountApi) CompanyRecharge(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
 	}
+}
+
+// CompanyGetAllApplications godoc
+//
+//	@Summary		CompanyGetAllApplications
+//	@Description	CompanyGetAllApplications
+//
+//	@Tags			Company
+//	@Produce		json
+//	@Success		200	{object}	response.CompanyGetAllApplicationsResp	"status: 0 -> under review, 1 -> passed, 2 -> rejected; type: 0 -> information update, 1 -> advertisement"
+//	@Router			/company/get-applications [get]
+func (com *CompanyAccountApi) CompanyGetAllApplications(c *gin.Context) {
+	token := c.Request.Header.Get("Authorization")
+	fullApplicationList, err := companyService.CompanyGetAllApplication(token)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+		return
+	}
+	sort.Slice(fullApplicationList, func(i, j int) bool {
+		return fullApplicationList[i].Date < fullApplicationList[j].Date
+	})
+	ApplicationList := functional.Map(fullApplicationList, func(application recordEntity.ApplicationRecord) response.ApplicationContent {
+		// 20060102
+		dateInt := application.Date
+		date := time.Date(dateInt/10000, time.Month((dateInt/100)%100), dateInt%100, 0, 0, 0, 0, time.UTC).Format("2006-01-02")
+		return response.ApplicationContent{
+			Date:   date,
+			Type:   application.Type,
+			Status: application.Status,
+		}
+	})
+	resp := response.CompanyGetAllApplicationsResp{ApplicationList: ApplicationList}
+	jsonResp, _ := jsoniter.Marshal(resp)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

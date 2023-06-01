@@ -39,6 +39,26 @@ func (a *AdminAccountApi) AdminLogin(c *gin.Context) {
 	}
 }
 
+// AdminLogout godoc
+//
+//	@Summary		Admin logout
+//	@Description	Company logout
+//
+//	@Tags			Admin
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{object}	nil	"response"
+//	@Router			/admin/logout [post]
+func (a *AdminAccountApi) AdminLogout(c *gin.Context) {
+	token := c.Request.Header.Get("Authorization")
+	err := adminService.AdminLogout(token)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.LogoutError, nil))
+		return
+	}
+	c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
+}
+
 // dummy
 func (a *AdminAccountApi) CheckLogin(c *gin.Context) {
 
