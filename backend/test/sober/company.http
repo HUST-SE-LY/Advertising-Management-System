@@ -1,0 +1,76 @@
+### Register Company "联小创在线科技有限公司"
+POST http://localhost:8080/company/register
+Content-Type: application/json
+
+{
+  "account": "ccc",
+  "password": "uniquestudio",
+  "name": "联小创在线科技有限公司",
+  "address": "启明学院亮胜楼八楼",
+  "manager_name": "汉堡",
+  "manager_tel": "1919810",
+  "business_license_number": "114514"
+}
+
+### Login Company "联小创在线科技有限公司"
+POST http://localhost:8080/company/login
+Content-Type: application/json
+
+{
+  "account": "联创1",
+  "password": "uniquestudio"
+}
+
+### Company logout test
+GET http://localhost:8080/company/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+
+### company get self's information
+GET http://localhost:8080/company/get-info
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFFkczVmTC5BaS5OR0lkTVN5OG9XUnU2cHdDbFAucVR0L3o1VTYzMGJzUlJ6NjNyVWdTaGxHIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjE1OTIzNzI1NCwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ._lT3MDol46Jfyiy-JIAiwdvBnXx5JQQxaAp1uEwbN_k
+
+### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
+POST http://localhost:8080/company/update-info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJEVndFZLWGtRZElSUkJGRUI1OGJZLmU5N1Z5RW9OVHN0aWplQ0dKL0dZLmM4bFlVaE1FeE1pIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjI1MTY4NDgxMywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.L8vTAiczhIyAzjo2pJ9ZijJohmbr5bDPc1zXnbVAXk8
+Content-Type: application/json
+
+{
+  "account": "联创",
+  "manager_name": "Hamburger"
+}
+
+### Update password test
+POST http://localhost:8080/company/update-pwd
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+
+{
+  "password": "1037+666"
+}
+
+### cancel "联小创在线科技有限公司"
+GET http://localhost:8080/company/cancel
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImzEiLCJwYXNzd29yZCI6IiQyYSQxMCRYek04SGZEb3NlaDA1Z1pNcGJreEZPNk5pLkt1OVliT1I4WjZ0VklrLmR4YlNIVTlsL1pELiIsIk1hcENsYWltcyI6eyJleHAiOjE2ODYyMDYzNDM2OTYsInJvbGUiOiJyb2xlX2NvbXBhbnkifX0.8L9I8ZeRawTUPagOAYGOiCnljCgnGPQr4mWOP0qHCL8
+
+### upload Advertisement
+PUT http://localhost:8080/company/advt/upload
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFFkczVmTC5BaS5OR0lkTVN5OG9XUnU2cHdDbFAucVR0L3o1VTYzMGJzUlJ6NjNyVWdTaGxHIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4Mjc3MDQ3MTg5NSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.bvywFp8aQ2hnw_uxZyr8OdJsVMdEFEvZ1Y88vxXOH2w
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="advertisementInfo"
+Content-Type: application/json
+
+{
+   "title": "advertisement example",
+   "position": 1,
+   "jump_to_url": "example.com/1919810",
+   "start_date": "2023-04-17",
+   "end_date": "2023-05-11"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="xmj.jpg"
+
+< ../image/xmj.jpg
+--WebAppBoundary--

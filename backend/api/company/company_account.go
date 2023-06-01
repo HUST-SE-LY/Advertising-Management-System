@@ -154,7 +154,29 @@ func (com *CompanyAccountApi) CompanyCancel(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
 	}
+}
 
+// CompanyGetInfo godoc
+//
+//	@Summary		Company get information
+//	@Description	Company get information
+//
+//	@Tags			Company
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{object}	response.CompanyGetInfoResp	"company info"
+//	@Router			/company/get-info [get]
+func (com *CompanyAccountApi) CompanyGetInfo(c *gin.Context) {
+	token := c.Request.Header.Get("Authorization")
+	company, err := companyService.CompanyGetInfo(token)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+		return
+	}
+	companyInfo := company.GetInfo()
+	resp := response.CompanyGetInfoResp{CompanyInfo: companyInfo}
+	jsonResp, _ := jsoniter.Marshal(resp)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 func (com *CompanyAccountApi) CompanyRecharge(c *gin.Context) {
 	var req request.CompanyRechargeReq

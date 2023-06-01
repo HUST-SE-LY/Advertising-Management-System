@@ -2,6 +2,7 @@ import { useState } from "react";
 import Title from "../backStage/title";
 import LongButton from "../longButton";
 import NoBorderInput from "../noBorderInput";
+import useAxios from "../../utils/useAxios";
 
 function UserInfo(props) {
 
@@ -16,9 +17,9 @@ function UserInfo(props) {
         <p>账号：{props.info.account}</p>
         <p>企业名称：{props.info.name}</p>
         <p>企业地址：{props.info.address}</p>
-        <p>负责人：{props.info.managerName}</p>
-        <p>负责人电话：{props.info.managerTel}</p>
-        <p>营业执照：{props.info.businessLicenseNumber}</p>
+        <p>负责人：{props.info.manager_name}</p>
+        <p>负责人电话：{props.info.manager_tel}</p>
+        <p>营业执照：{props.info.business_license_number}</p>
         <LongButton handle={() => setShowEditInfo(true)} content="修改信息"></LongButton>
         <LongButton handle={() => setShowEditPassword(true)} content="修改密码"></LongButton>
       </div>
@@ -52,12 +53,29 @@ function EditInfo(props) {
 }
 
 function EditPassword(props) {
+  const axios = useAxios()
+  const [password, setPassword] = useState("");
+  const [secondPassword, setSecondPassword] = useState("");
+  async function changePassword() {
+    if(password !== secondPassword) {
+      alert("两次输入的密码不一致！")
+      return ;
+    }
+    const res = await axios.post("/company/update-pwd",{
+      password: password,
+    })
+    if(res.data.code === 200) {
+      alert("修改成功！");
+      setPassword("");
+      setSecondPassword("")
+    }
+  }
   return <div className="flex items-center justify-center w-full h-full bg-white/20 absolute z-10  top-0 left-0 animate-fadein" onClick={props.hide}>
     <div className="p-[2rem] w-1/2 h-1/2 bg-white rounded-2xl shadow-2xl shadow-gray-500/20 overflow-y-auto scrollbar-blue" onClick={(e) => e.stopPropagation()}>
       <Title title="修改密码"></Title>
-      <NoBorderInput type="password">输入新密码</NoBorderInput>
-      <NoBorderInput type="password">再次输入新密码</NoBorderInput>
-      <LongButton content="修改"></LongButton>
+      <NoBorderInput type="password" value={password} setInfo={setPassword}>输入新密码</NoBorderInput>
+      <NoBorderInput type="password" value={secondPassword} setInfo={setSecondPassword}>再次输入新密码</NoBorderInput>
+      <LongButton content="修改" handle={changePassword}></LongButton>
     </div>
   </div>
 }

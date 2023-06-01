@@ -72,12 +72,29 @@ const docTemplate = `{
                     "Company"
                 ],
                 "summary": "Company upload advertisement",
-                "responses": {
-                    "200": {
-                        "description": "Company upload advertisement request body",
+                "parameters": [
+                    {
+                        "description": "name: advertisementInfo",
+                        "name": "advertisementInfo",
+                        "in": "body",
+                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.CompanyUploadAdvtReq"
                         }
+                    },
+                    {
+                        "description": "name: image",
+                        "name": "image",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
@@ -98,6 +115,29 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "nil"
+                    }
+                }
+            }
+        },
+        "/company/get-info": {
+            "get": {
+                "description": "Company get information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Company get information",
+                "responses": {
+                    "200": {
+                        "description": "company info",
+                        "schema": {
+                            "$ref": "#/definitions/response.CompanyGetInfoResp"
+                        }
                     }
                 }
             }
@@ -183,6 +223,45 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "response"
+                    }
+                }
+            }
+        },
+        "/company/search": {
+            "get": {
+                "description": "Get Companies by term",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get Companies by term",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "term",
+                        "name": "term",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Enum: 0 -\u003e Account, 1 -\u003e Name, 2 -\u003e Address, 3 -\u003e ManagerName, 4 -\u003e MangerTel, 5 -\u003e BusinessLicenseNumber",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company Info",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesResp"
+                        }
                     }
                 }
             }
@@ -398,12 +477,12 @@ const docTemplate = `{
                 "summary": "Allow Registration For Companies",
                 "parameters": [
                     {
-                        "description": "allow companies register request",
+                        "description": "array of companies' accounts",
                         "name": "request_body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.AllowCompaniesRegisterReq"
+                            "$ref": "#/definitions/request.CompaniesRegisterReq"
                         }
                     }
                 ],
@@ -416,6 +495,36 @@ const docTemplate = `{
                                 "type": "string"
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/manage/company/reject-registration": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Reject Registration For Companies",
+                "parameters": [
+                    {
+                        "description": "reject companies register request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CompaniesRegisterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "reject companies response"
                     }
                 }
             }
@@ -575,7 +684,7 @@ const docTemplate = `{
                 }
             }
         },
-        "request.AllowCompaniesRegisterReq": {
+        "request.AllowCompaniesUpdateReq": {
             "type": "object",
             "properties": {
                 "company_accounts": {
@@ -586,7 +695,7 @@ const docTemplate = `{
                 }
             }
         },
-        "request.AllowCompaniesUpdateReq": {
+        "request.CompaniesRegisterReq": {
             "type": "object",
             "properties": {
                 "company_accounts": {
@@ -705,6 +814,35 @@ const docTemplate = `{
                 "token": {
                     "type": "string",
                     "example": "114514"
+                }
+            }
+        },
+        "response.CompanyGetInfoResp": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "联创"
+                },
+                "address": {
+                    "type": "string",
+                    "example": "启明学院亮胜楼八楼"
+                },
+                "business_license_number": {
+                    "type": "string",
+                    "example": "114514"
+                },
+                "manager_name": {
+                    "type": "string",
+                    "example": "汉堡"
+                },
+                "manager_tel": {
+                    "type": "string",
+                    "example": "1919810"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "联小创在线科技有限公司"
                 }
             }
         },

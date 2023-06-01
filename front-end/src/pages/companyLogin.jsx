@@ -11,10 +11,12 @@ function CompanyLogin() {
   const axios = useAxios();
   async function login() {
     try {
-      axios.post("/company/login", {
+      const res = await axios.post("/company/login", {
         account: companyId,
         password: password,
       });
+      const token = res.data.data.token;
+      localStorage.setItem("token", token);
       navigate("/user");
     } catch (err) {
       alert("账号或密码错误");
@@ -43,7 +45,7 @@ function CompanyLogin() {
         <div className="flex flex-col justify-center gap-[1rem] pr-[2rem]">
           <p className="text-[1.5rem] font-bold">企业客户登录</p>
           <Input title="账号" setInfo={setCompanyId}></Input>
-          <Input title="密码" setInfo={setPassword}></Input>
+          <Input title="密码" type="password"  setInfo={setPassword}></Input>
           <LongButton content="登录" handle={login}></LongButton>
           <p className="text-sm text-blue-400 underline cursor-pointer text-right transition-all hover:text-blue-600">
             <Link to="/company-signup">没有账号？注册</Link>
