@@ -5,6 +5,7 @@ import (
 	entity2 "backend/models/advertisement_model/entity"
 	"backend/models/company_model/entity"
 	"backend/models/company_model/request"
+	entity3 "backend/models/record_model/entity"
 	"io"
 	"mime/multipart"
 	"os"
@@ -37,9 +38,9 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	if err != nil {
 		return err
 	}
-	//if err := SaveConsume(account, req); err != nil {
-	//	return err
-	//}
+	if err := SaveConsume(account, req); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -74,34 +75,34 @@ func getFileExtension(filename string) string {
 	return filepath.Ext(filename)
 }
 
-//func SaveConsume(account string, req request.CompanyUploadAdvtReq) error {
-//	format := "2006-01-02"
-//	var space entity2.AdvertisingSpace
-//	var company entity.Company
-//
-//	date1, err := time.ParseInLocation(format, req.AdvtInfo.StartDate, time.Local)
-//	if err != nil {
-//		return err
-//	}
-//	// 将字符串转化为Time格式
-//	date2, err := time.ParseInLocation(format, req.AdvtInfo.EndDate, time.Local)
-//	if err != nil {
-//		return err
-//	}
-//	global.GVA_DB.Where("id =?", int64(req.AdvtInfo.Position)).Find(&space)
-//	var cost = space.Price * int(date1.Sub(date2).Hours()/24)
-//	consumerecord := entity3.ConsumeRecord{
-//		Account:   account,
-//		Startdate: req.AdvtInfo.StartDate,
-//		Enddate:   req.AdvtInfo.EndDate,
-//		Cost:      cost,
-//		Status:    enum.UnderReview,
-//	}
-//	global.GVA_DB.Where("account=?", account).Find(&company)
-//	if err := global.GVA_DB.Create(&consumerecord).Error; err != nil {
-//		return err
-//	}
-//	company.Balance = company.Balance - cost
-//	global.GVA_DB.Model(&company).Updates(company)
-//	return nil
-//}
+func SaveConsume(account string, req request.CompanyUploadAdvtReq) error {
+	format := "2006-01-02"
+	var space entity2.AdvertisingSpace
+	var company entity.Company
+
+	date1, err := time.ParseInLocation(format, req.AdvtInfo.StartDate, time.Local)
+	if err != nil {
+		return err
+	}
+	// 将字符串转化为Time格式
+	date2, err := time.ParseInLocation(format, req.AdvtInfo.EndDate, time.Local)
+	if err != nil {
+		return err
+	}
+	global.GVA_DB.Where("id =?", int64(req.AdvtInfo.Position)).Find(&space)
+	var cost = space.Price * int(date2.Sub(date1).Hours()/24)
+	consumerecord := entity3.ConsumeRecord{
+		Account: account,
+		Start:   req.AdvtInfo.DisplayTime.StartDate,
+		End:     req.AdvtInfo.DisplayTime.EndDate,
+		Cost:    cost,
+		Status:  0,
+	}
+	global.GVA_DB.Where("account=?", account).Find(&company)
+	if err := global.GVA_DB.Create(&consumerecord).Error; err != nil {
+		return err
+	}
+	company.Balance = company.Balance - cost
+	global.GVA_DB.Model(&company).Updates(company)
+	return nil
+}
