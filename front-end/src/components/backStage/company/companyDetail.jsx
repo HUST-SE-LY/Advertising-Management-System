@@ -4,14 +4,23 @@ import { useParams } from "react-router-dom";
 import BasicInfo from "./companyDetail/basicInfo";
 import AccountInfo from "./companyDetail/accountInfo";
 import RecordInfo from "./companyDetail/RecordInfo";
+import useAxios from "../../../utils/useAxios";
 
 function CompanyDetail(props) {
   const params = useParams();
+
+  const axios = useAxios();
   const [info, setInfo] = useState(null);
   const [account, setAccount] = useState(null);
   const [record, setRecord] = useState(null);
   async function getInfo() {
-
+    const res = await axios.get("/manage/company/search",{
+      params: {
+        term: params.id,
+        type: 0,
+      }
+    })
+    setInfo(res.data.data.company_infos[0])
   }
 
   async function getAccount() {

@@ -20,16 +20,16 @@ function BasicInfo(props) {
           </div>
           <div className="my-[0.5rem] flex">
             <p className="w-[10rem]">公司负责人：</p>
-            <span>{props.info.managerName}</span>
+            <span>{props.info.manager_name}</span>
           </div>
           
           <div className="my-[0.5rem] flex">
             <p className="w-[10rem]">负责人电话：</p>
-            <span>{props.info.managerTel}</span>
+            <span>{props.info.manager_tel}</span>
           </div>
           <div className="my-[0.5rem] flex">
             <p className="w-[10rem]">营业执照：</p>
-            <span>{props.info.businessLicenseNumber}</span>
+            <span>{props.info.business_license_number}</span>
           </div>
         </div>
       </div>

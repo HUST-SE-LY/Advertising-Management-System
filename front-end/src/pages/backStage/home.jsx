@@ -21,6 +21,9 @@ function BackStageHome() {
       navigate("/");
     }
   }
+  async function logout() {
+    const res = await axios.post("/admin/logout");
+  }
   async function getCompanyCount() {
     const res = await axios.get("/manage/company/review_count");
     setRegisterNum(res.data.data.count)
@@ -66,7 +69,7 @@ function BackStageHome() {
             content="添加管理员"
             handle={() => setShowAddManager(true)}
           ></LongButton>
-          <LongButton content="退出登录" color="red"></LongButton>
+          <LongButton content="退出登录" color="red" handle={logout}></LongButton>
         </div>
       </div>
       {showAddManager ? (

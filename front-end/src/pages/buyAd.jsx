@@ -29,7 +29,8 @@ function BuyAd() {
     }
     if(url && time && title && picture) {
       const formData = new FormData();
-      formData.append("")
+      formData.append("position", params.id)
+      formData.append("picture", picture)
     } else {
       alert("请填写完整信息！")
     }
