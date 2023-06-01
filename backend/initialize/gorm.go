@@ -39,5 +39,6 @@ func Gorm() *gorm.DB {
 	_ = db.AutoMigrate(&entity3.AdvertisementPendingReview{})
 	_ = db.AutoMigrate(&entity3.AdvertisingSpace{})
 	_ = db.AutoMigrate(&entity4.ApplicationRecord{})
+	_ = db.AutoMigrate(&entity4.ConsumeRecord{})
 	return db
 }

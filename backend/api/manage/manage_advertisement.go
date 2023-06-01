@@ -62,6 +62,15 @@ func (m *ManageAdvertisementApi) GetAllAdvertisementsToBeReviewed(c *gin.Context
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// AllowAdvertisement godoc
+//
+//	@Summary	Get all advertisements to be allowed
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	"All advertisements"
+//	@Router		/manage/advertisement/allow [post]
 func (m *ManageAdvertisementApi) AllowAdvertisement(c *gin.Context) {
 	var allowAdvertisementReq request.AllowAdvertisementReq
 	if err := gin_ext.BindJSON(c, &allowAdvertisementReq); err != nil {
@@ -83,6 +92,41 @@ func (m *ManageAdvertisementApi) AllowAdvertisement(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// RejectAdvertisement godoc
+//
+//	@Summary	Get all advertisements to be rejected
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	"All advertisements"
+//	@Router		/manage/advertisement/reject [post]
+func (m *ManageAdvertisementApi) RejectAdvertisement(c *gin.Context) {
+	var rejectAdvertisementReq request.RejectAdvertisementReq
+	if err := gin_ext.BindJSON(c, &rejectAdvertisementReq); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	rejectnumbers := rejectAdvertisementReq.RejectNumbers
+	err := adminService.ManageAdvertisementService.RejectAdvertisement(rejectnumbers)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+		return
+	}
+
+	jsonResp, _ := jsoniter.Marshal(rejectnumbers)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+// GetAdvertisementsPendingReviewCount godoc
+//
+//	@Summary	Get all advertisements to be reviewed
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	"All advertisements"
+//	@Router		/manage/advertisement/count [get]
 func (m *ManageAdvertisementApi) GetAdvertisementsPendingReviewCount(c *gin.Context) {
 	count, err := adminService.ManageAdvertisementService.GetAdvertisementsPendingReviewCount()
 	if err != nil {
@@ -95,6 +139,15 @@ func (m *ManageAdvertisementApi) GetAdvertisementsPendingReviewCount(c *gin.Cont
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// DeleteAdvertisement godoc
+//
+//	@Summary	Get all advertisements to be reviewed
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	"All advertisements"
+//	@Router		/manage/advertisement/delete [post]
 func (m *ManageAdvertisementApi) DeleteAdvertisement(c *gin.Context) {
 	var deleteAdvertisementReq request.DeleteAdvertisementReq
 	if err := gin_ext.BindJSON(c, &deleteAdvertisementReq); err != nil {
@@ -116,6 +169,15 @@ func (m *ManageAdvertisementApi) DeleteAdvertisement(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
+// GetAdvertisementsByTerm godoc
+//
+//	@Summary	Get all advertisements by term
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	"All advertisements"
+//	@Router		/manage/advertisement/search [get]
 func (m *ManageAdvertisementApi) GetAdvertisementsByTerm(c *gin.Context) {
 	term := c.Query("term")
 	_type, err := strconv.Atoi(c.Query("type"))

@@ -51,7 +51,19 @@ func (m *ManageAdvertisementService) AllowAdvertisement(pendingnumbers []int64) 
 	}), nil
 
 }
-
+func (m *ManageAdvertisementService) RejectAdvertisement(reject_numbers []int64) (err error) {
+	var advertisementToBeReviewed []entity.AdvertisementPendingReview
+	if err = global.GVA_DB.Where("id IN ?", reject_numbers).Find(&advertisementToBeReviewed).Error; err != nil {
+		return err
+	}
+	//for _, s := range advertisementToBeReviewed {
+	//	costbalance(int64(s.Position), s.CompanyId, s.EndDate, s.StartDate)
+	//}
+	if err = global.GVA_DB.Delete(&advertisementToBeReviewed).Error; err != nil {
+		return err
+	}
+	return nil
+}
 func (m *ManageAdvertisementService) DeleteAdvertisement(deleteid []int64) (deleted_id []int64, err error) {
 	var advertisements []entity.Advertisement
 	if err = global.GVA_DB.Where("id IN ?", deleteid).Find(&advertisements).Error; err != nil {

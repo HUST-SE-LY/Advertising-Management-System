@@ -179,6 +179,17 @@ func (com *CompanyAccountApi) CompanyGetInfo(c *gin.Context) {
 	jsonResp, _ := jsoniter.Marshal(resp)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
+
+// CompanyRecharge godoc
+//
+//	@Summary		Company recharge
+//	@Description	Company recharge
+//
+//	@Tags			Company
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{object}	response.CompanyGetInfoResp	"company info"
+//	@Router			/company/recharge [post]
 func (com *CompanyAccountApi) CompanyRecharge(c *gin.Context) {
 	var req request.CompanyRechargeReq
 	if err := gin_ext.BindJSON(c, &req); err != nil {

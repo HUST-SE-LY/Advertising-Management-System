@@ -30,6 +30,7 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 		manageRouter.GET("advertisement/list", manageAdvertisement.GetAllAdvertisements)
 		manageRouter.GET("advertisement/review", manageAdvertisement.GetAllAdvertisementsToBeReviewed)
 		manageRouter.POST("advertisement/allow", manageAdvertisement.AllowAdvertisement)
+		manageRouter.POST("advertisement/reject", manageAdvertisement.RejectAdvertisement)
 		manageRouter.POST("advertisement/delete", manageAdvertisement.DeleteAdvertisement)
 		manageRouter.GET("advertisement/search", manageAdvertisement.GetAdvertisementsByTerm)
 		manageRouter.POST("space/set_price", manageSpace.SetSpacePrice)

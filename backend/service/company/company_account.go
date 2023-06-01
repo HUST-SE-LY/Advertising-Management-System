@@ -130,7 +130,8 @@ func (c *CompanyAccountService) CompanyRecharge(req request.CompanyRechargeReq, 
 		}
 		return
 	}
-	err = global.GVA_DB.Model(&company).Update("balance", req.Money).Error
+	cash := company.Balance + req.Money
+	err = global.GVA_DB.Model(&company).Update("balance", cash).Error
 	return
 }
 func (c *CompanyAccountService) CompanyUpdatePwd(req request.CompanyUpdatePwdReq, account string) (err error) {
