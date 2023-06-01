@@ -110,7 +110,7 @@ func (m *ManageCompanyApi) GetAllCompaniesToBeReviewed(c *gin.Context) {
 //	@Param			term	query		string						true	"term"
 //	@Param			type	query		int							true	"Enum: 0 -> Account, 1 -> Name, 2 -> Address, 3 -> ManagerName, 4 -> MangerTel, 5 -> BusinessLicenseNumber"
 //	@Success		200		{object}	response.GetCompaniesResp	"Company Info"
-//	@Router			/company/search [get]
+//	@Router			/manage/company/search [get]
 func (m *ManageCompanyApi) GetCompaniesByTerm(c *gin.Context) {
 	term := c.Query("term")
 	_type, err := strconv.Atoi(c.Query("type"))
@@ -189,9 +189,11 @@ func (m *ManageCompanyApi) RejectRegistrationForCompanies(c *gin.Context) {
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Param		request_body	body		request.AllowCompaniesUpdateReq	true	"allow companies update request"
+//	@Param		request_body	body		request.AllowCompaniesUpdateReq	true	"account不能修改，Body不能出现account，根据token来判断account，其余每一项都是可选的，但是必须要有一项"
 //	@Success	200				{object}	[]string						"allow update for companies response"
 //	@Router		/manage/company/info [post]
+//
+// TODO
 func (m *ManageCompanyApi) AllowUpdateForCompanies(c *gin.Context) {
 	var allowCompaniesUpdateReq request.AllowCompaniesUpdateReq
 	if err := gin_ext.BindJSON(c, &allowCompaniesUpdateReq); err != nil {

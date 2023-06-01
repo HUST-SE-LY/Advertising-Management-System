@@ -17,13 +17,13 @@ POST http://localhost:8080/company/login
 Content-Type: application/json
 
 {
-  "account": "联创1",
+  "account": "联创2",
   "password": "uniquestudio"
 }
 
 ### Company logout test
-GET http://localhost:8080/company/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+POST http://localhost:8080/company/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFFkczVmTC5BaS5OR0lkTVN5OG9XUnU2cHdDbFAucVR0L3o1VTYzMGJzUlJ6NjNyVWdTaGxHIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjE1OTIzNzI1NCwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ._lT3MDol46Jfyiy-JIAiwdvBnXx5JQQxaAp1uEwbN_k
 
 ### company get self's information
 GET http://localhost:8080/company/get-info
@@ -32,12 +32,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBl
 
 ### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
 POST http://localhost:8080/company/update-info
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJEVndFZLWGtRZElSUkJGRUI1OGJZLmU5N1Z5RW9OVHN0aWplQ0dKL0dZLmM4bFlVaE1FeE1pIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjI1MTY4NDgxMywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.L8vTAiczhIyAzjo2pJ9ZijJohmbr5bDPc1zXnbVAXk8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImzEiLCJwYXNzd29yZCI6IiQyYSQxMCROcWNBNmpqdkRpZ3M2YVVjVFc1cUZPMkxzdlg2Yk02eDd3T0x3Q1ZLMDROVHR5SnJTMTRWQyIsIk1hcENsYWltcyI6eyJleHAiOjE2ODYyMTM1NDE5OTUsInJvbGUiOiJyb2xlX2NvbXBhbnkifX0.vSgDAIdC1OLYybr-_WGRQnUWfxZ4fPENdt0oK_gmyYI
 Content-Type: application/json
 
 {
-  "account": "联创",
   "manager_name": "Hamburger"
+}
+
+### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
+POST http://localhost:8080/company/update-info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImzIiLCJwYXNzd29yZCI6IiQyYSQxMCRiUGkwdWpncUhvMlhjR1U5YTNNTjBPZjBRVHA3TERTemZ2eFBKZThCaGEyNFpyMlRrNldieSIsIk1hcENsYWltcyI6eyJleHAiOjE2ODYyMjYxMDMxNjYsInJvbGUiOiJyb2xlX2NvbXBhbnkifX0.gWlOx_IEu0RDxBMqpAR4_2PU0tO5B0TC5ModPS-U3cE
+Content-Type: application/json
+
+{
+  "manager_tel": "1037777"
 }
 
 ### Update password test

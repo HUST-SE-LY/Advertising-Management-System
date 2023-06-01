@@ -227,45 +227,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/company/search": {
-            "get": {
-                "description": "Get Companies by term",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Manage"
-                ],
-                "summary": "Get Companies by term",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "term",
-                        "name": "term",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Enum: 0 -\u003e Account, 1 -\u003e Name, 2 -\u003e Address, 3 -\u003e ManagerName, 4 -\u003e MangerTel, 5 -\u003e BusinessLicenseNumber",
-                        "name": "type",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Company Info",
-                        "schema": {
-                            "$ref": "#/definitions/response.GetCompaniesResp"
-                        }
-                    }
-                }
-            }
-        },
         "/company/update-info": {
             "post": {
                 "description": "Company update info",
@@ -397,7 +358,7 @@ const docTemplate = `{
                 "summary": "Allow Update For Companies",
                 "parameters": [
                     {
-                        "description": "allow companies update request",
+                        "description": "account不能修改，Body不能出现account，根据token来判断account，其余每一项都是可选的，但是必须要有一项",
                         "name": "request_body",
                         "in": "body",
                         "required": true,
@@ -568,6 +529,45 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/response.GetCompaniesCountResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/manage/company/search": {
+            "get": {
+                "description": "Get Companies by term",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Get Companies by term",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "term",
+                        "name": "term",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Enum: 0 -\u003e Account, 1 -\u003e Name, 2 -\u003e Address, 3 -\u003e ManagerName, 4 -\u003e MangerTel, 5 -\u003e BusinessLicenseNumber",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company Info",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetCompaniesResp"
                         }
                     }
                 }

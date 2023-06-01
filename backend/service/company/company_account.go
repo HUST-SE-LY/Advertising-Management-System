@@ -82,9 +82,11 @@ func (c *CompanyAccountService) CompanyLogout(token string) (err error) {
 	return c.DeleteCompanyToken(token)
 }
 
-func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoReq) (err error) {
+func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoReq, token string) (err error) {
 	var company entity.Company
-	err = global.GVA_DB.Where("account = ?", req.Account).Take(&company).Error
+	claims, _ := jwt.ParseToken(token)
+	accountToBeRevised := claims.Username
+	err = global.GVA_DB.Where("account = ?", accountToBeRevised).Take(&company).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			err = status.AccountNotFound
@@ -93,7 +95,7 @@ func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoR
 	}
 	companyInfoPendingReview := entity.NewCompanyInfoPendingReview(
 		company.Id, *company_model.NewCompanyInfo(
-			req.Account,
+			accountToBeRevised,
 			req.Name,
 			req.Address,
 			req.ManagerName,

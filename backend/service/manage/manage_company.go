@@ -105,6 +105,10 @@ func (m *ManageCompanyService) AllowCompaniesInfoUpdate(companyAccounts []string
 		global.GVA_DB.Model(&company).Updates(company)
 	}
 
+	if err := global.GVA_DB.Delete(&companiesToBeUpdated).Error; err != nil {
+		return nil, err
+	}
+
 	return functional.Map(companies, func(com entity.Company) string {
 		return com.Account
 	}), nil

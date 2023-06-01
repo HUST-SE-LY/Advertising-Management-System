@@ -99,10 +99,11 @@ func (com *CompanyAccountApi) CompanyLogout(c *gin.Context) {
 //	@Router			/company/update-info [post]
 func (com *CompanyAccountApi) CompanyUpdateInfo(c *gin.Context) {
 	var companyUpdateInfoReq request.CompanyUpdateInfoReq
+	token := c.Request.Header.Get("Authorization")
 	if err := gin_ext.ShouldBindJSON(c, &companyUpdateInfoReq); err != nil {
 		return
 	}
-	if err := companyService.CompanyUpdateInfo(companyUpdateInfoReq); err != nil {
+	if err := companyService.CompanyUpdateInfo(companyUpdateInfoReq, token); err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
 	} else {
 		c.JSON(http.StatusOK, gin_ext.Response(nil, nil))

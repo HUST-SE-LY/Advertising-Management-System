@@ -20,7 +20,7 @@ func (c *CompanyRouterGroup) Init(router *gin.RouterGroup) {
 		companyRouter.POST("recharge", companyAccountApi.CompanyRecharge)
 		companyRouter.POST("update-info", companyAccountApi.CompanyUpdateInfo)
 		companyRouter.POST("update-pwd", companyAccountApi.CompanyUpdatePwd)
-		companyRouter.GET("logout", companyAccountApi.CompanyLogout)
+		companyRouter.POST("logout", companyAccountApi.CompanyLogout)
 		companyRouter.GET("cancel", companyAccountApi.CompanyCancel)
 		companyRouter.PUT("advt/upload", companyAdvertisementApi.CompanyUploadAdvertisement)
 		companyRouter.GET("get-info", companyAccountApi.CompanyGetInfo)
