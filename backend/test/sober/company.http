@@ -36,7 +36,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBl
 Content-Type: application/json
 
 {
-  "manager_name": "Hamburger"
+  "manager_name": "你的名字"
 }
 
 ### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
@@ -45,7 +45,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBl
 Content-Type: application/json
 
 {
-  "manager_tel": "1037777"
+  "manager_tel": "114514"
 }
 
 ### Update password test

@@ -189,13 +189,11 @@ func (m *ManageCompanyApi) RejectRegistrationForCompanies(c *gin.Context) {
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Param		request_body	body		request.AllowCompaniesUpdateReq	true	"account不能修改，Body不能出现account，根据token来判断account，其余每一项都是可选的，但是必须要有一项"
-//	@Success	200				{object}	[]string						"allow update for companies response"
+//	@Param		request_body	body		request.CompaniesUpdateReq	true	"account不能修改，Body不能出现account，根据token来判断account，其余每一项都是可选的，但是必须要有一项"
+//	@Success	200				{object}	[]string					"allow update for companies response"
 //	@Router		/manage/company/info [post]
-//
-// TODO
 func (m *ManageCompanyApi) AllowUpdateForCompanies(c *gin.Context) {
-	var allowCompaniesUpdateReq request.AllowCompaniesUpdateReq
+	var allowCompaniesUpdateReq request.CompaniesUpdateReq
 	if err := gin_ext.BindJSON(c, &allowCompaniesUpdateReq); err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
@@ -206,5 +204,30 @@ func (m *ManageCompanyApi) AllowUpdateForCompanies(c *gin.Context) {
 		return
 	}
 	jsonResp, _ := jsoniter.Marshal(allowAccounts)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+// RejectUpdateForCompanies godoc
+//
+//	@Summary	Reject Update For Companies
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Param		request_body	body		request.CompaniesUpdateReq	true	"account不能修改，Body不能出现account，根据token来判断account，其余每一项都是可选的，但是必须要有一项"
+//	@Success	200				{object}	[]string					"reject update for companies response"
+//	@Router		/manage/company/reject-info [post]
+func (m *ManageCompanyApi) RejectUpdateForCompanies(c *gin.Context) {
+	var rejectCompaniesUpdateReq request.CompaniesUpdateReq
+	if err := gin_ext.BindJSON(c, &rejectCompaniesUpdateReq); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	rejectAccounts, err := adminService.ManageCompanyService.RejectCompaniesInfoUpdate(rejectCompaniesUpdateReq.CompanyAccounts)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	}
+	jsonResp, _ := jsoniter.Marshal(rejectAccounts)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

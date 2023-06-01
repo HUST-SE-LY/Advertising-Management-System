@@ -5,6 +5,7 @@ type CompaniesRegisterReq struct {
 	CompanyAccounts []string `json:"company_accounts"`
 }
 
-type AllowCompaniesUpdateReq struct {
+// CompaniesUpdateReq Both allow and reject
+type CompaniesUpdateReq struct {
 	CompanyAccounts []string `json:"company_accounts"`
 }
