@@ -1,13 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import UserInfo from "../components/user/userInfo"
 import AdInfo from "../components/user/adInfo"
 import AccountInfo from "../components/user/accountInfo"
 import WaitingList from "../components/user/waitingList"
 import MyAd from "../components/user/myAd"
 import Other from "../components/user/other"
+import useAxios from "../utils/useAxios"
 
 
 function User() {
+  const axios = useAxios()
+  
   const [userInfo, setUserInfo] = useState({
     account: "1",
     name: "A",
@@ -55,6 +58,13 @@ function User() {
       },
     ],
   })
+  async function getBasicInfo() {
+    const res = await axios.get("/company/get-info");
+    setUserInfo(res.data.data)
+  }
+  useEffect(() => {
+    getBasicInfo()
+  },[])
 
 
 
