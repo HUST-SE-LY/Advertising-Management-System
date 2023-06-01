@@ -72,12 +72,29 @@ const docTemplate = `{
                     "Company"
                 ],
                 "summary": "Company upload advertisement",
-                "responses": {
-                    "200": {
-                        "description": "Company upload advertisement request body",
+                "parameters": [
+                    {
+                        "description": "name: advertisementInfo",
+                        "name": "advertisementInfo",
+                        "in": "body",
+                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.CompanyUploadAdvtReq"
                         }
+                    },
+                    {
+                        "description": "name: image",
+                        "name": "image",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
@@ -460,12 +477,12 @@ const docTemplate = `{
                 "summary": "Allow Registration For Companies",
                 "parameters": [
                     {
-                        "description": "allow companies register request",
+                        "description": "array of companies' accounts",
                         "name": "request_body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.AllowCompaniesRegisterReq"
+                            "$ref": "#/definitions/request.CompaniesRegisterReq"
                         }
                     }
                 ],
@@ -478,6 +495,36 @@ const docTemplate = `{
                                 "type": "string"
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/manage/company/reject-registration": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Manage"
+                ],
+                "summary": "Reject Registration For Companies",
+                "parameters": [
+                    {
+                        "description": "reject companies register request",
+                        "name": "request_body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CompaniesRegisterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "reject companies response"
                     }
                 }
             }
@@ -637,7 +684,7 @@ const docTemplate = `{
                 }
             }
         },
-        "request.AllowCompaniesRegisterReq": {
+        "request.AllowCompaniesUpdateReq": {
             "type": "object",
             "properties": {
                 "company_accounts": {
@@ -648,7 +695,7 @@ const docTemplate = `{
                 }
             }
         },
-        "request.AllowCompaniesUpdateReq": {
+        "request.CompaniesRegisterReq": {
             "type": "object",
             "properties": {
                 "company_accounts": {

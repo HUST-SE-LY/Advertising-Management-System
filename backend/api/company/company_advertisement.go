@@ -20,7 +20,9 @@ type CompanyAdvertisementApi struct {
 //	@Tags			Company
 //	@Accept			mpfd
 //	@Produce		json
-//	@Success		200	{object}	request.CompanyUploadAdvtReq	"Company upload advertisement request body"
+//	@Param			advertisementInfo	body		request.CompanyUploadAdvtReq.AdvtInfo	true "name: advertisementInfo"
+//	@Param			image				body		byte										true "name: image"
+//	@Success		200		{object}	nil
 //	@Router			/company/advt/upload [put]
 func (com *CompanyAdvertisementApi) CompanyUploadAdvertisement(c *gin.Context) {
 	var companyUploadAdvtReq request.CompanyUploadAdvtReq

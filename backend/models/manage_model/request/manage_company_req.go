@@ -1,6 +1,7 @@
 package request
 
-type AllowCompaniesRegisterReq struct {
+// CompaniesRegisterReq Both allow and reject
+type CompaniesRegisterReq struct {
 	CompanyAccounts []string `json:"company_accounts"`
 }
 

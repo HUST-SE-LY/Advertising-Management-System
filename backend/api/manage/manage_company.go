@@ -1,7 +1,6 @@
 package manage
 
 import (
-	"backend/global"
 	"backend/models/company_model/entity"
 	"backend/models/manage_model/enum"
 	"backend/models/manage_model/request"
@@ -138,11 +137,11 @@ func (m *ManageCompanyApi) GetCompaniesByTerm(c *gin.Context) {
 //	@Tags		Manage
 //	@Accept		json
 //	@Produce	json
-//	@Param		request_body	body		request.AllowCompaniesRegisterReq	true	"allow companies register request"
-//	@Success	200				{object}	[]string							"allow companies response"
+//	@Param		request_body	body		request.CompaniesRegisterReq	true	"array of companies' accounts"
+//	@Success	200				{object}	[]string						"allow companies response"
 //	@Router		/manage/company/register [post]
 func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
-	var allowCompaniesRegisterReq request.AllowCompaniesRegisterReq
+	var allowCompaniesRegisterReq request.CompaniesRegisterReq
 	if err := gin_ext.BindJSON(c, &allowCompaniesRegisterReq); err != nil {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
 		return
@@ -153,10 +152,34 @@ func (m *ManageCompanyApi) AllowRegistrationForCompanies(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
-	// Delete company in pending reviews
-	err = global.GVA_DB.Where("account LIKE ?", companyAccount).Delete(&entity.CompanyPendingReview{}).Error
+
 	jsonResp, _ := jsoniter.Marshal(allowAccounts)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
+}
+
+// RejectRegistrationForCompanies godoc
+//
+//	@Summary	Reject Registration For Companies
+//
+//	@Tags		Manage
+//	@Accept		json
+//	@Produce	json
+//	@Param		request_body	body		request.CompaniesRegisterReq	true	"reject companies register request"
+//	@Success	200				{object}	nil								"reject companies response"
+//	@Router		/manage/company/reject-registration [post]
+func (m *ManageCompanyApi) RejectRegistrationForCompanies(c *gin.Context) {
+	var RejectCompaniesRegisterReq request.CompaniesRegisterReq
+	if err := gin_ext.BindJSON(c, &RejectCompaniesRegisterReq); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	companyAccount := RejectCompaniesRegisterReq.CompanyAccounts
+	err := adminService.ManageCompanyService.RejectRegistrationForCompanies(companyAccount)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	}
+	c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
 }
 
 // AllowUpdateForCompanies godoc

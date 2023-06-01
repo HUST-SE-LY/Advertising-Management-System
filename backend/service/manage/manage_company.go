@@ -67,9 +67,26 @@ func (m *ManageCompanyService) AllowRegistrationForCompanies(companyAccounts []s
 		return nil, err
 	}
 
+	if err = global.GVA_DB.Delete(&companiesToBeReviewed).Error; err != nil {
+		return nil, err
+	}
+
 	return functional.Map(companies, func(com entity.Company) string {
 		return com.Account
 	}), nil
+}
+
+func (m *ManageCompanyService) RejectRegistrationForCompanies(companyAccounts []string) (err error) {
+	var companiesToBeReviewed []entity.CompanyPendingReview
+	if err = global.GVA_DB.Where("account IN ?", companyAccounts).Find(&companiesToBeReviewed).Error; err != nil {
+		return err
+	}
+
+	if err = global.GVA_DB.Delete(&companiesToBeReviewed).Error; err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (m *ManageCompanyService) AllowCompaniesInfoUpdate(companyAccounts []string) (allowAccounts []string, err error) {

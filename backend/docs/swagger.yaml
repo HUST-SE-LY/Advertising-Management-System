@@ -76,14 +76,14 @@ definitions:
         example: "1234"
         type: string
     type: object
-  request.AllowCompaniesRegisterReq:
+  request.AllowCompaniesUpdateReq:
     properties:
       company_accounts:
         items:
           type: string
         type: array
     type: object
-  request.AllowCompaniesUpdateReq:
+  request.CompaniesRegisterReq:
     properties:
       company_accounts:
         items:
@@ -267,13 +267,24 @@ paths:
       consumes:
       - multipart/form-data
       description: Company upload advertisement
+      parameters:
+      - description: 'name: advertisementInfo'
+        in: body
+        name: advertisementInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.CompanyUploadAdvtReq'
+      - description: 'name: image'
+        in: body
+        name: image
+        required: true
+        schema:
+          type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: Company upload advertisement request body
-          schema:
-            $ref: '#/definitions/request.CompanyUploadAdvtReq'
+          description: OK
       summary: Company upload advertisement
       tags:
       - Company
@@ -518,12 +529,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: allow companies register request
+      - description: array of companies' accounts
         in: body
         name: request_body
         required: true
         schema:
-          $ref: '#/definitions/request.AllowCompaniesRegisterReq'
+          $ref: '#/definitions/request.CompaniesRegisterReq'
       produces:
       - application/json
       responses:
@@ -534,6 +545,25 @@ paths:
               type: string
             type: array
       summary: Allow Registration For Companies
+      tags:
+      - Manage
+  /manage/company/reject-registration:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: reject companies register request
+        in: body
+        name: request_body
+        required: true
+        schema:
+          $ref: '#/definitions/request.CompaniesRegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: reject companies response
+      summary: Reject Registration For Companies
       tags:
       - Manage
   /manage/company/review:
