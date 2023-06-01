@@ -5,11 +5,15 @@ import (
 	"backend/models/company_model"
 	"backend/models/company_model/entity"
 	"backend/models/company_model/request"
+	recordEntity "backend/models/record_model/entity"
+	"backend/models/record_model/enum"
 	"backend/utils/jwt"
 	"backend/utils/status"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"strconv"
+	"time"
 )
 
 type CompanyAccountService struct {
@@ -104,8 +108,19 @@ func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoR
 		),
 	)
 	err = global.GVA_DB.Save(&companyInfoPendingReview).Error
+
+	date, _ := strconv.Atoi(time.Now().Format("20060102"))
+	// add to application record
+	applicationRecord := recordEntity.ApplicationRecord{
+		Account: accountToBeRevised,
+		Status:  enum.UnderReview,
+		Type:    enum.Info,
+		Date:    date,
+	}
+	err = global.GVA_DB.Save(&applicationRecord).Error
 	return
 }
+
 func (c *CompanyAccountService) CompanyRecharge(req request.CompanyRechargeReq, account string) (err error) {
 	var company entity.Company
 	err = global.GVA_DB.Where("account = ?", account).Take(&company).Error
