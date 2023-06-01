@@ -5,6 +5,7 @@ import (
 	entity2 "backend/models/admin_model/entity"
 	entity3 "backend/models/advertisement_model/entity"
 	"backend/models/company_model/entity"
+	entity4 "backend/models/record_model/entity"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -36,6 +37,7 @@ func Gorm() *gorm.DB {
 	_ = db.AutoMigrate(&entity.CompanyInfoPendingReview{})
 	_ = db.AutoMigrate(&entity3.Advertisement{})
 	_ = db.AutoMigrate(&entity3.AdvertisementPendingReview{})
-
+	_ = db.AutoMigrate(&entity3.AdvertisingSpace{})
+	_ = db.AutoMigrate(&entity4.Record{})
 	return db
 }

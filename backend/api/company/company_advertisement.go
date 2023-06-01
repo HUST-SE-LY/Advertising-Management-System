@@ -12,6 +12,10 @@ import (
 type CompanyAdvertisementApi struct {
 }
 
+func (com *CompanyAdvertisementApi) CompanyBuyAdvertisementSpace(c *gin.Context) {
+
+}
+
 // CompanyUploadAdvertisement godoc
 //
 //	@Summary		Company upload advertisement

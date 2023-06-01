@@ -5,6 +5,7 @@ import (
 	entity2 "backend/models/advertisement_model/entity"
 	"backend/models/company_model/entity"
 	"backend/models/company_model/request"
+	entity3 "backend/models/record_model/entity"
 	"io"
 	"mime/multipart"
 	"os"
@@ -20,6 +21,16 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	// TODO
 	var company entity.Company
 	filename := account + "_" + req.AdvtInfo.Title + "_" + time.Now().Format(time.RFC3339) + getFileExtension(req.FileData.Filename)
+	record := entity3.Record{
+		ComAccount:        account,
+		AdvertisementInfo: req.AdvtInfo,
+		Duration:          req.Duration,
+		Cost:              req.Cost,
+	}
+
+	if err := global.GVA_DB.Create(&record).Error; err != nil {
+		return err
+	}
 
 	r := strings.NewReplacer(" ", "_", ":", "_")
 	filename = r.Replace(filename)

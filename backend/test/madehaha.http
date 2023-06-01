@@ -22,7 +22,7 @@ POST http://localhost:8080/company/register
 Content-Type: application/json
 
 {
-  "account": "联创小可aihao",
+  "account": "联创小可aihaol",
   "password": "uniquestudio",
   "name": "联小创在线科技有限公司",
   "address": "启明学院亮胜楼八楼",
@@ -54,7 +54,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZ
 Content-Type: application/json
 
 {
-  "company_accounts": ["联创小可ai"]
+  "company_accounts": ["联创小可aihaol"]
 }
 
 ### Search "联小创在线科技有限公司"
@@ -71,6 +71,14 @@ Content-Type: application/json
   "manager_name": "Hamburger"
 }
 
+### Update manager_name of "联小创在线科技有限公司" to "Hamburger"
+POST http://localhost:8080/company/recharge
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
+Content-Type: application/json
+
+{
+  "money": 100
+}
 ### Allow "联小创在线科技有限公司" update info
 GET http://localhost:8080/manage/company/count
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
@@ -89,27 +97,6 @@ Content-Type: application/json
 GET http://localhost:8080/company/cancel
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFFkczVmTC5BaS5OR0lkTVN5OG9XUnU2cHdDbFAucVR0L3o1VTYzMGJzUlJ6NjNyVWdTaGxHIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjMzMzgxNzg0Mywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.pEU_bb88B9zPpergLk8ivROMjnOjHcSBMrpnrER4Rqk
 
-### upload Advertisement
-PUT http://localhost:8080/company/upload-ad
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
-Content-Type: multipart/form-data; boundary=WebAppBoundary
-
---WebAppBoundary
-Content-Disposition: form-data; name="advertisementInfo"
-Content-Type: application/json
-
-{
-   "title": "advertisement example",
-   "position": 1,
-   "jump_to_url": "example.com/1919810",
-   "start_date": "2023-04-17",
-   "end_date": "2023-05-11"
-}
---WebAppBoundary
-Content-Disposition: form-data; name="image"; filename="xmj.jpg"
-
-< ./image/xmj.jpg
---WebAppBoundary--
 
 //advertisement
 ### List pending review advertisements
@@ -122,7 +109,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZ
 Content-Type: application/json
 
 {
-  "pending_numbers": [30]
+  "pending_numbers": [25]
 }
 
 ### List all  advertisements
@@ -146,3 +133,38 @@ Content-Type: application/json
 ### Search "companyid = 1"
 GET http://localhost:8080/manage/advertisement/search?term=1&type=1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+
+//Space
+### set price
+POST http://localhost:8080/manage/space/set_price
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Content-Type: application/json
+
+{
+  "id" : 2,
+  "price": 500
+}
+
+
+
+### upload Advertisement
+PUT http://localhost:8080/company/advt/upload
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="advertisementInfo"
+Content-Type: application/json
+
+{
+   "title": "advertisement example",
+   "position": 1,
+   "jump_to_url": "example.com/1919810",
+   "start_date": "2023-04-17",
+   "end_date": "2023-05-11"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="xmj.jpg"
+
+< ./image/xmj.jpg
+--WebAppBoundary--

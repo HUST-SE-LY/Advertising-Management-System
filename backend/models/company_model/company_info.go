@@ -7,6 +7,7 @@ type CompanyInfo struct {
 	ManagerName           string `json:"manager_name" gorm:"column:manager_name" example:"汉堡"`
 	ManagerTel            string `json:"manager_tel" gorm:"column:manager_tel" example:"1919810"`
 	BusinessLicenseNumber string `json:"business_license_number" gorm:"column:business_license_number" example:"114514"`
+	Balance               int    `json:"balance" gorm:"column:balance; default:0"`
 }
 
 func NewCompanyInfo(account, name, address, managerName, managerTel, businessLicenseNumber string) *CompanyInfo {

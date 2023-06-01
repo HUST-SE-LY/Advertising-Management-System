@@ -104,7 +104,18 @@ func (c *CompanyAccountService) CompanyUpdateInfo(req request.CompanyUpdateInfoR
 	err = global.GVA_DB.Save(&companyInfoPendingReview).Error
 	return
 }
-
+func (c *CompanyAccountService) CompanyRecharge(req request.CompanyRechargeReq, account string) (err error) {
+	var company entity.Company
+	err = global.GVA_DB.Where("account = ?", account).Take(&company).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			err = status.AccountNotFound
+		}
+		return
+	}
+	err = global.GVA_DB.Model(&company).Update("balance", req.Money).Error
+	return
+}
 func (c *CompanyAccountService) CompanyUpdatePwd(req request.CompanyUpdatePwdReq, account string) (err error) {
 	var company entity.Company
 	err = global.GVA_DB.Where("account = ?", account).Take(&company).Error

@@ -6,6 +6,8 @@ import (
 )
 
 type CompanyUploadAdvtReq struct {
+	Duration int                                   `form:"duration"`
+	Cost     int                                   `form:"cost"`
 	AdvtInfo advertisement_model.AdvertisementInfo `form:"advertisementInfo"`
 	FileData *multipart.FileHeader                 `form:"image" swaggerignore:"true"`
 }

@@ -156,3 +156,17 @@ func (com *CompanyAccountApi) CompanyCancel(c *gin.Context) {
 	}
 
 }
+func (com *CompanyAccountApi) CompanyRecharge(c *gin.Context) {
+	var req request.CompanyRechargeReq
+	if err := gin_ext.BindJSON(c, &req); err != nil {
+		return
+	}
+	token := c.Request.Header.Get("Authorization")
+	claims, _ := jwt.ParseToken(token)
+	account := claims.Username
+	if err := companyService.CompanyRecharge(req, account); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
+	} else {
+		c.JSON(http.StatusOK, gin_ext.Response(nil, nil))
+	}
+}

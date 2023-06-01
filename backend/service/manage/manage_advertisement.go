@@ -3,12 +3,15 @@ package manage
 import (
 	"backend/global"
 	"backend/models/advertisement_model/entity"
+	entity2 "backend/models/company_model/entity"
 	"backend/models/manage_model/enum"
+
 	"backend/utils/functional"
 	"errors"
 	"fmt"
 	"gorm.io/gorm"
 	"os"
+	"time"
 )
 
 type ManageAdvertisementService struct {
@@ -35,9 +38,11 @@ func (m *ManageAdvertisementService) AllowAdvertisement(pendingnumbers []int64) 
 	if err = global.GVA_DB.Where("id IN ?", pendingnumbers).Find(&advertisementToBeReviewed).Error; err != nil {
 		return nil, err
 	}
+	for _, s := range advertisementToBeReviewed {
+		costbalance(int64(s.Position), s.CompanyId, s.EndDate, s.StartDate)
+	}
 	advertisements := functional.Map(advertisementToBeReviewed, entity.AdvertisementPendingReview.ToAdvertisement)
 	advertisementlen := len(advertisements)
-
 	if err = global.GVA_DB.CreateInBatches(&advertisements, advertisementlen).Error; err != nil {
 		return nil, err
 	}
@@ -70,13 +75,12 @@ func (m *ManageAdvertisementService) GetAdvertisementsByTerm(term string, termTy
 
 	return advertisements, nil
 }
-func (m *ManageAdvertisementService) GetAdvertisementsPendingReviewCount() (int64, error) {
-	var count int64 = 0
+func (m *ManageAdvertisementService) GetAdvertisementsPendingReviewCount() (int, error) {
 	var ads []entity.AdvertisementPendingReview
-	if err := global.GVA_DB.Find(&ads).Count(&count).Error; err != nil {
+	if err := global.GVA_DB.Find(&ads).Error; err != nil {
 		return 0, err
 	}
-	return count, nil
+	return len(ads), nil
 }
 
 func DeleteFile(filename string) error {
@@ -84,5 +88,38 @@ func DeleteFile(filename string) error {
 	if err := os.Remove(realfilename); err != nil {
 		return err
 	}
+	return nil
+}
+
+func GetDaysBetween2Date(format, date1Str, date2Str string) (int, error) {
+	date1, err := time.ParseInLocation(format, date1Str, time.Local)
+	if err != nil {
+		return 0, err
+	}
+	// 将字符串转化为Time格式
+	date2, err := time.ParseInLocation(format, date2Str, time.Local)
+	if err != nil {
+		return 0, err
+	}
+	//计算相差天数
+	return int(date1.Sub(date2).Hours() / 24), nil
+}
+func costbalance(spaceid int64, com int64, startdate, enddate string) error {
+	var company entity2.Company
+	var space entity.AdvertisingSpace
+	if err := global.GVA_DB.Where("id=?", com).Find(&company).Error; err != nil {
+		return err
+	}
+	if err := global.GVA_DB.Where("id=?", spaceid).Find(&space).Error; err != nil {
+		return err
+	}
+	format := "2006-01-02"
+	e, err := GetDaysBetween2Date(format, enddate, startdate)
+	if err != nil {
+		return err
+	}
+	company.Balance = company.Balance + (space.Price * e)
+	global.GVA_DB.Model(&company).Updates(company)
+
 	return nil
 }

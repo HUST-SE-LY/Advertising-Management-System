@@ -14,6 +14,7 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 	var manageAdminApi = api.ApiGroupApp.ManageApiGroup.ManageAdminApi
 	var manageCompanyApi = api.ApiGroupApp.ManageApiGroup.ManageCompanyApi
 	var manageAdvertisement = api.ApiGroupApp.ManageApiGroup.ManageAdvertisementApi
+	//var manageSpace = api.ApiGroupApp.ManageApiGroup.ManageSpaceApi
 	{
 		manageRouter.POST("admin/create", manageAdminApi.CreateAdmin)
 		manageRouter.GET("company/review_count", manageCompanyApi.GetPendingReviewCompaniesCount)
@@ -29,7 +30,8 @@ func (a *ManageRouterGroup) Init(router *gin.RouterGroup) {
 		manageRouter.GET("advertisement/review", manageAdvertisement.GetAllAdvertisementsToBeReviewed)
 		manageRouter.POST("advertisement/allow", manageAdvertisement.AllowAdvertisement)
 		manageRouter.POST("advertisement/delete", manageAdvertisement.DeleteAdvertisement)
-		manageRouter.GET("advertisement/search", manageAdvertisement.GetAdvertisementsByTerm)
+		//manageRouter.GET("advertisement/search", manageAdvertisement.GetAdvertisementsByTerm)
+		//manageRouter.POST("space/set_price", manageSpace.SetSpacePrice)
 	}
 
 }

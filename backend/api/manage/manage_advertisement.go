@@ -89,7 +89,7 @@ func (m *ManageAdvertisementApi) GetAdvertisementsPendingReviewCount(c *gin.Cont
 		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
 		return
 	}
-	resp := response.GetCompaniesCountResp{Count: count}
+	resp := response.GetAdvertisementsPendingReviewCount{Count: count}
 	jsonResp, _ := jsoniter.Marshal(resp)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

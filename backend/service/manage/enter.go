@@ -6,4 +6,5 @@ type ManageServiceGroup struct {
 	ManageAdminService
 	ManageCompanyService
 	ManageAdvertisementService
+	ManageSpaceService
 }
