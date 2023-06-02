@@ -104,29 +104,30 @@ func (m *ManageAdvertisementService) GetAdvertisementsByTerm(term string, termTy
 	return advertisements, nil
 }
 
-func (m *ManageAdvertisementService) StopAdvertisement(column int64) error {
+func (m *ManageAdvertisementService) StopAdvertisement(column int64) (int64, error) {
 	var space entity.AdvertisingSpace
 	var record entity3.ConsumeRecord
 	var advertisement entity.Advertisement
 	var com entity2.Company
 	format := "2006-01-02"
 	if err := global.GVA_DB.Where("id=?", column).Find(&space).Error; err != nil {
-		return err
+		return 0, err
 	}
+	var deleteid = space.AdvID
 	global.GVA_DB.Where("id=?", space.AdvID).Find(&advertisement)
 
 	if err := global.GVA_DB.Where("id=?", advertisement.CompanyId).Find(&com).Error; err != nil {
-		return err
+		return 0, err
 	}
 
 	if err := global.GVA_DB.Where("position =?", int(space.Id)).Where("end = ?", advertisement.EndDate).Find(&record).Error; err != nil {
-		return err
+		return 0, err
 	}
 	record.Status = 4
 	global.GVA_DB.Model(&record).Updates(record)
 	data1, err := time.ParseInLocation(format, "2023-06-02", time.Local)
 	if err != nil {
-		return err
+		return 0, err
 	}
 	data2, _ := time.ParseInLocation(format, advertisement.EndDate, time.Local)
 	data3, _ := time.ParseInLocation(format, record.Start, time.Local)
@@ -135,14 +136,12 @@ func (m *ManageAdvertisementService) StopAdvertisement(column int64) error {
 	cost = float32(record.Cost) * cost
 	com.Balance = com.Balance + int(cost)
 	if err = global.GVA_DB.Model(&com).Updates(com).Error; err != nil {
-		return err
+		return 0, err
 	}
 	space.AdvID = 1
 	global.GVA_DB.Model(&record).Updates(record)
-	if err = global.GVA_DB.Model(&space).Updates(space).Error; err != nil {
-		return err
-	}
-	return nil
+	global.GVA_DB.Model(&space).Updates(space)
+	return deleteid, nil
 }
 func (m *ManageAdvertisementService) GetAdvertisementsPendingReviewCount() (int64, error) {
 	var ads []entity.AdvertisementPendingReview
