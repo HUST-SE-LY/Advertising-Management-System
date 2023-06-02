@@ -76,7 +76,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBl
 
 ### upload Advertisement
 PUT http://localhost:8080/company/advt/upload
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImzIiLCJwYXNzd29yZCI6IiQyYSQxMCRiUGkwdWpncUhvMlhjR1U5YTNNTjBPZjBRVHA3TERTemZ2eFBKZThCaGEyNFpyMlRrNldieSIsIk1hcENsYWltcyI6eyJleHAiOjE2ODYyOTA2NDA2NTMsInJvbGUiOiJyb2xlX2NvbXBhbnkifX0.per1J1fc5Ee5hWLJLy8Kf16ynQZJEj2HFYB64K0_yYo
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -90,6 +90,22 @@ Content-Type: application/json
    "start_date": "2023-04-17",
    "end_date": "2023-05-11"
 }
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="xmj.jpg"
+
+< ../image/xmj.jpg
+--WebAppBoundary--
+
+### upload Advertisement
+PUT http://localhost:8080/company/advt/upload
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImzIiLCJwYXNzd29yZCI6IiQyYSQxMCRiUGkwdWpncUhvMlhjR1U5YTNNTjBPZjBRVHA3TERTemZ2eFBKZThCaGEyNFpyMlRrNldieSIsIk1hcENsYWltcyI6eyJleHAiOjE2ODYyOTA2NDA2NTMsInJvbGUiOiJyb2xlX2NvbXBhbnkifX0.per1J1fc5Ee5hWLJLy8Kf16ynQZJEj2HFYB64K0_yYo
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="advertisementInfo"
+
+{"title":"advertisement example11111","position":1,"jump_to_url":"example.com/1919810","start_date":"2023-04-17","end_date":"2023-05-11"}
+
 --WebAppBoundary
 Content-Disposition: form-data; name="image"; filename="xmj.jpg"
 

@@ -12,7 +12,7 @@ POST https://aivwe.top/admin/login
 Content-Type: application/json
 
 {
-  "account": "fnfunfunc2",
+  "account": "fnfunfunc",
   "password": "1234"
 }
 
@@ -21,8 +21,8 @@ POST https://aivwe.top/company/register
 Content-Type: application/json
 
 {
-  "account": "联创",
-  "password": "uniquestudio",
+  "account": "名字",
+  "password": "1919810",
   "name": "联小创在线科技有限公司",
   "address": "启明学院亮胜楼八楼",
   "manager_name": "汉堡",
@@ -35,8 +35,8 @@ POST https://aivwe.top/company/login
 Content-Type: application/json
 
 {
-  "account": "联创",
-  "password": "uniquestudio"
+  "account": "名字",
+  "password": "1919810"
 }
 
 ### Company logout
@@ -45,19 +45,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZ
 
 ### List pending review companies
 GET https://aivwe.top/manage/company/review
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJE5CRGxFQjRNM3I5eVdhcW1JMHFsOE8yTzFJc1c4Y0JZd0hMaVRDeDdIbFQ5MTdPc1k4QXcuIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjI5MDc1NzU1MCwicm9sZSI6InJvbGVfYWRtaW4ifX0.4dZkN34AzNLYKqBELIpD5z1MIgdUfNgv-58St2FwxXg
 
 ### List all registered companies
 GET https://aivwe.top/manage/company/list
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJE5CRGxFQjRNM3I5eVdhcW1JMHFsOE8yTzFJc1c4Y0JZd0hMaVRDeDdIbFQ5MTdPc1k4QXcuIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjI5MDc1NzU1MCwicm9sZSI6InJvbGVfYWRtaW4ifX0.4dZkN34AzNLYKqBELIpD5z1MIgdUfNgv-58St2FwxXg
 
 ### Allow "联小创在线科技有限公司"
 POST https://aivwe.top/manage/company/register
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJE5CRGxFQjRNM3I5eVdhcW1JMHFsOE8yTzFJc1c4Y0JZd0hMaVRDeDdIbFQ5MTdPc1k4QXcuIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjI5MDc1NzU1MCwicm9sZSI6InJvbGVfYWRtaW4ifX0.4dZkN34AzNLYKqBELIpD5z1MIgdUfNgv-58St2FwxXg
 Content-Type: application/json
 
 {
-  "company_accounts": ["联创"]
+  "company_accounts": ["名字"]
 }
 
 ### Search "联小创在线科技有限公司"
@@ -93,8 +93,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZ
 
 
 ### upload Advertisement
-PUT https://aivwe.top/company/upload-ad
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
+PUT https://aivwe.top/company/advt/upload
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuWQjeWtlyIsInBhc3N3b3JkIjoiJDJhJDEwJE5mb2FsQjJkMEg2ZXBSdlRZeGtUNGVKdmZ1eGlXRTl2Vll3YmQzVWsyRUJDb1RBc29sUlc2IiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjI5MDkzNzEwMSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.MhVQ0DPC1OiHyIoGZqIhhIaxbOSm3u1hscrtgWJIKhU
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
