@@ -2,16 +2,16 @@ package company
 
 import (
 	"backend/global"
+	"backend/models/advertisement_model"
 	entity2 "backend/models/advertisement_model/entity"
 	"backend/models/company_model/entity"
 	"backend/models/company_model/request"
 	entity3 "backend/models/record_model/entity"
-	"backend/models/record_model/enum"
+	jsoniter "github.com/json-iterator/go"
 	"io"
 	"mime/multipart"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -22,16 +22,14 @@ type CompanyAdvertisementService struct {
 func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.CompanyUploadAdvtReq, account string) error {
 	// TODO
 	var company entity.Company
-	example := "20230601"
-	i, _ := strconv.Atoi(time.Now().Format(example))
-	var application = entity3.ApplicationRecord{
-		Account: account,
-		Status:  enum.UnderReview,
-		Type:    enum.Advertisement,
-		Date:    i,
+
+	var AdvtInfo advertisement_model.AdvertisementInfo
+	err := jsoniter.Unmarshal([]byte(req.AdvtInfo), &AdvtInfo)
+	if err != nil {
+		return err
 	}
-	global.GVA_DB.Create(&application)
-	filename := account + "_" + req.AdvtInfo.Title + "_" + time.Now().Format(time.RFC3339) + getFileExtension(req.FileData.Filename)
+	filename := account + "_" + AdvtInfo.Title + "_" + time.Now().Format(time.RFC3339) + getFileExtension(req.FileData.Filename)
+
 	r := strings.NewReplacer(" ", "_", ":", "_")
 	filename = r.Replace(filename)
 
@@ -44,20 +42,22 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	CompanyId := company.Id
 	ImageUrl := global.GVA_APP_SETTING.Domain + "/" + *global.GVA_FILE_SETTING + "/" + filename
 	advertisementToBeReviewed := entity2.NewAdvertisementPendingReview(
-		*entity2.NewAdvertisementWithoutId(CompanyId, ImageUrl, req.AdvtInfo),
+		*entity2.NewAdvertisementWithoutId(CompanyId, ImageUrl, AdvtInfo),
 	)
-	Id := int64(req.AdvtInfo.Position)
+	Id := int64(AdvtInfo.Position)
 	var space entity2.AdvertisingSpace
 	if err := global.GVA_DB.Where("id=?", Id).Find(&space).Error; err != nil {
 		return err
 	}
-	space.Enddate = req.AdvtInfo.EndDate
+	space.Enddate = AdvtInfo.EndDate
 	global.GVA_DB.Model(&space).Updates(space)
-	err := global.GVA_DB.Create(&advertisementToBeReviewed).Error
+	err = global.GVA_DB.Create(&advertisementToBeReviewed).Error
 	if err != nil {
 		return err
 	}
-	if err = SaveConsume(account, req); err != nil {
+
+	if err := SaveConsume(account, AdvtInfo); err != nil {
+
 		return err
 	}
 	return nil
@@ -94,29 +94,29 @@ func getFileExtension(filename string) string {
 	return filepath.Ext(filename)
 }
 
-func SaveConsume(account string, req request.CompanyUploadAdvtReq) error {
+func SaveConsume(account string, AdvtInfo advertisement_model.AdvertisementInfo) error {
 	format := "2006-01-02"
 	var space entity2.AdvertisingSpace
 	var company entity.Company
 
-	date1, err := time.ParseInLocation(format, req.AdvtInfo.StartDate, time.Local)
+	date1, err := time.ParseInLocation(format, AdvtInfo.StartDate, time.Local)
 	if err != nil {
 		return err
 	}
 	// 将字符串转化为Time格式
-	date2, err := time.ParseInLocation(format, req.AdvtInfo.EndDate, time.Local)
+	date2, err := time.ParseInLocation(format, AdvtInfo.EndDate, time.Local)
 	if err != nil {
 		return err
 	}
-	global.GVA_DB.Where("id =?", int64(req.AdvtInfo.Position)).Find(&space)
+	global.GVA_DB.Where("id =?", int64(AdvtInfo.Position)).Find(&space)
 	var cost = space.Price * int(date2.Sub(date1).Hours()/24)
 	currentTime := time.Now().Format(format)
 
 	consumerecord := entity3.ConsumeRecord{
 		Account:  account,
-		Start:    req.AdvtInfo.DisplayTime.StartDate,
-		End:      req.AdvtInfo.DisplayTime.EndDate,
-		Position: req.AdvtInfo.Position,
+		Start:    AdvtInfo.DisplayTime.StartDate,
+		End:      AdvtInfo.DisplayTime.EndDate,
+		Position: AdvtInfo.Position,
 		Cost:     cost,
 		Status:   0,
 		Date:     currentTime,
