@@ -1,6 +1,7 @@
 package manage
 
 import (
+	"backend/global"
 	entity2 "backend/models/advertisement_model/entity"
 	"backend/models/manage_model/request"
 	"backend/models/manage_model/response"
@@ -64,10 +65,36 @@ func (m *ManageSpaceApi) SetSpacePrice(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
 
-func (m *ManageSpaceApi) PutURL(c *gin.Context) (err error) {
-	return nil
+func (m *ManageSpaceApi) PutURL(c *gin.Context) {
+	return
 }
 
-func (m *ManageSpaceApi) AddSpace(c *gin.Context) (err error) {
-	return nil
+// AddSpace godoc
+//
+//	@Summary		add Space
+//	@Description	add Space
+//
+//	@Tags			Manage
+//	@Accept			json
+//	@Produce		json
+//	@Success		200		{object}		"Space add"
+//	@Router			/manage/space/add	[post]
+func (m *ManageSpaceApi) AddSpace(c *gin.Context) {
+	var req request.AddSpaceReq
+	if err := gin_ext.BindJSON(c, &req); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	var space = entity2.AdvertisingSpace{
+		//Enddate: time.Now().Format("2023-06-01"),
+		Enddate: "2023-06-01",
+		Price:   req.Price,
+	}
+	if err := global.GVA_DB.Create(&space).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	}
+
+	jsonResp, _ := jsoniter.Marshal(space)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

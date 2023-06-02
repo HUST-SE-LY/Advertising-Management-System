@@ -1,8 +1,10 @@
 package company
 
 import (
+	entity2 "backend/models/advertisement_model/entity"
 	"backend/models/company_model/request"
 	"backend/models/company_model/response"
+	response2 "backend/models/manage_model/response"
 	"backend/utils/gin_ext"
 	"backend/utils/jwt"
 	"backend/utils/status"
@@ -71,4 +73,15 @@ func (com *CompanyAdvertisementApi) GetRecord(c *gin.Context) {
 	jsonResp, _ := jsoniter.Marshal(resp)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 
+}
+func (m *CompanyAdvertisementApi) GetSpace(c *gin.Context) {
+
+	spaces, err := entity2.GetAdvertisementSpaces()
+	if err != nil {
+		return
+	}
+
+	resp := response2.GetSpace{Space: spaces}
+	jsonResp, _ := jsoniter.Marshal(resp)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }
