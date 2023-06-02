@@ -134,6 +134,7 @@ func (c *CompanyAccountService) CompanyRecharge(req request.CompanyRechargeReq, 
 	err = global.GVA_DB.Model(&company).Update("balance", cash).Error
 	return
 }
+
 func (c *CompanyAccountService) CompanyUpdatePwd(req request.CompanyUpdatePwdReq, account string) (err error) {
 	var company entity.Company
 	err = global.GVA_DB.Where("account = ?", account).Take(&company).Error
@@ -185,6 +186,15 @@ func (c *CompanyAccountService) CompanyGetInfo(token string) (company entity.Com
 		return entity.Company{}, err
 	}
 	return company, nil
+}
+
+func (c *CompanyAccountService) CompanyGetAllApplication(token string) (applicationRecord []recordEntity.ApplicationRecord, err error) {
+	claims, err := jwt.ParseToken(token)
+	account := claims.Username
+	if err = global.GVA_DB.Where("account = ?", account).Find(&applicationRecord).Error; err != nil {
+		return
+	}
+	return applicationRecord, nil
 }
 
 func (c *CompanyAccountService) FindCompanyToken(token string) (companyToken entity.CompanyToken, err error) {

@@ -25,5 +25,6 @@ func (c *CompanyRouterGroup) Init(router *gin.RouterGroup) {
 		companyRouter.PUT("advt/upload", companyAdvertisementApi.CompanyUploadAdvertisement)
 		companyRouter.GET("get-info", companyAccountApi.CompanyGetInfo)
 		companyRouter.GET("get-records", companyAdvertisementApi.GetRecord)
+		companyRouter.GET("get-applications", companyAccountApi.CompanyGetAllApplications)
 	}
 }

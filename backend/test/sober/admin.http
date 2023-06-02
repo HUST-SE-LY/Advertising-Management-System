@@ -6,3 +6,7 @@ Content-Type: application/json
   "account": "fnfunfunc",
   "password": "1234"
 }
+
+###
+POST http://localhost:8080/admin/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJHBUMVVFS0szTHFsUC9rSDVSQ1FhaGVxWVpvM2F1NUg1eDJtc3pJb3puSTVmYkcyWlhOTjJ1IiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NjI0Mzc3OTI3NCwicm9sZSI6InJvbGVfYWRtaW4ifX0.k5_ZlvjrnNjLNKXrATJeTFCk6RuqJ8C-iSc715ukaDw

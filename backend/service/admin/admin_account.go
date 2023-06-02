@@ -44,6 +44,10 @@ func (a *AdminAccountService) AdminLogin(req *request.AdminLoginReq) (err error,
 	return err, admin, adminToken
 }
 
+func (a *AdminAccountService) AdminLogout(token string) (err error) {
+	return a.DeleteAdminToken(token)
+}
+
 func (a *AdminAccountService) FindAdminToken(token string) (adminToken *entity.AdminToken, err error) {
 	err = global.GVA_DB.Take(&adminToken, "token = ?", token).Error
 	return
