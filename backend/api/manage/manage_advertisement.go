@@ -206,7 +206,6 @@ func (m *ManageAdvertisementApi) StopAdvertisement(c *gin.Context) {
 		return
 	}
 	deletenumber := req.StopNumber
-
 	number, err := adminService.ManageAdvertisementService.StopAdvertisement(deletenumber)
 	numbers[0] = number
 	if err != nil {
