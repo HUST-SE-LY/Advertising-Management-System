@@ -26,12 +26,13 @@ type ManageSpaceApi struct {
 //	@Success		200		{object}	response.GetSpaceResp	"Space Info"
 //	@Router			/manage/space/get [get]
 func (m *ManageSpaceApi) GetSpace(c *gin.Context) {
-
+	if err := entity2.GetFreshSpace(); err != nil {
+		return
+	}
 	spaces, err := entity2.GetAdvertisementSpaces()
 	if err != nil {
 		return
 	}
-
 	resp := response.GetSpace{Space: spaces}
 	jsonResp, _ := jsoniter.Marshal(resp)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))

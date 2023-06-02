@@ -74,8 +74,10 @@ func (com *CompanyAdvertisementApi) GetRecord(c *gin.Context) {
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 
 }
-func (m *CompanyAdvertisementApi) GetSpace(c *gin.Context) {
-
+func (com *CompanyAdvertisementApi) GetSpace(c *gin.Context) {
+	if err := entity2.GetFreshSpace(); err != nil {
+		return
+	}
 	spaces, err := entity2.GetAdvertisementSpaces()
 	if err != nil {
 		return
