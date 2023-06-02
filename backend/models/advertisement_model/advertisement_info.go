@@ -7,24 +7,26 @@ type AdvertisementInfo struct {
 	DisplayTime
 }
 type AdvertisementToBePreviewedInfo struct {
-	Id        int64  `json:"id" gorm:"column:id; primaryKey; autoIncrement"`
-	CompanyId int64  `json:"company_id" gorm:"column:company_id; not null;"`
-	ImageUrl  string `json:"image_url" gorm:"column:image_url"`
-	Title     string `json:"title" gorm:"column:title"`
-	Position  int    `json:"position" gorm:"column:position"`
-	JumpToUrl string `json:"jump_to_url" gorm:"column:jump_to_url"`
+	Id             int64  `json:"id" gorm:"column:id; primaryKey; autoIncrement"`
+	CompanyId      int64  `json:"company_id" gorm:"column:company_id; not null;"`
+	ImageUrl       string `json:"image_url" gorm:"column:image_url"`
+	Title          string `json:"title" gorm:"column:title"`
+	Position       int    `json:"position" gorm:"column:position"`
+	JumpToUrl      string `json:"jump_to_url" gorm:"column:jump_to_url"`
+	CompanyAccount string `json:"company_account"gorm:"company_account; not null"`
 	DisplayTime
 }
 
-func NewAdvertisementInfo(id int64, companyid int64, uml string, title string, position int, jump_to_url string, displaytime DisplayTime) *AdvertisementToBePreviewedInfo {
+func NewAdvertisementInfo(company_account string, id int64, companyid int64, uml string, title string, position int, jump_to_url string, displaytime DisplayTime) *AdvertisementToBePreviewedInfo {
 	return &AdvertisementToBePreviewedInfo{
-		Id:          id,
-		CompanyId:   companyid,
-		ImageUrl:    uml,
-		Title:       title,
-		Position:    position,
-		JumpToUrl:   jump_to_url,
-		DisplayTime: displaytime,
+		Id:             id,
+		CompanyId:      companyid,
+		ImageUrl:       uml,
+		Title:          title,
+		Position:       position,
+		JumpToUrl:      jump_to_url,
+		DisplayTime:    displaytime,
+		CompanyAccount: company_account,
 	}
 
 }

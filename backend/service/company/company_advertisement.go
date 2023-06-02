@@ -6,10 +6,12 @@ import (
 	"backend/models/company_model/entity"
 	"backend/models/company_model/request"
 	entity3 "backend/models/record_model/entity"
+	"backend/models/record_model/enum"
 	"io"
 	"mime/multipart"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -20,9 +22,19 @@ type CompanyAdvertisementService struct {
 func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.CompanyUploadAdvtReq, account string) error {
 	// TODO
 	var company entity.Company
+	example := "20230601"
+	i, _ := strconv.Atoi(time.Now().Format(example))
+	var application = entity3.ApplicationRecord{
+		Account: account,
+		Status:  enum.UnderReview,
+		Type:    enum.Advertisement,
+		Date:    i,
+	}
+	global.GVA_DB.Create(&application)
 	filename := account + "_" + req.AdvtInfo.Title + "_" + time.Now().Format(time.RFC3339) + getFileExtension(req.FileData.Filename)
 	r := strings.NewReplacer(" ", "_", ":", "_")
 	filename = r.Replace(filename)
+
 	if err := saveFile(req.FileData, filename); err != nil {
 		return err
 	}
@@ -45,7 +57,7 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	if err != nil {
 		return err
 	}
-	if err := SaveConsume(account, req); err != nil {
+	if err = SaveConsume(account, req); err != nil {
 		return err
 	}
 	return nil

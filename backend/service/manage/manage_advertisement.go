@@ -6,7 +6,6 @@ import (
 	entity2 "backend/models/company_model/entity"
 	"backend/models/manage_model/enum"
 	entity3 "backend/models/record_model/entity"
-
 	"backend/utils/functional"
 	"errors"
 	"fmt"
@@ -104,6 +103,47 @@ func (m *ManageAdvertisementService) GetAdvertisementsByTerm(term string, termTy
 
 	return advertisements, nil
 }
+
+func (m *ManageAdvertisementService) StopAdvertisement(column int64) error {
+	var space entity.AdvertisingSpace
+	var record entity3.ConsumeRecord
+	var advertisement entity.Advertisement
+	var com entity2.Company
+	format := "2006-01-02"
+	if err := global.GVA_DB.Where("id=?", column).Find(&space).Error; err != nil {
+		return err
+	}
+	global.GVA_DB.Where("id=?", space.AdvID).Find(&advertisement)
+
+	if err := global.GVA_DB.Where("id=?", advertisement.CompanyId).Find(&com).Error; err != nil {
+		return err
+	}
+
+	if err := global.GVA_DB.Where("position =?", int(space.Id)).Where("end = ?", advertisement.EndDate).Find(&record).Error; err != nil {
+		return err
+	}
+	record.Status = 4
+	global.GVA_DB.Model(&record).Updates(record)
+	data1, err := time.ParseInLocation(format, "2023-06-02", time.Local)
+	if err != nil {
+		return err
+	}
+	data2, _ := time.ParseInLocation(format, advertisement.EndDate, time.Local)
+	data3, _ := time.ParseInLocation(format, record.Start, time.Local)
+	data4, _ := time.ParseInLocation(format, record.End, time.Local)
+	var cost = float32(int(data2.Sub(data1).Hours()/24)) / float32(int(data4.Sub(data3).Hours()/24))
+	cost = float32(record.Cost) * cost
+	com.Balance = com.Balance + int(cost)
+	if err = global.GVA_DB.Model(&com).Updates(com).Error; err != nil {
+		return err
+	}
+	space.AdvID = 1
+	global.GVA_DB.Model(&record).Updates(record)
+	if err = global.GVA_DB.Model(&space).Updates(space).Error; err != nil {
+		return err
+	}
+	return nil
+}
 func (m *ManageAdvertisementService) GetAdvertisementsPendingReviewCount() (int64, error) {
 	var ads []entity.AdvertisementPendingReview
 	if err := global.GVA_DB.Find(&ads).Error; err != nil {
@@ -120,35 +160,35 @@ func DeleteFile(filename string) error {
 	return nil
 }
 
-func GetDaysBetween2Date(format, date1Str, date2Str string) (int, error) {
-	date1, err := time.ParseInLocation(format, date1Str, time.Local)
-	if err != nil {
-		return 0, err
-	}
-	// 将字符串转化为Time格式
-	date2, err := time.ParseInLocation(format, date2Str, time.Local)
-	if err != nil {
-		return 0, err
-	}
-	//计算相差天数
-	return int(date1.Sub(date2).Hours() / 24), nil
-}
-func costbalance(spaceid int64, com int64, startdate, enddate string) error {
-	var company entity2.Company
-	var space entity.AdvertisingSpace
-	if err := global.GVA_DB.Where("id=?", com).Find(&company).Error; err != nil {
-		return err
-	}
-	if err := global.GVA_DB.Where("id=?", spaceid).Find(&space).Error; err != nil {
-		return err
-	}
-	format := "2006-01-02"
-	e, err := GetDaysBetween2Date(format, enddate, startdate)
-	if err != nil {
-		return err
-	}
-	company.Balance = company.Balance + (space.Price * e)
-	global.GVA_DB.Model(&company).Updates(company)
-
-	return nil
-}
+//func GetDaysBetween2Date(format, date1Str, date2Str string) (int, error) {
+//	date1, err := time.ParseInLocation(format, date1Str, time.Local)
+//	if err != nil {
+//		return 0, err
+//	}
+//	// 将字符串转化为Time格式
+//	date2, err := time.ParseInLocation(format, date2Str, time.Local)
+//	if err != nil {
+//		return 0, err
+//	}
+//	//计算相差天数
+//	return int(date1.Sub(date2).Hours() / 24), nil
+//}
+//func costbalance(spaceid int64, com int64, startdate, enddate string) error {
+//	var company entity2.Company
+//	var space entity.AdvertisingSpace
+//	if err := global.GVA_DB.Where("id=?", com).Find(&company).Error; err != nil {
+//		return err
+//	}
+//	if err := global.GVA_DB.Where("id=?", spaceid).Find(&space).Error; err != nil {
+//		return err
+//	}
+//	format := "2006-01-02"
+//	e, err := GetDaysBetween2Date(format, enddate, startdate)
+//	if err != nil {
+//		return err
+//	}
+//	company.Balance = company.Balance + (space.Price * e)
+//	global.GVA_DB.Model(&company).Updates(company)
+//
+//	return nil
+//}

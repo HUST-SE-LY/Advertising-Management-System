@@ -113,6 +113,7 @@ func (m *ManageAdvertisementApi) RejectAdvertisement(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin_ext.Response(err, nil))
 		return
 	}
+	//adminService.ManageAdvertisementService.DeleteAdvertisement(rejectnumbers)
 
 	jsonResp, _ := jsoniter.Marshal(rejectnumbers)
 	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
@@ -195,4 +196,20 @@ func (m *ManageAdvertisementApi) GetAdvertisementsByTerm(c *gin.Context) {
 		jsonResp, _ := jsoniter.Marshal(resp)
 		c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 	}
+}
+
+func (m *ManageAdvertisementApi) StopAdvertisement(c *gin.Context) {
+	var req request.StopAdvertisementReq
+	if err := gin_ext.BindJSON(c, &req); err != nil {
+		c.JSON(http.StatusBadRequest, gin_ext.Response(status.ParseJsonError, nil))
+		return
+	}
+	deletenumber := req.StopNumber
+	err := adminService.ManageAdvertisementService.StopAdvertisement(deletenumber)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin_ext.Response(err, nil))
+		return
+	}
+	jsonResp, _ := jsoniter.Marshal(deletenumber)
+	c.JSON(http.StatusOK, gin_ext.Response(nil, string(jsonResp)))
 }

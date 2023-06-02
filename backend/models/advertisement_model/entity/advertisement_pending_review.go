@@ -1,7 +1,9 @@
 package entity
 
 import (
+	"backend/global"
 	"backend/models/advertisement_model"
+	"backend/models/company_model/entity"
 )
 
 type AdvertisementPendingReview struct {
@@ -19,7 +21,10 @@ func (adv AdvertisementPendingReview) ToAdvertisement() Advertisement {
 }
 
 func (adv AdvertisementPendingReview) GetInfo() advertisement_model.AdvertisementToBePreviewedInfo {
+	var company entity.Company
+	global.GVA_DB.Where("id=?", adv.CompanyId).Find(&company)
 	return *advertisement_model.NewAdvertisementInfo(
+		company.Account,
 		adv.Id,
 		adv.CompanyId,
 		adv.ImageUrl,

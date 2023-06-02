@@ -11,3 +11,7 @@ type RejectAdvertisementReq struct {
 type DeleteAdvertisementReq struct {
 	DeleteNumbers []int64 `json:"delete_numbers"`
 }
+
+type StopAdvertisementReq struct {
+	StopNumber int64 `json:"stop_number"`
+}
