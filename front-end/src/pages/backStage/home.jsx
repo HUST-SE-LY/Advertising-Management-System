@@ -13,7 +13,7 @@ function BackStageHome() {
   const [showAddManager, setShowAddManager] = useState(0);
   const [registerNum, setRegisterNum] = useState(0);
   const [modifyNum, setModifyNum] = useState(0);
-  const [ADNum, setADNum] = useState();
+  const [AdNum, setAdNum] = useState();
   async function checkLogin() {
     try {
       const res = await axios.get("/admin/check_login");
@@ -23,6 +23,8 @@ function BackStageHome() {
   }
   async function logout() {
     const res = await axios.post("/admin/logout");
+    localStorage.removeItem("token");
+    navigate("/")
   }
   async function getCompanyCount() {
     const res = await axios.get("/manage/company/review_count");
@@ -32,10 +34,16 @@ function BackStageHome() {
     const res = await axios.get("/manage/company/info_review_count");
     setModifyNum(res.data.data.count)
   }
+  async function getAdCount() {
+    const res = await axios.get("/manage/advertisement/count");
+    console.log(res)
+    setAdNum(res.data.data.adcount)
+  }
   useEffect(() => {
     checkLogin();
     getCompanyCount();
     getInfoCount();
+    getAdCount()
   }, []);
 
   return (
@@ -61,7 +69,7 @@ function BackStageHome() {
       <div className="grid h-[calc(100%_-_4.5rem)] grid-cols-[15rem_15rem_15rem_1fr] grid-rows-[15rem_3fr_1fr] gap-[2rem] p-[2rem] ">
         <Judge title="待审批注册" num={registerNum}></Judge>
         <Judge title="待审批修改" num={modifyNum}></Judge>
-        <Judge title="待审批广告" num="5"></Judge>
+        <Judge title="待审批广告" num={AdNum}></Judge>
         <AdsForSale></AdsForSale>
         <CompanyList></CompanyList>
         <div>

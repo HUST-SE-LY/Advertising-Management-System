@@ -1,68 +1,37 @@
 import SingleInfo from "./singleInfo"
 import Title from "../title"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ChangedInfoDetail from "./judgeInfoChange/ChangedInfoDetail";
+import useAxios from "../../../utils/useAxios";
 function JudgeInfoChange() {
-  const [list, setList] = useState([
-    {
-      account: '123456',
-      name: '华科集团',
-      newName: '武大集团',
-      previousAddress: 'China',
-      newAddress: 'America',
-      previousManagerName: 'cheems',
-      newManagerName: 'cheems',
-      previousManagerTel:'123456',
-      newManagerTel: '123456',
-      previousLicense: '000000000',
-      newLicense:'000000000',
-    },    {
-      account: '1234567',
-      name: '华科集团',
-      newName: '武大集团',
-      previousAddress: 'China',
-      newAddress: 'America',
-      previousManagerName: 'cheems',
-      newManagerName: 'cheems',
-      previousManagerTel:'123456',
-      newManagerTel: '123456',
-      previousLicense: '000000000',
-      newLicense:'000000000',
-    },    {
-      account: '1234568',
-      name: '华科集团',
-      newName: '武大集团',
-      previousAddress: 'China',
-      newAddress: 'America',
-      previousManagerName: 'cheems',
-      newManagerName: 'cheems',
-      previousManagerTel:'123456',
-      newManagerTel: '123456',
-      previousLicense: '000000000',
-      newLicense:'000000000',
-    },    {
-      account: '1234569',
-      name: '华科集团',
-      newName: '武大集团',
-      previousAddress: 'China',
-      newAddress: 'America',
-      previousManagerName: 'cheems',
-      newManagerName: 'cheems',
-      previousManagerTel:'123456',
-      newManagerTel: '123456',
-      previousLicense: '000000000',
-      newLicense:'000000000',
-    }
-  ])
+  const axios = useAxios();
+  const [list, setList] = useState([]);
 
   const [company, setCompany] = useState(null);
 
-  function passCompany(info) {
+  async function getList() {
+    const res = await axios.get("/manage/company/update-info/list");
+    const list = res.data.data.CompaniesUpdateInfoList;
+    setList(list)
+
+  }
+
+  useEffect(() => {
+    getList();
+  },[])
+
+  async function pass(info) {
+    const res = await axios.post('/manage/company/info',{
+      company_accounts: [info.account]
+    })
     setList(list.filter((company) => company.account !== info.account))
     setCompany(null);
   }
   
-  function rejectCompany(info) {
+  async function reject(info) {
+    const res = await axios.post('/manage/company/reject-info',{
+      company_accounts: [info.account]
+    })
     setList(list.filter((company) => company.account !== info.account))
     setCompany(null)
   }
@@ -73,7 +42,7 @@ function JudgeInfoChange() {
     <div className="flex flex-col gap-[1rem] mt-[2rem] h-[calc(100%_-_4rem)] scrollbar-blue overflow-y-auto pr-3">
       {list.map((info) => <SingleInfo key={info.account} info={info} handle={() => setCompany(info)}></SingleInfo>)}
     </div>
-    {company?<ChangedInfoDetail info={company} close={() => setCompany(null)} pass={() => passCompany(company)} reject={() => rejectCompany(company)}></ChangedInfoDetail>:null}
+    {company?<ChangedInfoDetail info={company} close={() => setCompany(null)} pass={() => pass(company)} reject={() => reject(company)}></ChangedInfoDetail>:null}
   </div>
 }
 

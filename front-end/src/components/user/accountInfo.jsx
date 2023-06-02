@@ -2,10 +2,10 @@ import { useState } from "react";
 import Title from "../backStage/title";
 import LongButton from "../longButton";
 import NoBorderInput from "../noBorderInput";
+import useAxios from "../../utils/useAxios";
 
 function AccountInfo(props) {
-
-  const [showChargeBoard, setShowChargeBoard] = useState(false)
+  const [showChargeBoard, setShowChargeBoard] = useState(false);
 
   return (
     <>
@@ -33,23 +33,49 @@ function AccountInfo(props) {
             </div>
           ))}
         </div>
-        <LongButton content="充值" handle={() => setShowChargeBoard(true)}></LongButton>
+        <LongButton
+          content="充值"
+          handle={() => setShowChargeBoard(true)}
+        ></LongButton>
       </div>
-      {
-        showChargeBoard ? <ChargeBoard hide={() => setShowChargeBoard(false)}></ChargeBoard> : null
-      }
+      {showChargeBoard ? (
+        <ChargeBoard  hide={() => setShowChargeBoard(false)}></ChargeBoard>
+      ) : null}
     </>
   );
 }
 
 function ChargeBoard(props) {
-  return <div className="flex items-center justify-center w-full h-full bg-white/20 absolute z-10  top-0 left-0 animate-fadein" onClick={props.hide}>
-  <div className="p-[2rem] w-1/2 h-1/2 bg-white rounded-2xl shadow-2xl shadow-gray-500/20 overflow-y-auto scrollbar-blue" onClick={(e) => e.stopPropagation()}>
-    <Title title="充值"></Title>
-    <NoBorderInput>充值金额/元</NoBorderInput>
-    <LongButton content="充值"></LongButton>
-  </div>
-</div>
+  const [money, setMoney] = useState();
+  const axios = useAxios();
+  async function recharge() {
+    if (money === parseInt(money).toString()) {
+      console.log(money)
+      const res = await axios.post("/company/recharge", {
+        money: parseInt(money),
+      });
+
+    } else {
+      alert("请输入正确的数字格式")
+    }
+  }
+  return (
+    <div
+      className="flex items-center justify-center w-full h-full bg-white/20 absolute z-10  top-0 left-0 animate-fadein"
+      onClick={props.hide}
+    >
+      <div
+        className="p-[2rem] w-1/2 h-1/2 bg-white rounded-2xl shadow-2xl shadow-gray-500/20 overflow-y-auto scrollbar-blue"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Title title="充值"></Title>
+        <NoBorderInput value={money} setInfo={setMoney}>
+          充值金额/元
+        </NoBorderInput>
+        <LongButton content="充值" handle={recharge}></LongButton>
+      </div>
+    </div>
+  );
 }
 
 export default AccountInfo;

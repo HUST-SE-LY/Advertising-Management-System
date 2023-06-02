@@ -1,6 +1,6 @@
 
 function SingleInfo(props) {
-  const name = props.info.name;
+  const name = props.info.name||props.info.previous_name||props.info.company_account;
   return <div className="bg-white rounded-xl shadow-lg shadow-gray-300/20 h-fit p-[1rem] flex gap-[1rem] items-center animate-listItemIn">
     <p>{name}</p>
     <div className="ml-[auto] flex items-center gap-[1rem]">

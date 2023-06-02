@@ -13,6 +13,7 @@ function CompanyDetail(props) {
   const [info, setInfo] = useState(null);
   const [account, setAccount] = useState(null);
   const [record, setRecord] = useState(null);
+  const [balance, setBalance] = useState("加载中");
   async function getInfo() {
     const res = await axios.get("/manage/company/search",{
       params: {
@@ -21,6 +22,7 @@ function CompanyDetail(props) {
       }
     })
     setInfo(res.data.data.company_infos[0])
+    setBalance(res.data.data.company_infos[0].balance)
   }
 
   async function getAccount() {
@@ -84,7 +86,7 @@ function CompanyDetail(props) {
       {info&&account&&record ? (
         <div className="w-full h-[calc(100vh_-_4rem)] p-[2rem] grid grid-cols-2 grid-rows-2 gap-[2rem]">
           <BasicInfo info={info}></BasicInfo>
-          <AccountInfo info={account}></AccountInfo>
+          <AccountInfo balance={balance} info={account}></AccountInfo>
           <RecordInfo info={record}></RecordInfo>
         </div>
       ) : null}

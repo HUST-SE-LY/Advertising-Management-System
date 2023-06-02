@@ -20,31 +20,31 @@ function ChangedInfoDetail(props) {
             <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
               企业名称：
             </p>
-            <span>{props.info.name}</span>
+            <span>{props.info.previous_name}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
             <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
               企业地址：
             </p>
-            <span>{props.info.previousAddress}</span>
+            <span>{props.info.previous_address}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
             <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
               负责人：
             </p>
-            <span>{props.info.previousManagerName}</span>
+            <span>{props.info.previous_manager_name}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
             <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
               负责人电话：
             </p>
-            <span>{props.info.previousManagerTel}</span>
+            <span>{props.info.previous_manager_tel}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
             <p className="relative before:absolute before:w-[3px] before:h-full before:top-0 before:left-[-10px] before:bg-blue-300 w-[10rem] ">
               营业执照：
             </p>
-            <span>{props.info.previousLicense}</span>
+            <span>{props.info.previous_business_license_number}</span>
           </div>
         </div>
         <div>
@@ -52,19 +52,19 @@ function ChangedInfoDetail(props) {
             修改后企业信息
           </p>
           <div className="flex text-lg mb-[1.5rem]">
-            <span className={`w-full px-2 rounded ${props.info.newName === props.info.name?'':'bg-blue-200'}`}>{props.info.newName}</span>
+            <span className={`w-full px-2 rounded ${props.info.new_name === props.info.previous_name?'':'bg-blue-200'}`}>{props.info.new_name}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
-            <span className={`w-full px-2 rounded ${props.info.newAdress === props.info.previousAddress?'':'bg-blue-200'}`}>{props.info.newAddress}</span>
+            <span className={`w-full px-2 rounded ${props.info.new_address === props.info.previous_address?'':'bg-blue-200'}`}>{props.info.new_address}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
-            <span className={`w-full px-2 rounded ${props.info.newManagerName === props.info.previousManagerName?'':'bg-blue-200'}`}>{props.info.newManagerName}</span>
+            <span className={`w-full px-2 rounded ${props.info.new_manager_name === props.info.previous_manager_name?'':'bg-blue-200'}`}>{props.info.new_manager_name}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
-            <span className={`w-full px-2 rounded ${props.info.newManagerTel === props.info.previousManagerTel?'':'bg-blue-200'}`}>{props.info.newManagerTel}</span>
+            <span className={`w-full px-2 rounded ${props.info.new_manager_tel === props.info.previous_manager_tel?'':'bg-blue-200'}`}>{props.info.new_manager_tel}</span>
           </div>
           <div className="flex text-lg mb-[1.5rem]">
-            <span className={`w-full px-2 rounded ${props.info.newLicense === props.info.previousLicense?'':'bg-blue-200'}`}>{props.info.newLicense}</span>
+            <span className={`w-full px-2 rounded ${props.info.new_business_license_number === props.info.previous_business_license_number?'':'bg-blue-200'}`}>{props.info.new_business_license_number}</span>
           </div>
         </div>
         <LongButton content="通过" handle={props.pass}></LongButton>

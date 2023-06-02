@@ -1,108 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../title";
 import AdInfo from "./judgeAd/AdInfo";
 import SingleInfo from "./singleInfo";
+import useAxios from "../../../utils/useAxios";
 
 function JudgeAd() {
 
-  const [list, setList] = useState([{
-    AdId: '0',
-    position: "1",
-    account: '1',
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '1',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '2',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '3',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '4',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '5',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '6',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '3',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '7',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '8',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  },{
-    AdId: '9',
-    account: '1',
-    position: "1",
-    name: 'AAA',
-    image: '/src/assets/testAd.jpg',
-    url: 'https://github.com/HUST-SE-LY/Advertising-Management-System',
-  }])
+  const axios = useAxios();
+
+  const [list, setList] = useState([])
+
+  async function getList() {
+    const res = await axios.get('/manage/advertisement/review');
+    console.log(res)
+    setList(res.data.data.advertisement_infos)
+  }
 
   const [Ad, setAd] = useState(null)
 
-  function passAd() {
-    setList(list.filter(info => info.AdId !== Ad.AdId));
+  async function passAd(info) {
+    const res = await axios.post("/manage/advertisement/allow",{
+      pending_numbers:[parseInt(info.id)]
+    })
+    console.log(res)
+    setList(list.filter(info => info.id !== Ad.id));
     setAd(null);
   }
 
-  function rejectAd() {
-    setList(list.filter(info => info.AdId !== Ad.AdId));
+  async function rejectAd(info) {
+    console.log(info)
+    const res = await axios.post("/manage/advertisement/reject",{
+      reject_numbers:[parseInt(info.id)]
+    })
+    setList(list.filter(info => info.id !== Ad.id));
     setAd(null);
   }
+
+  useEffect(() => {
+    getList();
+  },[])
 
 
   return <div className="relative rounded-3xl bg-gray-100 p-[2rem] h-[calc(100vh_-_4rem)]">
     <Title title="审批广告申请"></Title>
     <div className="scrollbar-blue flex flex-col gap-[1rem] mt-[2rem] h-[calc(100%_-_4rem)] scrollbar-blue overflow-y-auto pr-3">
-      {list.map((info) => <SingleInfo key={info.AdId} info={info} handle={() => setAd(info)}></SingleInfo>)}
+      {list.map((info) => <SingleInfo key={info.id} info={info} handle={() => setAd(info)}></SingleInfo>)}
     </div>
-    {Ad?<AdInfo info={Ad} close={() => setAd(null)} pass={passAd} reject={rejectAd} ></AdInfo>:null}
+    {Ad?<AdInfo info={Ad} close={() => setAd(null)} pass={()=>passAd(Ad)} reject={()=>rejectAd(Ad)} ></AdInfo>:null}
   </div>
 
 }

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 function AccountInfo(props) {
   return <div className="bg-gray-100 rounded-xl p-[2rem] h-full animate-floatin">
     <p className="ml-[1rem] text-2xl font-bold tracking-wide relative before:absolute before:left-[-10px] before:w-[5px] before:h-full before:top-0 before:bg-blue-400">账户信息</p>
-    <p className="my-[1rem] text-lg">账户余额：<span className="text-blue-600">{props.info.money}</span>元</p>
+    <p className="my-[1rem] text-lg">账户余额：<span className="text-blue-600">{props.balance}</span>元</p>
     <p>持有广告：</p>
     <div className="flex mt-[1rem] flex-col gap-[1rem] overflow-y-auto scrollbar-blue pr-3">
       {
