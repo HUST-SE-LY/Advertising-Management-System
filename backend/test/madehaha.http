@@ -97,6 +97,11 @@ Content-Type: application/json
 GET http://localhost:8080/company/cancel
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFFkczVmTC5BaS5OR0lkTVN5OG9XUnU2cHdDbFAucVR0L3o1VTYzMGJzUlJ6NjNyVWdTaGxHIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4MjMzMzgxNzg0Mywicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.pEU_bb88B9zPpergLk8ivROMjnOjHcSBMrpnrER4Rqk
 
+### Get advertisementpedingreviewcount
+GET http://localhost:8080/company/get-records
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IuiBlOWImyIsInBhc3N3b3JkIjoiJDJhJDEwJFoybTNEOUYveGZqTGswRkZzbmZ3QXVzTG0wZnNaLjg5MW1RMC9JdGYwZEZOeW9icnF2SWVpIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNzE5MjUxOSwicm9sZSI6InJvbGVfY29tcGFueSJ9fQ.mOvdvFoLwUP_AmQL-wm2f_6JwEVI2k5s3WzgEquVYXw
+
 
 //advertisement
 ### List pending review advertisements
@@ -109,7 +114,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZ
 Content-Type: application/json
 
 {
-  "pending_numbers": [25]
+  "pending_numbers": [73]
 }
 
 ### List all  advertisements
@@ -123,7 +128,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZ
 Content-Type: application/json
 
 {
-  "reject_numbers": [55]
+  "reject_numbers": [75]
 }
 
 ### Delete "advertisement"
@@ -155,6 +160,11 @@ Content-Type: application/json
   "price": 500
 }
 
+### get space
+GET http://localhost:8080/manage/space/get
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZuZnVuZnVuYyIsInBhc3N3b3JkIjoiJDJhJDEwJGRNNTNJbjVtd0hUL0MuM3NjbUtIYnVmTHAyQVNMR2lISXNSZU5ubFZLOG9oY2I1U2JqRElXIiwiTWFwQ2xhaW1zIjp7ImV4cCI6MTY4NDgyNDkxODM4Nywicm9sZSI6InJvbGVfYWRtaW4ifX0.GVKDxoFjlvotrnfkIhNlAYgEs-EdT_zBqfpN7D4G5To
+Content-Type: application/json
+
 
 
 ### upload Advertisement
@@ -171,7 +181,7 @@ Content-Type: application/json
    "position": 1,
    "jump_to_url": "example.com/1919810",
    "start_date": "2023-04-17",
-   "end_date": "2023-05-11"
+   "end_date": "2023-05-18"
 }
 --WebAppBoundary
 Content-Disposition: form-data; name="image"; filename="xmj.jpg"

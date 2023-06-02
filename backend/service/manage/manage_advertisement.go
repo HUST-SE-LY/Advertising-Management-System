@@ -5,6 +5,7 @@ import (
 	"backend/models/advertisement_model/entity"
 	entity2 "backend/models/company_model/entity"
 	"backend/models/manage_model/enum"
+	entity3 "backend/models/record_model/entity"
 
 	"backend/utils/functional"
 	"errors"
@@ -35,11 +36,16 @@ func (m *ManageAdvertisementService) GetAllAdvertisementsToBeReview() (advertise
 
 func (m *ManageAdvertisementService) AllowAdvertisement(pendingnumbers []int64) (addedadvnumber []int64, err error) {
 	var advertisementToBeReviewed []entity.AdvertisementPendingReview
+	var record entity3.ConsumeRecord
 	if err = global.GVA_DB.Where("id IN ?", pendingnumbers).Find(&advertisementToBeReviewed).Error; err != nil {
 		return nil, err
 	}
 	for _, s := range advertisementToBeReviewed {
-		costbalance(int64(s.Position), s.CompanyId, s.EndDate, s.StartDate)
+		if err = global.GVA_DB.Where("position =?", s.Position).Where("end = ?", s.EndDate).Find(&record).Error; err != nil {
+			return
+		}
+		record.Status = 1
+		global.GVA_DB.Model(&record).Updates(record)
 	}
 	advertisements := functional.Map(advertisementToBeReviewed, entity.AdvertisementPendingReview.ToAdvertisement)
 	advertisementlen := len(advertisements)
@@ -53,15 +59,26 @@ func (m *ManageAdvertisementService) AllowAdvertisement(pendingnumbers []int64) 
 }
 func (m *ManageAdvertisementService) RejectAdvertisement(reject_numbers []int64) (err error) {
 	var advertisementToBeReviewed []entity.AdvertisementPendingReview
+	var record entity3.ConsumeRecord
+	var company entity2.Company
 	if err = global.GVA_DB.Where("id IN ?", reject_numbers).Find(&advertisementToBeReviewed).Error; err != nil {
 		return err
 	}
-	//for _, s := range advertisementToBeReviewed {
-	//	costbalance(int64(s.Position), s.CompanyId, s.EndDate, s.StartDate)
-	//}
+
+	for _, s := range advertisementToBeReviewed {
+		if err = global.GVA_DB.Where("position =?", s.Position).Where("end = ?", s.EndDate).Find(&record).Error; err != nil {
+			return
+		}
+		record.Status = 2
+		global.GVA_DB.Model(&record).Updates(record)
+		global.GVA_DB.Where("account=?", record.Account).Find(&company)
+		company.Balance = company.Balance + record.Cost
+		global.GVA_DB.Model(&company).Updates(company)
+	}
 	if err = global.GVA_DB.Delete(&advertisementToBeReviewed).Error; err != nil {
 		return err
 	}
+
 	return nil
 }
 func (m *ManageAdvertisementService) DeleteAdvertisement(deleteid []int64) (deleted_id []int64, err error) {

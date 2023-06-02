@@ -34,6 +34,13 @@ func (a *CompanyAdvertisementService) CompanyUploadAdvertisement(req request.Com
 	advertisementToBeReviewed := entity2.NewAdvertisementPendingReview(
 		*entity2.NewAdvertisementWithoutId(CompanyId, ImageUrl, req.AdvtInfo),
 	)
+	Id := int64(req.AdvtInfo.Position)
+	var space entity2.AdvertisingSpace
+	if err := global.GVA_DB.Where("id=?", Id).Find(&space).Error; err != nil {
+		return err
+	}
+	space.Enddate = req.AdvtInfo.EndDate
+	global.GVA_DB.Model(&space).Updates(space)
 	err := global.GVA_DB.Create(&advertisementToBeReviewed).Error
 	if err != nil {
 		return err
@@ -91,6 +98,8 @@ func SaveConsume(account string, req request.CompanyUploadAdvtReq) error {
 	}
 	global.GVA_DB.Where("id =?", int64(req.AdvtInfo.Position)).Find(&space)
 	var cost = space.Price * int(date2.Sub(date1).Hours()/24)
+	currentTime := time.Now().Format(format)
+
 	consumerecord := entity3.ConsumeRecord{
 		Account:  account,
 		Start:    req.AdvtInfo.DisplayTime.StartDate,
@@ -98,6 +107,7 @@ func SaveConsume(account string, req request.CompanyUploadAdvtReq) error {
 		Position: req.AdvtInfo.Position,
 		Cost:     cost,
 		Status:   0,
+		Date:     currentTime,
 	}
 	global.GVA_DB.Where("account=?", account).Find(&company)
 	if err := global.GVA_DB.Create(&consumerecord).Error; err != nil {
@@ -106,4 +116,12 @@ func SaveConsume(account string, req request.CompanyUploadAdvtReq) error {
 	company.Balance = company.Balance - cost
 	global.GVA_DB.Model(&company).Updates(company)
 	return nil
+}
+
+func (a *CompanyAdvertisementService) GetCompanyRecord(account string) (Records []entity3.ConsumeRecord, err error) {
+	var records []entity3.ConsumeRecord
+	if err = global.GVA_DB.Where("account=?", account).Find(&records).Error; err != nil {
+		return nil, err
+	}
+	return records, nil
 }
